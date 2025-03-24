@@ -213,7 +213,8 @@ namespace IAcademyOfDoom.Logic
         /// <returns>false: game over</returns>
         public bool NextWave()
         {
-            return false;
+            return waveNumber <= 6;
+           
         }
         #endregion
         #region private methods
