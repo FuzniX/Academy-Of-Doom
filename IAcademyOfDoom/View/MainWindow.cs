@@ -116,7 +116,15 @@ namespace IAcademyOfDoom.View
             if (e.Button == MouseButtons.Right)
             {
                 Botling target = BotlingHere(e.Location);
-                if (target != null)
+                if (target == null)
+                {
+                    RoomView roomTarget = RoomHere(e.Location);
+                    if (roomTarget != null)
+                    {
+                        MessageBox.Show(DisplayStateOf(roomTarget));
+                    }
+                }
+                else
                 {
                     MessageBox.Show(DisplayStateOf(target));
                 }
@@ -350,6 +358,15 @@ namespace IAcademyOfDoom.View
                 badges += " none";
             }
             return "Botling " + name + ": " + hp + "\n  " + skills + "\n  " + badges;
+        }
+
+        public string DisplayStateOf(RoomView room)
+        {
+            string name = room.Room.Name;
+            Point location = room.Location;
+            RoomType roomType = room.Room.Type;
+            
+            return "Room " + name + ":\n  " + roomType + "\n  (" + location.X + ", " + location.Y + ")";
         }
         /// <summary>
         /// Method called by the controller when the game is over.
