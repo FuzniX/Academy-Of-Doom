@@ -21,6 +21,7 @@ namespace IAcademyOfDoom.View
         private readonly List<BotlingView> bots = new List<BotlingView>();
         private readonly List<RoomView> rooms = new List<RoomView>();
         private readonly List<PlaceableView> placeables = new List<PlaceableView>();
+        private PlaceableView currentPlaceable = null;
         #endregion
         #region constructor
         /// <summary>
@@ -106,11 +107,18 @@ namespace IAcademyOfDoom.View
             (int x, int y) = PointCoordinates(e.Location);
             if (e.Button == MouseButtons.Left && endPrepButton.Enabled)
             {
-                if (!c.CanEndPreparations() && c.Placeables().Count > 0 && RoomHere(e.Location) == null &&
-                    !(x, y).Equals((-1, -1)))
+                Console.WriteLine();
+                if (!c.CanEndPreparations() && c.Placeables().Count > 0 && RoomHere(e.Location) == null)
                 {
-                    Placeable placeable = c.Placeables()[0];
-                    c.PlaceHere(x, y, placeable);
+                    foreach (PlaceableView placeable in placeables)
+                    {
+                        if (placeable.OnSquare(e.Location))
+                        {
+                            // We assume that there is only one placeable that matches current location,
+                            // so this should be redefined only once here.
+                            currentPlaceable = placeable;
+                        }
+                    }
                 }
             }
             if (e.Button == MouseButtons.Right)
@@ -129,6 +137,28 @@ namespace IAcademyOfDoom.View
                     MessageBox.Show(DisplayStateOf(target));
                 }
             }
+        }
+        /// <summary>
+        /// Event handling: Mouse button up
+        /// </summary>
+        /// <param name="sender">ignore</param>
+        /// <param name="e">used for pointer location and mouse button id</param>
+        private void MainWindow_MouseUp(object sender, MouseEventArgs e)
+        {
+            (int x, int y) = PointCoordinates(e.Location);
+            if (e.Button == MouseButtons.Left && endPrepButton.Enabled)
+            {
+                if (!c.CanEndPreparations() && c.Placeables().Count > 0 && RoomHere(e.Location) == null &&
+                    !(x, y).Equals((-1, -1)) && currentPlaceable != null)
+                {
+                    Placeable placeable = currentPlaceable.Placeable;
+                    c.PlaceHere(x, y, placeable);
+                }
+            }
+        }
+        private void MainWindow_MouseMove(object sender, MouseEventArgs e)
+        {
+            // TODO Animate Placeable being moved
         }
         #endregion
         #region public methods
