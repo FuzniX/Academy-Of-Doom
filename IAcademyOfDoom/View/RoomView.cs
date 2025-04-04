@@ -11,13 +11,15 @@ namespace IAcademyOfDoom.View
         public string Label { get; set; }
         public Color BackColour { get; set; }
         public Room Room { get; set; } = null;
+
         public RoomView(Point location, string label, Color backColour)
         {
             Location = location;
-            label = label.Length > 12 ? label.Insert(12,"\n") : label;
+            label = label.Length > 12 ? label.Insert(12, "\n") : label;
             Label = label;
             BackColour = backColour;
         }
+
         public static RoomView CreateFromRoom(Room r)
         {
             Point p = MainWindow.ConvertCoordinates(r.X, r.Y);
@@ -26,6 +28,7 @@ namespace IAcademyOfDoom.View
                 Room = r
             };
         }
+
         /// <summary>
         /// Method displaying the graphics.
         /// </summary>
@@ -34,8 +37,10 @@ namespace IAcademyOfDoom.View
         {
             Rectangle r = new Rectangle(Location, new Size(Settings.Width, Settings.Height));
             graphics.FillRectangle(new SolidBrush(BackColour), r);
-            graphics.DrawString(Label, Settings.RoomFont, Settings.TextBrush, new Point(r.X+Settings.TextOffset.Width, r.Y+Settings.TextOffset.Height));
+            graphics.DrawString(Label, Settings.RoomFont, Settings.TextBrush,
+                new Point(r.X + Settings.TextOffset.Width, r.Y + Settings.TextOffset.Height));
         }
+
         /// <summary>
         /// Method checking whether a point is contained in the representation (bounding box).
         /// </summary>

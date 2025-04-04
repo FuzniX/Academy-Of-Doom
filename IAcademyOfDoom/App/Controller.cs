@@ -13,23 +13,28 @@ namespace IAcademyOfDoom.App
     public class Controller
     {
         public string Name { get; set; }
+
         #region attributes, properties, constructor and method for the single instance
+
         private Game game;
         private MainWindow window;
+
         /// <summary>
         /// The single instance of the controller.
         /// </summary>
         public static Controller Instance { get; private set; } = new Controller();
+
         private Controller()
         {
         }
+
         /// <summary>
         /// Method used to set the game and the window.
         /// </summary>
         /// <param name="window">the window (from which this method is called)</param>
         /// <param name="name">optional name for the player</param>
         /// <param name="difficulty">optional difficulty for the game</param>
-        public void Associate(MainWindow window, string name=null, Difficulty? difficulty=null)
+        public void Associate(MainWindow window, string name = null, Difficulty? difficulty = null)
         {
             this.window = window;
             game = new Game();
@@ -37,25 +42,32 @@ namespace IAcademyOfDoom.App
             {
                 Name = name;
             }
+
             if (difficulty != null)
             {
                 Game.Difficulty = difficulty.Value;
             }
+
             window.WriteLine("Init new game...");
             window.PreviewPlaceableItems(game.Placeables());
         }
+
         #endregion
+
         #region public methods
+
         /// <summary>
         /// Bridge to the same method in the game.
         /// </summary>
         /// <returns>the game's list of rooms</returns>
         public List<Room> Rooms() => game.Rooms();
+
         /// <summary>
         /// Bridge to the same method in the game.
         /// </summary>
         /// <returns>the game's list of placeables</returns>
         public List<Placeable> Placeables() => game.Placeables();
+
         /// <summary>
         /// Method called by the window when preparations are over.
         /// </summary>
@@ -65,6 +77,7 @@ namespace IAcademyOfDoom.App
             game.EndPreparations();
             window.SetToAssault();
         }
+
         /// <summary>
         /// Method called by the window when the assault continues.
         /// </summary>
@@ -73,6 +86,7 @@ namespace IAcademyOfDoom.App
             game.NextInAssault();
             window.AssaultUpdate();
         }
+
         /// <summary>
         /// Method called by the game at the end of the assault phase.
         /// </summary>
@@ -80,6 +94,7 @@ namespace IAcademyOfDoom.App
         {
             window.DisplayResults(game.GetResults());
         }
+
         /// <summary>
         /// Method called whenever botling mobiles should be updated.
         /// </summary>
@@ -88,6 +103,7 @@ namespace IAcademyOfDoom.App
         {
             window.UpdateBots(botlings);
         }
+
         /// <summary>
         /// Method called whenever botling mobiles should be removed.
         /// </summary>
@@ -96,6 +112,7 @@ namespace IAcademyOfDoom.App
         {
             window.RemoveBots(removed);
         }
+
         /// <summary>
         /// Method checking whether all mandatory placeable items are placed.
         /// </summary>
@@ -104,6 +121,7 @@ namespace IAcademyOfDoom.App
         {
             return game.Placeables().Count == 0;
         }
+
         /// <summary>
         /// Method called to place a placeable item.
         /// </summary>
@@ -117,6 +135,7 @@ namespace IAcademyOfDoom.App
             window.PreviewPlaceableItems(game.Placeables());
             window.Refresh();
         }
+
         /// <summary>
         /// Method called from the game when a botling's lesson has ended.
         /// </summary>
@@ -127,6 +146,7 @@ namespace IAcademyOfDoom.App
             window.WriteLine(botling.Name + " was lectured!" + (b ? " And succeeded!" : " ...And failed."));
             window.WriteLine(window.DisplayStateOf(botling));
         }
+
         /// <summary>
         /// Method called from the game when a prof room is removed.
         /// </summary>
@@ -136,6 +156,7 @@ namespace IAcademyOfDoom.App
             game.DestroyRoom(profRoom);
             window.WriteLine(profRoom.Name + ", exhausted, retires after one final lesson.");
         }
+
         /// <summary>
         /// Method used to make the game advance to the next wave.
         /// </summary>
@@ -152,6 +173,7 @@ namespace IAcademyOfDoom.App
                 window.GameOver();
             }
         }
+
         #endregion
     }
 }

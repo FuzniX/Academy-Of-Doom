@@ -10,16 +10,20 @@ namespace IAcademyOfDoom.Logic.Places
         /// <summary>
         /// The column.
         /// </summary>
-        public int X {  get; private set; }
+        public int X { get; private set; }
+
         /// <summary>
         /// The row.
         /// </summary>
         public int Y { get; private set; }
+
         /// <summary>
         /// The type of the room.
         /// </summary>
         public RoomType Type { get; internal set; }
+
         public string Name { get; internal set; }
+
         /// <summary>
         /// Constructor.
         /// </summary>
@@ -30,6 +34,7 @@ namespace IAcademyOfDoom.Logic.Places
             X = x;
             Y = y;
         }
+
         /// <summary>
         /// Factory method for the spawn area (top-left corner).
         /// </summary>
@@ -43,6 +48,7 @@ namespace IAcademyOfDoom.Logic.Places
             };
             return r;
         }
+
         /// <summary>
         /// Factory method for the exam room (bottom-right corner).
         /// </summary>
@@ -56,6 +62,7 @@ namespace IAcademyOfDoom.Logic.Places
             };
             return r;
         }
+
         /// <summary>
         /// What happens when a botling enters this room.
         /// Virtual: can be overriden by subclasses; this code
