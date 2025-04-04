@@ -153,12 +153,17 @@ namespace IAcademyOfDoom.View
                 {
                     Placeable placeable = currentPlaceable.Placeable;
                     c.PlaceHere(x, y, placeable);
+                    currentPlaceable = null;
                 }
             }
         }
         private void MainWindow_MouseMove(object sender, MouseEventArgs e)
         {
-            // TODO Animate Placeable being moved
+            if (e.Button == MouseButtons.Left && endPrepButton.Enabled && currentPlaceable != null)
+            {
+                currentPlaceable.Location = e.Location;
+                Refresh();
+            }
         }
         #endregion
         #region public methods

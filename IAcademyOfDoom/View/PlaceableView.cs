@@ -15,7 +15,7 @@ namespace IAcademyOfDoom.View
         /// <summary>
         /// The location - top left corner.
         /// </summary>
-        public Point Location { get; private set; }
+        public Point Location { get; set; }
         /// <summary>
         /// Parametered constructor.
         /// </summary>
