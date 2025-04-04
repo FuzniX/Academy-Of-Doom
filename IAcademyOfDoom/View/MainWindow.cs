@@ -190,14 +190,17 @@ namespace IAcademyOfDoom.View
         /// Method called by the controller to set the window to results mode.
         /// </summary>
         /// <param name="results">the results of the previous wave, as a pair</param>        
-        public void DisplayResults((int successes, int failures) results)
+        public void DisplayResults((int successes, int failures, int deaths) results)
         {
-            WriteLine($"Assault ended! {results.successes} successes, {results.failures} failures.");
+            //WriteLine($"Assault ended! {results.successes} successes, {results.failures} exam failures.");
             endPrepButton.Enabled = true;
             nextInAssaultButton.Enabled = false ;
             Refresh();
             c.NextWave();
         }
+
+       
+
         /// <summary>
         /// Method called by the controller to update the botling mobiles.
         /// </summary>
@@ -530,5 +533,10 @@ namespace IAcademyOfDoom.View
             list[(botling.X, botling.Y)].Add(botling);
         }
         #endregion
+
+        private void resultsBtn_Click(object sender, EventArgs e)
+        {
+            c.ShowResults();
+        }
     }
 }

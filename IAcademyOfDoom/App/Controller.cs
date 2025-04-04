@@ -4,6 +4,7 @@ using IAcademyOfDoom.Logic.Mobiles;
 using IAcademyOfDoom.Logic.Places;
 using IAcademyOfDoom.View;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace IAcademyOfDoom.App
 {
@@ -79,6 +80,17 @@ namespace IAcademyOfDoom.App
         public void EndAssault()
         {
             window.DisplayResults(game.GetResults());
+            ShowResults();
+        }
+
+        /// <summary>
+        /// Method opens results window.
+        /// </summary>
+        public void ShowResults()
+        {
+            (int successes,int failures, int deaths) results = game.GetResults();
+            ResultPhase resultWindow = new ResultPhase(results);
+            resultWindow.Show();
         }
         /// <summary>
         /// Method called whenever botling mobiles should be updated.
