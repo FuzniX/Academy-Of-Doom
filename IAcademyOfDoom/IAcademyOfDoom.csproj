@@ -80,6 +80,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\BotlingView.cs" />
     <Compile Include="View\PlaceableView.cs" />
+    <Compile Include="View\ResultPhase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\ResultPhase.Designer.cs">
+      <DependentUpon>ResultPhase.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\RoomView.cs" />
     <Compile Include="View\Settings.cs" />
     <EmbeddedResource Include="View\DifficultySelect.resx">
@@ -97,6 +103,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="View\ResultPhase.resx">
+      <DependentUpon>ResultPhase.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
