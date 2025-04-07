@@ -35,6 +35,7 @@
             this.numberOfBotlingsContentLabel = new System.Windows.Forms.Label();
             this.quitButton = new System.Windows.Forms.Button();
             this.playerNameLabel = new System.Windows.Forms.Label();
+            this.resultsBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // outputListBox
@@ -105,11 +106,22 @@
             this.playerNameLabel.TabIndex = 6;
             this.playerNameLabel.Text = "       ";
             // 
+            // resultsBtn
+            // 
+            this.resultsBtn.Location = new System.Drawing.Point(833, 560);
+            this.resultsBtn.Name = "resultsBtn";
+            this.resultsBtn.Size = new System.Drawing.Size(162, 23);
+            this.resultsBtn.TabIndex = 7;
+            this.resultsBtn.Text = "Results";
+            this.resultsBtn.UseVisualStyleBackColor = true;
+            this.resultsBtn.Click += new System.EventHandler(this.resultsBtn_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1160, 687);
+            this.Controls.Add(this.resultsBtn);
             this.Controls.Add(this.playerNameLabel);
             this.Controls.Add(this.quitButton);
             this.Controls.Add(this.numberOfBotlingsContentLabel);
@@ -138,6 +150,7 @@
         private System.Windows.Forms.Label numberOfBotlingsContentLabel;
         private System.Windows.Forms.Button quitButton;
         private System.Windows.Forms.Label playerNameLabel;
+        private System.Windows.Forms.Button resultsBtn;
     }
 }
 
