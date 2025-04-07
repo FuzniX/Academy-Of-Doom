@@ -181,7 +181,12 @@ namespace IAcademyOfDoom.View
                     c.PlaceHere(x, y, placeable);
                     currentPlaceable = null;
                 }
-                
+
+                if (currentRoom != null)
+                {
+                    currentRoom.Location = ConvertCoordinates(x, y);
+                    Refresh();
+                }
                 currentRoom = null;
             }
         }
@@ -208,7 +213,6 @@ namespace IAcademyOfDoom.View
                     currentRoom.Location = current;
                     currentRoomMoveStart = e.Location;
                     Refresh();
-                    // TODO Faire en sorte de placer la salle dans la grille correctement
                 }
             }
         }
@@ -250,9 +254,6 @@ namespace IAcademyOfDoom.View
             Refresh();
             c.NextWave();
         }
-
-       
-
 
         /// <summary>
         /// Method called by the controller to update the botling mobiles.
