@@ -216,6 +216,11 @@ namespace IAcademyOfDoom.View
                 }
             }
         }
+        
+        private void resultsBtn_Click(object sender, EventArgs e)
+        {
+            c.ShowResults();
+        }
 
         #endregion
 
@@ -623,10 +628,5 @@ namespace IAcademyOfDoom.View
         }
 
         #endregion
-
-        private void resultsBtn_Click(object sender, EventArgs e)
-        {
-            c.ShowResults();
-        }
     }
 }
