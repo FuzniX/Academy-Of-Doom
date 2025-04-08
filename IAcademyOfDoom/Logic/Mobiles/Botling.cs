@@ -39,6 +39,10 @@ namespace IAcademyOfDoom.Logic.Mobiles
         /// </summary>
         public int Y { get; set; } = 0;
         /// <summary>
+        /// Whether the botling is guided
+        /// </summary>
+        public bool Orientation { get; set; } = false;
+        /// <summary>
         /// This botling will move there next.
         /// </summary>
         public (int x, int y) NextMove { get; private set; }
