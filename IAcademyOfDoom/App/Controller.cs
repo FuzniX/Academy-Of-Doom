@@ -86,6 +86,7 @@ namespace IAcademyOfDoom.App
         public void addPlaceable(Placeable pleaceble)
         {
             game.addPlaceable(pleaceble);
+            window.PreviewPlaceableItems(game.Placeables());
         }
         /// <summary>
         /// Update the amount of aviable money in game

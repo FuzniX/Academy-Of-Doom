@@ -103,7 +103,7 @@ namespace IAcademyOfDoom.Logic
 
         public void addPlaceable(Placeable placeable) {
             placeables.Add(placeable);
-            c.Refresh();
+            
         }
 
         /// <summary>
