@@ -36,6 +36,7 @@
             this.quitButton = new System.Windows.Forms.Button();
             this.playerNameLabel = new System.Windows.Forms.Label();
             this.resultsBtn = new System.Windows.Forms.Button();
+            this.shopButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // outputListBox
@@ -116,11 +117,22 @@
             this.resultsBtn.UseVisualStyleBackColor = true;
             this.resultsBtn.Click += new System.EventHandler(this.resultsBtn_Click);
             // 
+            // shopButton
+            // 
+            this.shopButton.Location = new System.Drawing.Point(1017, 492);
+            this.shopButton.Name = "shopButton";
+            this.shopButton.Size = new System.Drawing.Size(131, 23);
+            this.shopButton.TabIndex = 9;
+            this.shopButton.Text = "Shop";
+            this.shopButton.UseVisualStyleBackColor = true;
+            this.shopButton.Click += new System.EventHandler(this.shopButton_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1160, 687);
+            this.Controls.Add(this.shopButton);
             this.Controls.Add(this.resultsBtn);
             this.Controls.Add(this.playerNameLabel);
             this.Controls.Add(this.quitButton);
@@ -151,6 +163,7 @@
         private System.Windows.Forms.Button quitButton;
         private System.Windows.Forms.Label playerNameLabel;
         private System.Windows.Forms.Button resultsBtn;
+        private System.Windows.Forms.Button shopButton;
     }
 }
 

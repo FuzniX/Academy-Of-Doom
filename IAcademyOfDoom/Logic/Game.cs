@@ -41,7 +41,7 @@ namespace IAcademyOfDoom.Logic
         /// <summary>
         /// A list of buyable items.
         /// </summary>
-        public List<Buyable> Buyables { get; } = new List<Buyable>();
+        public List<Buyable> buyables { get; } = new List<Buyable>();
         /// <summary>
         /// The current money of the player.
         /// </summary>
@@ -73,14 +73,14 @@ namespace IAcademyOfDoom.Logic
             placeables.Add(new Placeable(RoomType.Prof, SkillType.Interpret, "Interpretation Professor"));
             placeables.Add(new Placeable(RoomType.Prof, SkillType.Synthetise, "Synthesis Professor"));
             placeables.Add(new Placeable(RoomType.Prof, SkillType.Present, "Presentation Professor"));
-            Buyables.Add(new Buyable(RoomType.Prof, Default.TutorCost, "Analysys Tutor", SkillType.Analyse));
-            Buyables.Add(new Buyable(RoomType.Prof, Default.TutorCost, "Recognition Tutor", SkillType.Recognise));
-            Buyables.Add(new Buyable(RoomType.Prof, Default.TutorCost, "Generation Tutor", SkillType.Generate));
-            Buyables.Add(new Buyable(RoomType.Prof, Default.TutorCost, "Communication Tutor", SkillType.Communicate));
-            Buyables.Add(new Buyable(RoomType.Facility, Default.ServiceCost, "Orientation"));
-            Buyables.Add(new Buyable(RoomType.Facility, Default.StudentCost, "Rest room"));
-            Buyables.Add(new Buyable(RoomType.Facility, Default.StudentCost, "Party room"));
-            Buyables.Add(new Buyable(RoomType.Facility, Default.FacultyCost, "Faculty lounge"));
+            buyables.Add(new Buyable(RoomType.Prof, Default.TutorCost, "Analysys Tutor", SkillType.Analyse));
+            buyables.Add(new Buyable(RoomType.Prof, Default.TutorCost, "Recognition Tutor", SkillType.Recognise));
+            buyables.Add(new Buyable(RoomType.Prof, Default.TutorCost, "Generation Tutor", SkillType.Generate));
+            buyables.Add(new Buyable(RoomType.Prof, Default.TutorCost, "Communication Tutor", SkillType.Communicate));
+            buyables.Add(new Buyable(RoomType.Facility, Default.ServiceCost, "Orientation"));
+            buyables.Add(new Buyable(RoomType.Facility, Default.StudentCost, "Rest room"));
+            buyables.Add(new Buyable(RoomType.Facility, Default.StudentCost, "Party room"));
+            buyables.Add(new Buyable(RoomType.Facility, Default.FacultyCost, "Faculty lounge"));
             Money = Default.BaseMoney(Difficulty);
         }
         #endregion
@@ -100,6 +100,19 @@ namespace IAcademyOfDoom.Logic
         /// </summary>
         /// <returns>a new list</returns>
         public List<Placeable> Placeables() => new List<Placeable>(placeables);
+
+        public void addPlaceable(Placeable placeable) {
+            placeables.Add(placeable);
+            c.Refresh();
+        }
+
+        /// <summary>
+        /// Provides a copy of the list of buyables items
+        /// </summary>
+        /// <returns>a new list</returns>
+        public List<Buyable> Buyables() => new List<Buyable>(buyables);
+
+        public void updateAmountOfMoney(int price) => this.Money -= price;
         public List<Room> Rooms()
         {
             return new List<Room>(rooms);

@@ -70,6 +70,30 @@ namespace IAcademyOfDoom.App
         public List<Placeable> Placeables() => game.Placeables();
 
         /// <summary>
+        /// Bridge to the same method in the game
+        /// </summary>
+        /// <returns>the game's list of buyables</returns>
+        public List<Buyable> Buyables() => game.Buyables();
+
+        /// <summary>
+        /// Get the amount of aviable money in game
+        /// </summary>
+        /// <returns>Aviable amount of money</returns>
+        public int  getAviableMoney() =>  game.Money;
+
+        public void updateAviableMoney(int amount) => game.updateAmountOfMoney(amount);
+
+        public void addPlaceable(Placeable pleaceble)
+        {
+            game.addPlaceable(pleaceble);
+        }
+        /// <summary>
+        /// Update the amount of aviable money in game
+        /// </summary>
+        /// <param name="price">Price of the room to buy</param>
+       // public void updateAviableMoney(int price) => game.Money -= price;
+
+        /// <summary>
         /// Method called by the window when preparations are over.
         /// </summary>
         public void EndPreparations()
@@ -184,6 +208,11 @@ namespace IAcademyOfDoom.App
             {
                 window.GameOver();
             }
+        }
+
+        public void Refresh()
+        {
+            window.Refresh();
         }
 
         #endregion
