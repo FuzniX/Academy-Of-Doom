@@ -56,10 +56,14 @@
     <Compile Include="Logic\Game.cs" />
     <Compile Include="Logic\Mobiles\Names.cs" />
     <Compile Include="Logic\GameSequence\Phase.cs" />
+    <Compile Include="Logic\Places\Orientation.cs" />
+    <Compile Include="Logic\Places\PartyRoom.cs" />
     <Compile Include="Logic\Places\Placeable.cs" />
     <Compile Include="Logic\Places\ProfRoom.cs" />
+    <Compile Include="Logic\Places\RestRoom.cs" />
     <Compile Include="Logic\Places\Room.cs" />
     <Compile Include="Logic\Places\RoomType.cs" />
+    <Compile Include="Logic\Places\FacultyLounge.cs" />
     <Compile Include="Logic\Skills\SkillType.cs" />
     <Compile Include="Logic\GameSequence\Turn.cs" />
     <Compile Include="Logic\GameSequence\Wave.cs" />
