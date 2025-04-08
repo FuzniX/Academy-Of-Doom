@@ -638,12 +638,5 @@ namespace IAcademyOfDoom.View
         }
 
         #endregion
-
-        private void resultsBtn_Click(object sender, EventArgs e)
-        {
-            c.ShowResults();
-        }
-
-       
     }
 }
