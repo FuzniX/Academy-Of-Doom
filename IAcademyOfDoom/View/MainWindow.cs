@@ -17,7 +17,6 @@ namespace IAcademyOfDoom.View
     public partial class MainWindow : Form
     {
         #region private attributes
-
         private Controller c = Controller.Instance;
         private readonly List<BotlingView> bots = new List<BotlingView>();
         private readonly List<RoomView> rooms = new List<RoomView>();
@@ -109,7 +108,19 @@ namespace IAcademyOfDoom.View
         {
             c.NextInAssault();
         }
-
+        /// <summary>
+        /// Event handling: click to open shop window
+        /// </summary>
+        /// <param name="sender">ignored</param>
+        /// <param name="e">ignored</param>
+        private void shopButton_Click(object sender, EventArgs e)
+        {
+            Shop shop = new Shop(c);
+            if (shop.ShowDialog() == DialogResult.OK)
+            {
+                Refresh();
+            }
+        }
         /// <summary>
         /// Event handling: click on quit button.
         /// </summary>
@@ -349,7 +360,6 @@ namespace IAcademyOfDoom.View
                     }
                 }
             }
-
             Refresh();
         }
 
@@ -628,5 +638,12 @@ namespace IAcademyOfDoom.View
         }
 
         #endregion
+
+        private void resultsBtn_Click(object sender, EventArgs e)
+        {
+            c.ShowResults();
+        }
+
+       
     }
 }
