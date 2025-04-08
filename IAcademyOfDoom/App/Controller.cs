@@ -79,20 +79,15 @@ namespace IAcademyOfDoom.App
         /// Get the amount of aviable money in game
         /// </summary>
         /// <returns>Aviable amount of money</returns>
-        public int  getAviableMoney() =>  game.Money;
+        public int  GetAvailableMoney() =>  game.Money;
 
-        public void updateAviableMoney(int amount) => game.updateAmountOfMoney(amount);
+        public void UpdateAvailableMoney(int amount) => game.updateAmountOfMoney(amount);
 
-        public void addPlaceable(Placeable pleaceble)
+        public void AddPlaceable(Placeable pleaceble)
         {
-            game.addPlaceable(pleaceble);
+            game.AddPlaceable(pleaceble);
             window.PreviewPlaceableItems(game.Placeables());
         }
-        /// <summary>
-        /// Update the amount of aviable money in game
-        /// </summary>
-        /// <param name="price">Price of the room to buy</param>
-       // public void updateAviableMoney(int price) => game.Money -= price;
 
         /// <summary>
         /// Method called by the window when preparations are over.
@@ -209,11 +204,6 @@ namespace IAcademyOfDoom.App
             {
                 window.GameOver();
             }
-        }
-
-        public void Refresh()
-        {
-            window.Refresh();
         }
 
         #endregion

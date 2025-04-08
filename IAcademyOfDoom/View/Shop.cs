@@ -26,12 +26,12 @@ namespace IAcademyOfDoom.View
 
         private void buyButton_Click(object sender, EventArgs e)
         {
-            Buyable selectedBuyable = getSelectedBuyable();
+            Buyable selectedBuyable = GetSelectedBuyable();
             int price = selectedBuyable.getPrice();
-            if (controller.getAviableMoney() >= price)
+            if (controller.GetAvailableMoney() >= price)
             {
-                controller.updateAviableMoney(price);
-                controller.addPlaceable(selectedBuyable.MakePlaceable());
+                controller.UpdateAvailableMoney(price);
+                controller.AddPlaceable(selectedBuyable.MakePlaceable());
                 Refresh();
             } else
             {
@@ -39,7 +39,7 @@ namespace IAcademyOfDoom.View
             }
         }
 
-        private Buyable getSelectedBuyable()
+        private Buyable GetSelectedBuyable()
         {
             foreach(Buyable buyable in controller.Buyables())
             {
@@ -62,7 +62,7 @@ namespace IAcademyOfDoom.View
         private void closeButton_Paint(object sender, PaintEventArgs e)
         {
            
-            this.moneyAmountLabel.Text = "" + controller.getAviableMoney();
+            this.moneyAmountLabel.Text = "" + controller.GetAvailableMoney();
         }
     }
 }
