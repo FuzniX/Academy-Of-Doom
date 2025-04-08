@@ -24,6 +24,7 @@ namespace IAcademyOfDoom.View
         private PlaceableView currentPlaceable = null;
         private RoomView currentRoom = null;
         private Point currentRoomMoveStart;
+        private Point currentRoomOriginLocation;
 
         #endregion
 
@@ -155,6 +156,13 @@ namespace IAcademyOfDoom.View
                 }
                 currentRoom = RoomHere(e.Location);
                 currentRoomMoveStart = e.Location;
+                if (currentRoom != null)
+                {
+                    currentRoomOriginLocation = currentRoom.Location;
+                    if (currentRoom.Room.Type == RoomType.Cycle) { currentRoom = null; }
+                }
+
+                
             }
 
             if (e.Button == MouseButtons.Right)
@@ -163,7 +171,7 @@ namespace IAcademyOfDoom.View
                 if (target == null)
                 {
                     RoomView roomTarget = RoomHere(e.Location);
-                    if (roomTarget != null)
+                    if (roomTarget != null && roomTarget.Room.Type != RoomType.Cycle)
                     {
                         MessageBox.Show(DisplayStateOf(roomTarget));
                     }
@@ -195,7 +203,14 @@ namespace IAcademyOfDoom.View
 
                 if (currentRoom != null)
                 {
-                    currentRoom.Location = ConvertCoordinates(x, y);
+                    if (RoomHere(e.Location).Location == ConvertCoordinates(x, y))
+                    {
+                        currentRoom.Location = currentRoomOriginLocation;
+                    }
+                    else
+                    {
+                        currentRoom.Location = ConvertCoordinates(x, y);
+                    }
                     Refresh();
                 }
                 currentRoom = null;

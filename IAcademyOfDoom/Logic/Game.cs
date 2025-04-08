@@ -100,7 +100,7 @@ namespace IAcademyOfDoom.Logic
         /// <returns>a new list</returns>
         public List<Placeable> Placeables() => new List<Placeable>(placeables);
 
-        public void addPlaceable(Placeable placeable) {
+        public void AddPlaceable(Placeable placeable) {
             placeables.Add(placeable);
             
         }

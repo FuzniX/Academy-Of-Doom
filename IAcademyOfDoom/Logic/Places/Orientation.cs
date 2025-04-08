@@ -11,7 +11,7 @@ namespace IAcademyOfDoom.Logic.Places
         /// <param name="y">the row</param>
         public Orientation(int x, int y) : base(x, y)
         {
-            
+            Type = RoomType.Facility;
         }
 
         public override object ActOnEntry(Botling botling)
