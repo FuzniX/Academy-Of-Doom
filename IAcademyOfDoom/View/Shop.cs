@@ -20,7 +20,7 @@ namespace IAcademyOfDoom.View
         {
             InitializeComponent();
             controller = c;
-            this.buyablesList.Items.AddRange(controller.Buyables().ToArray());
+            
 
         }
 
@@ -28,26 +28,26 @@ namespace IAcademyOfDoom.View
         {
             Buyable selectedBuyable = getSelectedBuyable();
             int price = selectedBuyable.getPrice();
-            if (controller.getAviableMoney() >= price)
+            if (controller.getAviableMoney() >= price && selectedBuyable.getQuantity() > 0)
             {
                 controller.updateAviableMoney(price);
                 controller.addPlaceable(selectedBuyable.MakePlaceable());
+                selectedBuyable.decrementQuantity();
                 Refresh();
             } else
             {
-                MessageBox.Show("Not enough money on account");
+                MessageBox.Show("Cannot buy this room");
             }
         }
 
         private Buyable getSelectedBuyable()
         {
-            foreach(Buyable buyable in controller.Buyables())
+            string name = this.buyablesList.SelectedItem.ToString().Split('-')[0];
+            foreach (Buyable buyable in controller.Buyables())
             {
-                string name = this.buyablesList.SelectedItem.ToString();
-                if (buyable.getName().Equals(name))
+                if(buyable.getName() == name)
                 {
                     return buyable;
-                    
                 }
             }
             return null;
@@ -61,8 +61,9 @@ namespace IAcademyOfDoom.View
 
         private void closeButton_Paint(object sender, PaintEventArgs e)
         {
-           
             this.moneyAmountLabel.Text = "" + controller.getAviableMoney();
+            this.buyablesList.Items.Clear();
+            this.buyablesList.Items.AddRange(controller.Buyables().ToArray());
         }
     }
 }

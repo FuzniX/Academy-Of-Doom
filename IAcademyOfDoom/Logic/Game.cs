@@ -73,15 +73,14 @@ namespace IAcademyOfDoom.Logic
             placeables.Add(new Placeable(RoomType.Prof, SkillType.Interpret, "Interpretation Professor"));
             placeables.Add(new Placeable(RoomType.Prof, SkillType.Synthetise, "Synthesis Professor"));
             placeables.Add(new Placeable(RoomType.Prof, SkillType.Present, "Presentation Professor"));
-            buyables.Add(new Buyable(RoomType.Prof, Default.TutorCost, "Analysys Tutor", SkillType.Analyse));
-            buyables.Add(new Buyable(RoomType.Prof, Default.TutorCost, "Recognition Tutor", SkillType.Recognise));
-            buyables.Add(new Buyable(RoomType.Prof, Default.TutorCost, "Generation Tutor", SkillType.Generate));
-            buyables.Add(new Buyable(RoomType.Prof, Default.TutorCost, "Communication Tutor", SkillType.Communicate));
-            buyables.Add(new Buyable(RoomType.Facility, Default.ServiceCost, "Orientation"));
-            buyables.Add(new Buyable(RoomType.Facility, Default.StudentCost, "Rest room"));
-            buyables.Add(new Buyable(RoomType.Facility, Default.StudentCost, "Party room"));
-            buyables.Add(new Buyable(RoomType.Facility, Default.FacultyCost, "Faculty lounge"));
-            Money = Default.BaseMoney(Difficulty);
+            buyables.Add(new Buyable(RoomType.Prof, Default.TutorCost, 1, "Analysys Tutor",SkillType.Analyse));
+            buyables.Add(new Buyable(RoomType.Prof, Default.TutorCost,1, "Recognition Tutor",SkillType.Recognise));
+            buyables.Add(new Buyable(RoomType.Prof, Default.TutorCost, 1, "Generation Tutor",SkillType.Generate));
+            buyables.Add(new Buyable(RoomType.Prof, Default.TutorCost,1, "Communication Tutor", SkillType.Communicate));
+            buyables.Add(new Buyable(RoomType.Facility, Default.ServiceCost,3, "Orientation"));
+            buyables.Add(new Buyable(RoomType.Facility, Default.StudentCost,4, "Rest room"));
+            buyables.Add(new Buyable(RoomType.Facility, Default.StudentCost, 4,"Party room"));
+            buyables.Add(new Buyable(RoomType.Facility, Default.FacultyCost,4, "Faculty lounge"));
         }
         #endregion
         #region public methods
@@ -243,6 +242,14 @@ namespace IAcademyOfDoom.Logic
         {
             return waveNumber <= 2;
            
+        }
+
+        /// <summary>
+        /// Initilialize base money with current difficulty
+        /// </summary>
+        public void InitializeMoney()
+        {
+            Money = Default.BaseMoney(Difficulty);
         }
         #endregion
         #region private methods

@@ -19,6 +19,8 @@ namespace IAcademyOfDoom.Logic.Places
         public SkillType? Skill { get; private set; }
 
         private int price;
+
+        private int quantity;
         /// <summary>
         /// Constructor.
         /// </summary>
@@ -26,12 +28,13 @@ namespace IAcademyOfDoom.Logic.Places
         /// <param name="price"></param>
         /// <param name="name"></param>
         /// <param name="skill"></param>
-        public Buyable(RoomType roomType, int priceRoom, string name=null, SkillType? skill = null)
+        public Buyable(RoomType roomType, int priceRoom, int quantityOfRooms, string name = null, SkillType? skill = null)
         {
-            RoomType = roomType;
-            price = priceRoom;
-            Skill = skill;
+            this.RoomType = roomType;
+            this.price = priceRoom;
+            this.Skill = skill;
             this.name = name;
+            this.quantity = quantityOfRooms;
         }
         /// <summary>
         /// Turns this in a placeable item.
@@ -59,17 +62,17 @@ namespace IAcademyOfDoom.Logic.Places
         public string getName() => name;
 
         public int getPrice() => price;
+
+        public int getQuantity() => quantity;
+
+        public void decrementQuantity() => quantity--;
         /// <summary>
         /// ToString override for displaying info.
         /// </summary>
         /// <returns>a full representation</returns>
         public override string ToString()
         {
-            if (name == null)
-            {
-                return "Room : " + RoomType.ToString() + "-" + Skill?.ToString() + " " +  price + "; ";
-            }
-            return name;
+            return name + "-" + price + "$" + "  x" + quantity;
         }
     }
 }

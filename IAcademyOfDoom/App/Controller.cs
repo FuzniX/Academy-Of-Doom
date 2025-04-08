@@ -3,6 +3,7 @@ using IAcademyOfDoom.Logic.GameSettings;
 using IAcademyOfDoom.Logic.Mobiles;
 using IAcademyOfDoom.Logic.Places;
 using IAcademyOfDoom.View;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -47,6 +48,7 @@ namespace IAcademyOfDoom.App
             if (difficulty != null)
             {
                 Game.Difficulty = difficulty.Value;
+                game.InitializeMoney();
             }
 
             window.WriteLine("Init new game...");
@@ -210,12 +212,6 @@ namespace IAcademyOfDoom.App
                 window.GameOver();
             }
         }
-
-        public void Refresh()
-        {
-            window.Refresh();
-        }
-
         #endregion
     }
 }
