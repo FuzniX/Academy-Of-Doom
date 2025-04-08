@@ -39,7 +39,7 @@ namespace IAcademyOfDoom.Logic.Skills
         /// <summary>
         /// Determines whether a skill type is basic or combinated (combo)
         /// </summary>
-        /// <param name="skillType"the skill type to call the method on</param>
+        /// <param name="skillType">the skill type to call the method on</param>
         /// <returns>true iff the skill is combinated</returns>
 
         public static bool IsCombinatedSkill(this SkillType skillType)

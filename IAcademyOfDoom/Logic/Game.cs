@@ -173,6 +173,20 @@ namespace IAcademyOfDoom.Logic
                     }
                     else if (result is bool b)
                     {
+                        if (entered is FacultyLounge facultyLounge)
+                        {
+                            foreach (Room room in Rooms())
+                            {
+                                if (room is ProfRoom profRoom)
+                                {
+                                    profRoom.HP += 10;
+                                    if (profRoom.HP > Default.BaseProfHitPoints)
+                                    {
+                                        profRoom.HP = Default.BaseProfHitPoints;
+                                    }
+                                }
+                            }
+                        }
                         c.LessonResult(botling, b);
                         if (!b && botling.HP <= 0)
                         {

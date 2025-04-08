@@ -22,8 +22,13 @@ namespace IAcademyOfDoom.View
         private readonly List<RoomView> rooms = new List<RoomView>();
         private readonly List<PlaceableView> placeables = new List<PlaceableView>();
         private PlaceableView currentPlaceable = null;
+        private RoomView currentRoom = null;
+        private Point currentRoomMoveStart;
+
         #endregion
+
         #region constructor
+
         /// <summary>
         /// Empty constructor.
         /// </summary>
@@ -32,25 +37,30 @@ namespace IAcademyOfDoom.View
             Difficulty? difficulty = null;
             string name = null;
             DifficultySelect select = new DifficultySelect();
-            if (select.ShowDialog()==DialogResult.OK)
+            if (select.ShowDialog() == DialogResult.OK)
             {
                 name = select.InputName;
                 difficulty = select.Difficulty;
                 Refresh();
             }
+
             InitializeComponent();
             c.Associate(this, name, difficulty);
-            if (c.Name!=null)
+            if (c.Name != null)
             {
-                playerNameLabel.Text = c.Name+"'s game";
+                playerNameLabel.Text = c.Name + "'s game";
                 playerNameLabel.Visible = true;
-            } else
+            }
+            else
             {
-                playerNameLabel.Visible=false;
+                playerNameLabel.Visible = false;
             }
         }
+
         #endregion
+
         #region event handling methods
+
         /// <summary>
         /// Event handling: Paint
         /// </summary>
@@ -63,22 +73,32 @@ namespace IAcademyOfDoom.View
             {
                 placeable.Draw(e.Graphics);
             }
+
             BackgroundGrid(e.Graphics);
             SyncRooms();
             foreach (RoomView room in rooms)
             {
                 room.Draw(e.Graphics);
             }
+
             foreach (BotlingView bot in bots)
             {
                 bot.Draw(e.Graphics);
             }
         }
+
         private void EndPrepButton_Click(object sender, EventArgs e)
         {
-            if (c.CanEndPreparations()) { c.EndPreparations(); }
-            else { WriteLine("Preparations are not complete yet."); }
+            if (c.CanEndPreparations())
+            {
+                c.EndPreparations();
+            }
+            else
+            {
+                WriteLine("Preparations are not complete yet.");
+            }
         }
+
         /// <summary>
         /// Event handling: click on next in assault button.
         /// </summary>
@@ -110,6 +130,7 @@ namespace IAcademyOfDoom.View
         {
             Dispose();
         }
+
         /// <summary>
         /// Event handling: Mouse button down
         /// </summary>
@@ -120,7 +141,6 @@ namespace IAcademyOfDoom.View
             (int x, int y) = PointCoordinates(e.Location);
             if (e.Button == MouseButtons.Left && endPrepButton.Enabled)
             {
-                Console.WriteLine();
                 if (!c.CanEndPreparations() && c.Placeables().Count > 0 && RoomHere(e.Location) == null)
                 {
                     foreach (PlaceableView placeable in placeables)
@@ -133,7 +153,10 @@ namespace IAcademyOfDoom.View
                         }
                     }
                 }
+                currentRoom = RoomHere(e.Location);
+                currentRoomMoveStart = e.Location;
             }
+
             if (e.Button == MouseButtons.Right)
             {
                 Botling target = BotlingHere(e.Location);
@@ -151,6 +174,7 @@ namespace IAcademyOfDoom.View
                 }
             }
         }
+
         /// <summary>
         /// Event handling: Mouse button up
         /// </summary>
@@ -168,18 +192,51 @@ namespace IAcademyOfDoom.View
                     c.PlaceHere(x, y, placeable);
                     currentPlaceable = null;
                 }
+
+                if (currentRoom != null)
+                {
+                    currentRoom.Location = ConvertCoordinates(x, y);
+                    Refresh();
+                }
+                currentRoom = null;
             }
         }
+
+        /// <summary>
+        /// Event handling: mouse move
+        /// </summary>
+        /// <param name="sender">ignore</param>
+        /// <param name="e">user for pointer location and mouse button id</param>
         private void MainWindow_MouseMove(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left && endPrepButton.Enabled && currentPlaceable != null)
+            if (e.Button == MouseButtons.Left && endPrepButton.Enabled)
             {
-                currentPlaceable.Location = e.Location;
-                Refresh();
+                if (currentPlaceable != null)
+                {
+                    currentPlaceable.Location = e.Location;
+                    Refresh();
+                }
+
+                if (currentRoom != null)
+                {
+                    Point current = currentRoom.Location;
+                    current.Offset(e.Location.X - currentRoomMoveStart.X, e.Location.Y - currentRoomMoveStart.Y);
+                    currentRoom.Location = current;
+                    currentRoomMoveStart = e.Location;
+                    Refresh();
+                }
             }
         }
+        
+        private void resultsBtn_Click(object sender, EventArgs e)
+        {
+            c.ShowResults();
+        }
+
         #endregion
+
         #region public methods
+
         /// <summary>
         /// Method called by the controller to set the window to assault mode.
         /// </summary>
@@ -189,6 +246,7 @@ namespace IAcademyOfDoom.View
             nextInAssaultButton.Enabled = true;
             WriteLine("Assault!");
         }
+
         /// <summary>
         /// Method called by the controller to update the display in asault mode.
         /// </summary>
@@ -199,6 +257,7 @@ namespace IAcademyOfDoom.View
                 WriteLine("Assault continuation!");
             }
         }
+
         /// <summary>
         /// Method called by the controller to set the window to results mode.
         /// </summary>
@@ -207,12 +266,10 @@ namespace IAcademyOfDoom.View
         {
             //WriteLine($"Assault ended! {results.successes} successes, {results.failures} exam failures.");
             endPrepButton.Enabled = true;
-            nextInAssaultButton.Enabled = false ;
+            nextInAssaultButton.Enabled = false;
             Refresh();
             c.NextWave();
         }
-
-       
 
         /// <summary>
         /// Method called by the controller to update the botling mobiles.
@@ -220,8 +277,10 @@ namespace IAcademyOfDoom.View
         /// <param name="botlings"></param>
         public void UpdateBots(List<Botling> botlings)
         {
-            Dictionary<(int x, int y), List<Botling>> newBotlingsByRoom = new Dictionary<(int x, int y), List<Botling>>();
-            Dictionary<(int x, int y), List<Botling>> oldBotlingsByRoom = new Dictionary<(int x, int y), List<Botling>>();
+            Dictionary<(int x, int y), List<Botling>> newBotlingsByRoom =
+                new Dictionary<(int x, int y), List<Botling>>();
+            Dictionary<(int x, int y), List<Botling>> oldBotlingsByRoom =
+                new Dictionary<(int x, int y), List<Botling>>();
             foreach (Botling botling in botlings)
             {
                 bool add = true;
@@ -237,6 +296,7 @@ namespace IAcademyOfDoom.View
                         i++;
                     }
                 }
+
                 if (add)
                 {
                     PutBotlingInListByRoom(newBotlingsByRoom, botling);
@@ -248,21 +308,23 @@ namespace IAcademyOfDoom.View
                     WriteLine(botling.Name + ": Botling move to:" + (botling.X, botling.Y));
                 }
             }
-            foreach((int x, int y) in newBotlingsByRoom.Keys)
+
+            foreach ((int x, int y) in newBotlingsByRoom.Keys)
             {
                 int deltaX = 0, deltaY = 0;
                 foreach (Botling botling in newBotlingsByRoom[(x, y)])
                 {
                     Point point = ConvertCoordinates(x, y);
-                    bots.Add(new BotlingView(new Point(point.X+deltaX, point.Y+deltaY), botling));
-                    deltaX += Settings.BotlingSize.Width*2;
-                    if (deltaX > Settings.Width-Settings.BotlingSize.Width)
+                    bots.Add(new BotlingView(new Point(point.X + deltaX, point.Y + deltaY), botling));
+                    deltaX += Settings.BotlingSize.Width * 2;
+                    if (deltaX > Settings.Width - Settings.BotlingSize.Width)
                     {
                         deltaX = 0;
                         deltaY += Settings.BotlingSize.Height * 2;
                     }
                 }
             }
+
             foreach ((int x, int y) in oldBotlingsByRoom.Keys)
             {
                 int deltaX = 0, deltaY = 0;
@@ -270,7 +332,7 @@ namespace IAcademyOfDoom.View
                 {
                     BotlingView view = null;
                     int i = 0;
-                    while (i < bots.Count && view==null)
+                    while (i < bots.Count && view == null)
                     {
                         if (bots[i].Botling.Equals(botling))
                         {
@@ -281,14 +343,16 @@ namespace IAcademyOfDoom.View
                             i++;
                         }
                     }
+
                     if (view != null)
                     {
                         (int baseX, int baseY) = ConvertCoordinates(view.Location);
                         Point newLoc = ConvertCoordinates(x, y);
-                        Point arrival = new Point(newLoc.X+(baseX+deltaX)%Settings.Width, newLoc.Y + (baseY + deltaY) % Settings.Width);
+                        Point arrival = new Point(newLoc.X + (baseX + deltaX) % Settings.Width,
+                            newLoc.Y + (baseY + deltaY) % Settings.Width);
                         view.Location = arrival;
                         deltaX += Settings.BotlingSize.Width * 2;
-                        if (baseX + deltaX > Settings.Width-Settings.BotlingSize.Width)
+                        if (baseX + deltaX > Settings.Width - Settings.BotlingSize.Width)
                         {
                             deltaX = 0;
                             deltaY += Settings.BotlingSize.Height * 2;
@@ -298,6 +362,7 @@ namespace IAcademyOfDoom.View
             }
             Refresh();
         }
+
         /// <summary>
         /// Writes to the output list box.
         /// </summary>
@@ -309,12 +374,15 @@ namespace IAcademyOfDoom.View
             {
                 outputListBox.Items.Add(str);
             }
+
             if (outputListBox.Items.Count > 0)
             {
                 outputListBox.SelectedIndex = outputListBox.Items.Count - 1;
             }
+
             outputListBox.Refresh();
         }
+
         /// <summary>
         /// Converts a logical pair of coordinates to a graphic point.
         /// </summary>
@@ -325,6 +393,7 @@ namespace IAcademyOfDoom.View
         {
             return new Point(Settings.Left + x * Settings.Width, Settings.Top + y * Settings.Height);
         }
+
         /// <summary>
         /// Converts a point to the offset from the top-left corner of its cell.
         /// </summary>
@@ -334,6 +403,7 @@ namespace IAcademyOfDoom.View
         {
             return ((point.X - Settings.Left) % Settings.Width, (point.Y - Settings.Top) % Settings.Height);
         }
+
         /// <summary>
         /// Method called by the controller to remove some botlings.
         /// </summary>
@@ -351,11 +421,13 @@ namespace IAcademyOfDoom.View
                     }
                 }
             }
+
             foreach (BotlingView view in views)
             {
                 bots.Remove(view);
             }
         }
+
         /// <summary>
         /// Method called by the controller to update the placeable items.
         /// </summary>
@@ -379,10 +451,12 @@ namespace IAcademyOfDoom.View
                 this.placeables.Add(new PlaceableView(placeable, new Point(x, y)));
                 y += Settings.PlaceableOffset;
             }
+
             WriteLine("Preparations: please place the following...");
-            WriteLine("Items:"+items);
+            WriteLine("Items:" + items);
             Refresh();
         }
+
         /// <summary>
         /// Method displaying the current status of a logical botling mobile.
         /// </summary>
@@ -396,6 +470,7 @@ namespace IAcademyOfDoom.View
             {
                 skills += "[" + skill.ToString() + "]" + "=" + botling.Skills[skill] + " ";
             }
+
             string badges = "Badges:";
             foreach (SkillType skill in botling.Badges.Keys)
             {
@@ -404,10 +479,12 @@ namespace IAcademyOfDoom.View
                     badges += "[" + skill.ToString() + "] ";
                 }
             }
+
             if (badges.EndsWith(":"))
             {
                 badges += " none";
             }
+
             return "Botling " + name + ": " + hp + "\n  " + skills + "\n  " + badges;
         }
 
@@ -416,9 +493,10 @@ namespace IAcademyOfDoom.View
             string name = room.Room.Name;
             Point location = room.Location;
             RoomType roomType = room.Room.Type;
-            
+
             return "Room " + name + ":\n  " + roomType + "\n  (" + location.X + ", " + location.Y + ")";
         }
+
         /// <summary>
         /// Method called by the controller when the game is over.
         /// </summary>
@@ -430,8 +508,11 @@ namespace IAcademyOfDoom.View
             quitButton.Enabled = true;
             quitButton.Visible = true;
         }
+
         #endregion
+
         #region private mehods
+
         private Botling BotlingHere(Point location)
         {
             int i = 0;
@@ -447,6 +528,7 @@ namespace IAcademyOfDoom.View
                     i++;
                 }
             }
+
             if (index == -1)
             {
                 return null;
@@ -456,7 +538,8 @@ namespace IAcademyOfDoom.View
                 return bots[index].Botling;
             }
         }
-        private (int x,  int y) PointCoordinates(Point point)
+
+        private (int x, int y) PointCoordinates(Point point)
         {
             int posX = point.X;
             int posY = point.Y;
@@ -471,13 +554,14 @@ namespace IAcademyOfDoom.View
                 return (-1, -1);
             }
         }
+
         private void SyncRooms()
         {
             foreach (Room r in c.Rooms())
             {
                 bool add = true;
                 int i = 0;
-                while (i < rooms.Count && !add)
+                while (i < rooms.Count && add)
                 {
                     if (rooms[i].Room.Equals(r))
                     {
@@ -488,11 +572,13 @@ namespace IAcademyOfDoom.View
                         i++;
                     }
                 }
+
                 if (add)
                 {
                     rooms.Add(RoomView.CreateFromRoom(r));
                 }
             }
+
             List<RoomView> checkList = new List<RoomView>(rooms);
             foreach (RoomView view in checkList)
             {
@@ -502,6 +588,7 @@ namespace IAcademyOfDoom.View
                 }
             }
         }
+
         private static void BackgroundGrid(Graphics graphics)
         {
             for (int i = 0; i < Settings.Cols; i++)
@@ -513,6 +600,7 @@ namespace IAcademyOfDoom.View
                 }
             }
         }
+
         private RoomView RoomHere(Point location)
         {
             int i = 0;
@@ -528,6 +616,7 @@ namespace IAcademyOfDoom.View
                     i++;
                 }
             }
+
             if (index == -1)
             {
                 return null;
@@ -537,21 +626,17 @@ namespace IAcademyOfDoom.View
                 return rooms[index];
             }
         }
+
         private void PutBotlingInListByRoom(Dictionary<(int x, int y), List<Botling>> list, Botling botling)
         {
             if (!list.ContainsKey((botling.X, botling.Y)))
             {
                 list.Add((botling.X, botling.Y), new List<Botling>());
             }
+
             list[(botling.X, botling.Y)].Add(botling);
         }
+
         #endregion
-
-        private void resultsBtn_Click(object sender, EventArgs e)
-        {
-            c.ShowResults();
-        }
-
-       
     }
 }

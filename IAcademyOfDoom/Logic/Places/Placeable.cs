@@ -49,6 +49,20 @@ namespace IAcademyOfDoom.Logic.Places
                     {
                         return null;
                     }
+                case RoomType.Facility:
+                    switch (name)
+                    {
+                        case "Orientation":
+                            return new Orientation(x, y) { Name = name };
+                        case "Rest room":
+                            return new RestRoom(x, y) { Name = name };
+                        case "Party room":
+                            return new PartyRoom(x, y) { Name = name };
+                        case "Faculty lounge":
+                            return new FacultyLounge(x, y) { Name = name };
+                        default:
+                            return null;
+                    }
                 default:
                     return null;
             }
