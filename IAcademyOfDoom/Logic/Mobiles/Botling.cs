@@ -229,6 +229,7 @@ namespace IAcademyOfDoom.Logic.Mobiles
                 Room roomY;
                 while (X + offset < Game.MaxX && Y + offset < Game.MaxY)
                 {
+                    offset++;
                     roomX = Game.FindRoomAt(X + offset, Y, rooms);
                     roomY = Game.FindRoomAt(X, Y + offset, rooms);
                         
@@ -253,8 +254,6 @@ namespace IAcademyOfDoom.Logic.Mobiles
 
                     if (roomX != null) return (X + 1, Y);
                     if (roomY != null) return (X, Y + 1);
-
-                    offset++;
                 }
             }
 
