@@ -95,12 +95,17 @@ namespace IAcademyOfDoom.Logic
         {
             rooms.Add(placeable.MakeRoom(x, y));
         }
+        
         /// <summary>
         /// Provides a copy of the list of placeable items.
         /// </summary>
         /// <returns>a new list</returns>
         public List<Placeable> Placeables() => new List<Placeable>(placeables);
-
+        
+        /// <summary>
+        /// Provide a public way of adding a placeable to the game class
+        /// </summary>
+        /// <param name="placeable"></param>
         public void AddPlaceable(Placeable placeable) {
             placeables.Add(placeable);
             
@@ -111,12 +116,28 @@ namespace IAcademyOfDoom.Logic
         /// </summary>
         /// <returns>a new list</returns>
         public List<Buyable> Buyables() => new List<Buyable>(buyables);
-
-        public void updateAmountOfMoney(int price) => this.Money -= price;
+        
+        /// <summary>
+        /// Update player's money
+        /// </summary>
+        /// <param name="price"></param>
+        public void UpdateAmountOfMoney(int price) => this.Money -= price;
+        
+        /// <summary>
+        /// Returns a copy of rooms' attribute
+        /// </summary>
+        /// <returns></returns>
         public List<Room> Rooms()
         {
             return new List<Room>(rooms);
         }
+    
+        /// <summary>
+        /// Returns a copy of botlings' attribute
+        /// </summary>
+        /// <returns></returns>
+        public List<Botling> Botlings() => new List<Botling>(botlings);
+        
         /// <summary>
         /// Attempts to place a placeable item at some position.
         /// </summary>
