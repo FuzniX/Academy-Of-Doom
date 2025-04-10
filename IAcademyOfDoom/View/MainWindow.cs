@@ -154,15 +154,17 @@ namespace IAcademyOfDoom.View
                         }
                     }
                 }
-                currentRoom = RoomHere(e.Location);
-                currentRoomMoveStart = e.Location;
-                if (currentRoom != null)
-                {
-                    currentRoomOriginLocation = currentRoom.Location;
-                    if (currentRoom.Room.Type == RoomType.Cycle) { currentRoom = null; }
-                }
 
-                
+                if (c.CanEndPreparations() || c.Placeables().Count > 0)
+                {
+                    currentRoom = RoomHere(e.Location);
+                    currentRoomMoveStart = e.Location;
+                    if (currentRoom != null)
+                    {
+                        currentRoomOriginLocation = currentRoom.Location;
+                        if (currentRoom.Room.Type == RoomType.Cycle) { currentRoom = null; }
+                    }
+                }
             }
 
             if (e.Button == MouseButtons.Right)
@@ -500,7 +502,7 @@ namespace IAcademyOfDoom.View
                 badges += " none";
             }
 
-            return "Botling " + name + ": " + hp + "\n  " + skills + "\n  " + badges;
+            return "Botling " + name + ": " + hp + "\n  " + skills + "\n  " + badges + "\n  Orientation: " + botling.Orientation;
         }
 
         public string DisplayStateOf(RoomView room)
