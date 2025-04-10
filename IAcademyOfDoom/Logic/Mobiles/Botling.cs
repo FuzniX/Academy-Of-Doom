@@ -218,20 +218,9 @@ namespace IAcademyOfDoom.Logic.Mobiles
         /// <returns></returns>
         private (int x, int y) Next(List<Room> rooms)
         {
-            if (X == Game.MaxX && Y == Game.MaxY)
-            {
-                return (X, Y);
-            }
-
-            if (X == Game.MaxX)
-            {
-                return (X, Y + 1);
-            }
-
-            if (Y == Game.MaxY)
-            {
-                return (X + 1, Y);
-            }
+            if (X == Game.MaxX && Y == Game.MaxY) return (X, Y);
+            if (X == Game.MaxX) return (X, Y + 1);
+            if (Y == Game.MaxY) return (X + 1, Y);
 
             if (rooms != null && Orientation)
             {
@@ -247,45 +236,23 @@ namespace IAcademyOfDoom.Logic.Mobiles
                     {
                         // Process of choosing the best room
                         
-                        // Initialize skills points, defined as if rooms are not prof rooms
-                        int skillX = -1;
-                        int skillY = -1;
+                        int skillX = -1, skillY = -1;
                         
-                        if (roomX is ProfRoom profRoomX)
-                        {
-                            skillX = GetMinimumSkill(profRoomX.SkillType);
-                        }
-
-                        if (roomY is ProfRoom profRoomY)
-                        {
-                            skillY = GetMinimumSkill(profRoomY.SkillType);
-                        }
+                        if (roomX is ProfRoom profRoomX) skillX = GetMinimumSkill(profRoomX.SkillType);
+                        if (roomY is ProfRoom profRoomY) skillY = GetMinimumSkill(profRoomY.SkillType);
                         
-                        // Check that both rooms are prof rooms
-                        if (skillX != -1 && skillY != -1) // skillX + skillX != -2 would have worked too
-                        {
-                            if (skillX < skillY)
-                            {
-                                return (X + 1, Y);
-                            }
-
-                            if (skillX > skillY)
-                            {
-                                return (X, Y + 1);
-                            }
-                            // Reaching this line means both skills are equivalent, head to random
-                        }
+                        if (skillX == -1 && skillY == -1) continue;
+                        
+                        // Both rooms are prof rooms
+                        if (skillX < skillY) return (X + 1, Y);
+                        if (skillX > skillY) return (X, Y + 1);
+                        
+                        // Reaching this line means both skills are equivalent, head to random
+                        break;
                     }
 
-                    if (roomX != null)
-                    {
-                        return (X + 1, Y);
-                    }
-
-                    if (roomY != null)
-                    {
-                        return (X, Y + 1);
-                    }
+                    if (roomX != null) return (X + 1, Y);
+                    if (roomY != null) return (X, Y + 1);
 
                     offset++;
                 }
