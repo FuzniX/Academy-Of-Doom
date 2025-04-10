@@ -60,7 +60,7 @@
             this.buyButton.Name = "buyButton";
             this.buyButton.Size = new System.Drawing.Size(117, 23);
             this.buyButton.TabIndex = 2;
-            this.buyButton.Text = "buy";
+            this.buyButton.Text = "Buy";
             this.buyButton.UseVisualStyleBackColor = true;
             this.buyButton.Click += new System.EventHandler(this.buyButton_Click);
             // 
@@ -69,9 +69,9 @@
             this.moneyContentLabel.AutoSize = true;
             this.moneyContentLabel.Location = new System.Drawing.Point(245, 251);
             this.moneyContentLabel.Name = "moneyContentLabel";
-            this.moneyContentLabel.Size = new System.Drawing.Size(82, 13);
+            this.moneyContentLabel.Size = new System.Drawing.Size(90, 13);
             this.moneyContentLabel.TabIndex = 3;
-            this.moneyContentLabel.Text = "Money aviable: ";
+            this.moneyContentLabel.Text = "Money available: ";
             // 
             // moneyAmountLabel
             // 
@@ -88,7 +88,7 @@
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(60, 23);
             this.closeButton.TabIndex = 5;
-            this.closeButton.Text = "close";
+            this.closeButton.Text = "Close";
             this.closeButton.UseVisualStyleBackColor = true;
             this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
             this.closeButton.Paint += new System.Windows.Forms.PaintEventHandler(this.closeButton_Paint);
