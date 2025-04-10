@@ -2,6 +2,7 @@
 using IAcademyOfDoom.Logic.Skills;
 using System;
 using System.Collections.Generic;
+using IAcademyOfDoom.Logic.Places;
 
 namespace IAcademyOfDoom.Logic.Mobiles
 {
@@ -60,7 +61,7 @@ namespace IAcademyOfDoom.Logic.Mobiles
         /// </summary>
         public Botling()
         {
-            NextMove = Next();
+            NextMove = Next(null);
         }
 
         /// <summary>
@@ -78,10 +79,10 @@ namespace IAcademyOfDoom.Logic.Mobiles
         /// <summary>
         /// Enact the move.
         /// </summary>
-        public void Move()
+        public void Move(List<Room> rooms)
         {
             (X, Y) = NextMove;
-            NextMove = Next();
+            NextMove = Next(rooms);
         }
 
         /// <summary>
@@ -209,13 +210,13 @@ namespace IAcademyOfDoom.Logic.Mobiles
                 Badges.Add(skill, false);
             }
         }
-        private (int x, int y) Next()
 
         /// <summary>
         /// Retrieve botling's next move
         /// </summary>
         /// <param name="rooms"></param>
         /// <returns></returns>
+        private (int x, int y) Next(List<Room> rooms)
         {
             if (X == Game.MaxX && Y == Game.MaxY)
             {
@@ -231,12 +232,91 @@ namespace IAcademyOfDoom.Logic.Mobiles
             {
                 return (X + 1, Y);
             }
+
+            if (rooms != null && Orientation)
+            {
+                int offset = 0;
+                Room roomX;
+                Room roomY;
+                while (X + offset < Game.MaxX && Y + offset < Game.MaxY)
+                {
+                    roomX = Game.FindRoomAt(X + offset, Y, rooms);
+                    roomY = Game.FindRoomAt(X, Y + offset, rooms);
+                        
+                    if (roomX != null && roomY != null)
+                    {
+                        // Process of choosing the best room
+                        
+                        // Initialize skills points, defined as if rooms are not prof rooms
+                        int skillX = -1;
+                        int skillY = -1;
+                        
+                        if (roomX is ProfRoom profRoomX)
+                        {
+                            skillX = GetMinimumSkill(profRoomX.SkillType);
+                        }
+
+                        if (roomY is ProfRoom profRoomY)
+                        {
+                            skillY = GetMinimumSkill(profRoomY.SkillType);
+                        }
+                        
+                        // Check that both rooms are prof rooms
+                        if (skillX != -1 && skillY != -1) // skillX + skillX != -2 would have worked too
+                        {
+                            if (skillX < skillY)
+                            {
+                                return (X + 1, Y);
+                            }
+
+                            if (skillX > skillY)
+                            {
+                                return (X, Y + 1);
+                            }
+                            // Reaching this line means both skills are equivalent, head to random
+                        }
+                    }
+
+                    if (roomX != null)
+                    {
+                        return (X + 1, Y);
+                    }
+
+                    if (roomY != null)
+                    {
+                        return (X, Y + 1);
+                    }
+
+                    offset++;
+                }
+            }
+
+            // We get here either if:
+            // - no rooms were passed (constructor)
+            // - there is no room in both directions
+            // - rooms in both directions are equivalent
             if (Game.Random.Next() % 2 == 0)
             {
                 return (X, Y + 1);
             }
 
             return (X + 1, Y);
+        }
+        
+        /// <summary>
+        /// Returns the skill value that is the minimum
+        /// Consider whether a skill is basic
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        private int GetMinimumSkill(SkillType type)
+        {
+            if (type.IsBaseSkill())
+            {
+                return Skills[type];
+            }
+            (SkillType s1, SkillType s2) = type.BasePair().Value;
+            return Math.Min(Skills[s1], Skills[s2]);
         }
     }
 }

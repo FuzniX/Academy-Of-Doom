@@ -183,7 +183,7 @@ namespace IAcademyOfDoom.Logic
             {
                 foreach (Botling botling in botlings)
                 {
-                    botling.Move();
+                    botling.Move(Rooms());
                     (int x, int y) = (botling.X, botling.Y);
                     Room entered = FindRoomAt(x, y);
                     object result = entered?.ActOnEntry(botling);
@@ -265,6 +265,32 @@ namespace IAcademyOfDoom.Logic
             return waveNumber <= 2;
            
         }
+        
+        public static Room FindRoomAt(int x, int y, List<Room> rooms)
+        {
+            int i = 0;
+            int index = -1;
+            while (index == -1 && i < rooms.Count)
+            {
+                if (rooms[i]?.X==x && rooms[i]?.Y==y)
+                {
+                    index = i;
+                }
+                else
+                {
+                    i++;
+                }
+            }
+            if (index == -1)
+            {
+                return null;
+            }
+            else
+            {
+                return rooms[index];
+            }
+        }
+        
         #endregion
         #region private methods
         private void StoreExamResult(ExamResult examResult)
