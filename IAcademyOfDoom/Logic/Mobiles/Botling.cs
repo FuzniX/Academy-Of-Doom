@@ -14,38 +14,47 @@ namespace IAcademyOfDoom.Logic.Mobiles
         /// The current values for each basic skill.
         /// </summary>
         public Dictionary<SkillType, int> Skills { get; } = new Dictionary<SkillType, int>();
+
         /// <summary>
         /// For each combo skill, true iff the bot has earned a badge for this skill.
         /// </summary>
         public Dictionary<SkillType, bool> Badges { get; } = new Dictionary<SkillType, bool>();
+
         /// <summary>
         /// The botling's hit points, 0 or less: exhausted.
         /// </summary>
         public int HP { get; set; }
+
         /// <summary>
         /// A printable name for the botling.
         /// </summary>
         public string Name { get; private set; }
+
         /// <summary>
         /// The botling's type.
         /// </summary>
         public BotType Type { get; private set; } = BotType.None;
+
         /// <summary>
         /// Current column.
         /// </summary>
         public int X { get; set; } = 0;
+
         /// <summary>
         /// Current row.
         /// </summary>
         public int Y { get; set; } = 0;
+
         /// <summary>
         /// Whether the botling is guided
         /// </summary>
         public bool Orientation { get; set; } = false;
+
         /// <summary>
         /// This botling will move there next.
         /// </summary>
         public (int x, int y) NextMove { get; private set; }
+
         /// <summary>
         /// Empty constructor, use with caution.
         /// </summary>
@@ -53,6 +62,7 @@ namespace IAcademyOfDoom.Logic.Mobiles
         {
             NextMove = Next();
         }
+
         /// <summary>
         /// Parametered constructor.
         /// </summary>
@@ -64,6 +74,7 @@ namespace IAcademyOfDoom.Logic.Mobiles
             SetInitialSetOfSkills();
             HP = Default.BaseHitPoints(Game.Difficulty);
         }
+
         /// <summary>
         /// Enact the move.
         /// </summary>
@@ -72,6 +83,7 @@ namespace IAcademyOfDoom.Logic.Mobiles
             (X, Y) = NextMove;
             NextMove = Next();
         }
+
         /// <summary>
         /// A diceroll-based test for a skill.
         /// </summary>
@@ -84,6 +96,7 @@ namespace IAcademyOfDoom.Logic.Mobiles
             {
                 return false;
             }
+
             Random random = Game.Random;
             if (skill.IsBaseSkill())
             {
@@ -102,6 +115,7 @@ namespace IAcademyOfDoom.Logic.Mobiles
                 }
             }
         }
+
         /// <summary>
         /// Conduct a lesson for the bot in some skill.
         /// </summary>
@@ -122,6 +136,7 @@ namespace IAcademyOfDoom.Logic.Mobiles
                     Skills[s2]++;
                     Badges[skill] = true;
                 }
+
                 return true;
             }
             else
@@ -138,9 +153,11 @@ namespace IAcademyOfDoom.Logic.Mobiles
                     Skills[s2]++;
                     HP -= 2;
                 }
+
                 return false;
             }
         }
+
         /// <summary>
         /// Performs the final exam.
         /// </summary>
@@ -149,8 +166,11 @@ namespace IAcademyOfDoom.Logic.Mobiles
         {
             List<SkillType> subjects = SkillTypeUtils.AllCombinatedSkills();
             SkillType examinated = subjects[Game.Random.Next(0, subjects.Count)];
-            return TestSkill(examinated, Default.ExamDifficulty(Game.Difficulty)) ? ExamResult.Success : ExamResult.Failure;
+            return TestSkill(examinated, Default.ExamDifficulty(Game.Difficulty))
+                ? ExamResult.Success
+                : ExamResult.Failure;
         }
+
         private void SetInitialSetOfSkills()
         {
             int distribute = Default.SkillPoints;
@@ -162,6 +182,7 @@ namespace IAcademyOfDoom.Logic.Mobiles
             {
                 ints[i] = 0;
             }
+
             while (distribute > 0)
             {
                 int i = 0;
@@ -172,29 +193,40 @@ namespace IAcademyOfDoom.Logic.Mobiles
                         ints[i]++;
                         distribute--;
                     }
+
                     i++;
                 }
             }
+
             int j = 0;
             foreach (SkillType skill in skillTypes)
             {
                 Skills.Add(skill, ints[j++]);
             }
+
             foreach (SkillType skill in SkillTypeUtils.AllCombinatedSkills())
             {
                 Badges.Add(skill, false);
             }
         }
         private (int x, int y) Next()
+
+        /// <summary>
+        /// Retrieve botling's next move
+        /// </summary>
+        /// <param name="rooms"></param>
+        /// <returns></returns>
         {
             if (X == Game.MaxX && Y == Game.MaxY)
             {
                 return (X, Y);
             }
+
             if (X == Game.MaxX)
             {
                 return (X, Y + 1);
             }
+
             if (Y == Game.MaxY)
             {
                 return (X + 1, Y);
@@ -203,6 +235,7 @@ namespace IAcademyOfDoom.Logic.Mobiles
             {
                 return (X, Y + 1);
             }
+
             return (X + 1, Y);
         }
     }
