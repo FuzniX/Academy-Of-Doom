@@ -237,14 +237,14 @@ namespace IAcademyOfDoom.Logic.Mobiles
                     {
                         // Process of choosing the best room
                         
-                        int skillX = -1, skillY = -1;
+                        int skillX = Int32.MaxValue, skillY = Int32.MaxValue;
                         
                         if (roomX is ProfRoom profRoomX) skillX = GetMinimumSkill(profRoomX.SkillType);
                         if (roomY is ProfRoom profRoomY) skillY = GetMinimumSkill(profRoomY.SkillType);
                         
-                        if (skillX == -1 && skillY == -1) continue;
+                        if (skillX ==  Int32.MaxValue && skillY == Int32.MaxValue) continue;
                         
-                        // Both rooms are prof rooms
+                        // At least one is a prof room
                         if (skillX < skillY) return (X + 1, Y);
                         if (skillX > skillY) return (X, Y + 1);
                         
