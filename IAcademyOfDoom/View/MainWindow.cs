@@ -25,6 +25,7 @@ namespace IAcademyOfDoom.View
         private RoomView currentRoom = null;
         private Point currentRoomMoveStart;
         private Point currentRoomOriginLocation;
+        private Botling hoveredBotling;
 
         #endregion
 
@@ -88,6 +89,15 @@ namespace IAcademyOfDoom.View
             }
 
             MoneyAmountLabel.Text = "" +  c.GetAvailableMoney();
+
+            if (hoveredBotling != null)
+            {
+                Console.WriteLine("Here");
+               /* Pen arrowPen = new Pen(Color.Black, 2);
+                Point start = new Point(hoveredBotling.X, hoveredBotling.Y);
+                Point end = new Point(hoveredBotling.NextMove.x, hoveredBotling.NextMove.y);
+                e.Graphics.DrawLine(arrowPen, start, end);*/
+            }
         }
 
         private void EndPrepButton_Click(object sender, EventArgs e)
@@ -242,8 +252,22 @@ namespace IAcademyOfDoom.View
                     Refresh();
                 }
             }
+
+            this.hoveredBotling = BotlingHere(e.Location);
+            if(hoveredBotling != null)
+            {
+                Refresh();
+            }
+           
         }
-        
+
+      /*  private void MainWindow_MouseHover(object sender, MouseEventArgs e)
+        {
+            this.hoveredBotling = BotlingHere(e.Location);
+            Refresh();
+
+        }*/
+
         private void resultsBtn_Click(object sender, EventArgs e)
         {
             c.ShowResults();
@@ -654,5 +678,7 @@ namespace IAcademyOfDoom.View
         }
 
         #endregion
+
+       
     }
 }
