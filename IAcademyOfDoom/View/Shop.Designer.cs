@@ -29,10 +29,8 @@
         private void InitializeComponent()
         {
             this.buyablesList = new System.Windows.Forms.ListBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.ShopLabel = new System.Windows.Forms.Label();
             this.buyButton = new System.Windows.Forms.Button();
-            this.moneyContentLabel = new System.Windows.Forms.Label();
-            this.moneyAmountLabel = new System.Windows.Forms.Label();
             this.closeButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -44,15 +42,15 @@
             this.buyablesList.Size = new System.Drawing.Size(180, 199);
             this.buyablesList.TabIndex = 0;
             // 
-            // label1
+            // ShopLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(224, 28);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(66, 25);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Shop";
+            this.ShopLabel.AutoSize = true;
+            this.ShopLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ShopLabel.Location = new System.Drawing.Point(224, 28);
+            this.ShopLabel.Name = "ShopLabel";
+            this.ShopLabel.Size = new System.Drawing.Size(66, 25);
+            this.ShopLabel.TabIndex = 1;
+            this.ShopLabel.Text = "Shop";
             // 
             // buyButton
             // 
@@ -63,23 +61,6 @@
             this.buyButton.Text = "Buy";
             this.buyButton.UseVisualStyleBackColor = true;
             this.buyButton.Click += new System.EventHandler(this.buyButton_Click);
-            // 
-            // moneyContentLabel
-            // 
-            this.moneyContentLabel.AutoSize = true;
-            this.moneyContentLabel.Location = new System.Drawing.Point(245, 251);
-            this.moneyContentLabel.Name = "moneyContentLabel";
-            this.moneyContentLabel.Size = new System.Drawing.Size(90, 13);
-            this.moneyContentLabel.TabIndex = 3;
-            this.moneyContentLabel.Text = "Money available: ";
-            // 
-            // moneyAmountLabel
-            // 
-            this.moneyAmountLabel.AutoSize = true;
-            this.moneyAmountLabel.Location = new System.Drawing.Point(334, 251);
-            this.moneyAmountLabel.Name = "moneyAmountLabel";
-            this.moneyAmountLabel.Size = new System.Drawing.Size(0, 13);
-            this.moneyAmountLabel.TabIndex = 4;
             // 
             // closeButton
             // 
@@ -100,10 +81,8 @@
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.ClientSize = new System.Drawing.Size(518, 332);
             this.Controls.Add(this.closeButton);
-            this.Controls.Add(this.moneyAmountLabel);
-            this.Controls.Add(this.moneyContentLabel);
             this.Controls.Add(this.buyButton);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.ShopLabel);
             this.Controls.Add(this.buyablesList);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "Shop";
@@ -116,10 +95,8 @@
         #endregion
 
         private System.Windows.Forms.ListBox buyablesList;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label ShopLabel;
         private System.Windows.Forms.Button buyButton;
-        private System.Windows.Forms.Label moneyContentLabel;
-        private System.Windows.Forms.Label moneyAmountLabel;
         private System.Windows.Forms.Button closeButton;
     }
 }

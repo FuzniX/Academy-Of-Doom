@@ -33,6 +33,7 @@ namespace IAcademyOfDoom.View
                 controller.UpdateAvailableMoney(price);
                 controller.AddPlaceable(selectedBuyable.MakePlaceable());
                 selectedBuyable.decrementQuantity();
+                controller.RefreshMainWindow();
                 Refresh();
             } else
             {
@@ -61,7 +62,6 @@ namespace IAcademyOfDoom.View
 
         private void closeButton_Paint(object sender, PaintEventArgs e)
         {
-            this.moneyAmountLabel.Text = "" + controller.GetAvailableMoney();
             this.buyablesList.Items.Clear();
             this.buyablesList.Items.AddRange(controller.Buyables().ToArray());
         }

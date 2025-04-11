@@ -207,6 +207,11 @@ namespace IAcademyOfDoom.App
                 window.GameOver();
             }
         }
+
+        public void RefreshMainWindow()
+        {
+            window.Refresh();
+        }
         #endregion
     }
 }

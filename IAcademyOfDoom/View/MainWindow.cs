@@ -86,6 +86,8 @@ namespace IAcademyOfDoom.View
             {
                 bot.Draw(e.Graphics);
             }
+
+            MoneyAmountLabel.Text = "" +  c.GetAvailableMoney();
         }
 
         private void EndPrepButton_Click(object sender, EventArgs e)
@@ -117,10 +119,7 @@ namespace IAcademyOfDoom.View
         private void shopButton_Click(object sender, EventArgs e)
         {
             Shop shop = new Shop(c);
-            if (shop.ShowDialog() == DialogResult.OK)
-            {
-                Refresh();
-            }
+            shop.Show();
         }
         /// <summary>
         /// Event handling: click on quit button.

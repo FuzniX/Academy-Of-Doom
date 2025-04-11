@@ -37,6 +37,8 @@
             this.playerNameLabel = new System.Windows.Forms.Label();
             this.resultsBtn = new System.Windows.Forms.Button();
             this.shopButton = new System.Windows.Forms.Button();
+            this.MoneyContentLabel = new System.Windows.Forms.Label();
+            this.MoneyAmountLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // outputListBox
@@ -119,7 +121,7 @@
             // 
             // shopButton
             // 
-            this.shopButton.Location = new System.Drawing.Point(1017, 492);
+            this.shopButton.Location = new System.Drawing.Point(999, 150);
             this.shopButton.Name = "shopButton";
             this.shopButton.Size = new System.Drawing.Size(131, 23);
             this.shopButton.TabIndex = 9;
@@ -127,11 +129,30 @@
             this.shopButton.UseVisualStyleBackColor = true;
             this.shopButton.Click += new System.EventHandler(this.shopButton_Click);
             // 
+            // MoneyContentLabel
+            // 
+            this.MoneyContentLabel.AutoSize = true;
+            this.MoneyContentLabel.Location = new System.Drawing.Point(996, 96);
+            this.MoneyContentLabel.Name = "MoneyContentLabel";
+            this.MoneyContentLabel.Size = new System.Drawing.Size(90, 13);
+            this.MoneyContentLabel.TabIndex = 10;
+            this.MoneyContentLabel.Text = "Money available: ";
+            // 
+            // MoneyAmountLabel
+            // 
+            this.MoneyAmountLabel.AutoSize = true;
+            this.MoneyAmountLabel.Location = new System.Drawing.Point(1082, 96);
+            this.MoneyAmountLabel.Name = "MoneyAmountLabel";
+            this.MoneyAmountLabel.Size = new System.Drawing.Size(0, 13);
+            this.MoneyAmountLabel.TabIndex = 11;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1160, 687);
+            this.Controls.Add(this.MoneyAmountLabel);
+            this.Controls.Add(this.MoneyContentLabel);
             this.Controls.Add(this.shopButton);
             this.Controls.Add(this.resultsBtn);
             this.Controls.Add(this.playerNameLabel);
@@ -164,6 +185,8 @@
         private System.Windows.Forms.Label playerNameLabel;
         private System.Windows.Forms.Button resultsBtn;
         private System.Windows.Forms.Button shopButton;
+        private System.Windows.Forms.Label MoneyContentLabel;
+        private System.Windows.Forms.Label MoneyAmountLabel;
     }
 }
 
