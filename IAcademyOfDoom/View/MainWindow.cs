@@ -96,8 +96,8 @@ namespace IAcademyOfDoom.View
             {
                 Console.WriteLine("Here");
                 Pen arrowPen = new Pen(Color.Blue, 2);
-                Point start = ConvertCoordinates(hoveredBotling.Center.X, hoveredBotling.Center.Y);
-                Point end = ConvertCoordinates(hoveredBotling.Botling.NextMove.x, hoveredBotling.Botling.NextMove.y);
+                Point start = new Point(hoveredBotling.Center.X, hoveredBotling.Center.Y);
+                Point end = new Point(hoveredBotling.Botling.NextMove.x, hoveredBotling.Botling.NextMove.y);
                 e.Graphics.DrawLine(arrowPen, start, end);
             }
         }
@@ -255,18 +255,18 @@ namespace IAcademyOfDoom.View
                 }
             }
             Botling b = BotlingHere(e.Location);
-
-            if (BotlingHere(e.Location) != null)
+            foreach(BotlingView bot in bots)
             {
-                this.hoveredBotling = sender as BotlingView;
-                Console.WriteLine("Move" + hoveredBotling);
-                if (hoveredBotling != null)
+                if (bot.Botling.Equals(b))
                 {
-                    Refresh();
+                    this.hoveredBotling = bot;
                 }
             }
-           
-           
+
+            if (hoveredBotling != null)
+            {
+                Refresh();
+            }   
         }
 
         private void resultsBtn_Click(object sender, EventArgs e)
