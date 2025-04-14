@@ -27,30 +27,43 @@ namespace IAcademyOfDoom.View
         private void buyButton_Click(object sender, EventArgs e)
         {
             Buyable selectedBuyable = GetSelectedBuyable();
-            int price = selectedBuyable.getPrice();
-            if (controller.GetAvailableMoney() >= price && selectedBuyable.getQuantity() > 0)
+            if(selectedBuyable != null)
             {
-                controller.UpdateAvailableMoney(price);
-                controller.AddPlaceable(selectedBuyable.MakePlaceable());
-                selectedBuyable.decrementQuantity();
-                controller.RefreshMainWindow();
-                Refresh();
+                int price = selectedBuyable.getPrice();
+                if (controller.GetAvailableMoney() >= price && selectedBuyable.getQuantity() > 0)
+                {
+                    controller.UpdateAvailableMoney(price);
+                    controller.AddPlaceable(selectedBuyable.MakePlaceable());
+                    selectedBuyable.decrementQuantity();
+                    controller.RefreshMainWindow();
+                    Refresh();
+                }
+                else
+                {
+                    MessageBox.Show("Cannot buy this room");
+                }
             } else
             {
-                MessageBox.Show("Cannot buy this room");
+                MessageBox.Show("Select room first");
             }
+            
         }
 
         private Buyable GetSelectedBuyable()
         {
-            string name = this.buyablesList.SelectedItem.ToString().Split('-')[0];
-            foreach (Buyable buyable in controller.Buyables())
+            if(this.buyablesList.SelectedItem != null)
             {
-                if(buyable.getName() == name)
+                string name = this.buyablesList.SelectedItem.ToString().Split('-')[0];
+                foreach (Buyable buyable in controller.Buyables())
                 {
-                    return buyable;
+                    if (buyable.getName() == name)
+                    {
+                        return buyable;
+                    }
                 }
             }
+           
+            
             return null;
         }
 

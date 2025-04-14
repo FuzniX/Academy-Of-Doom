@@ -25,7 +25,7 @@ namespace IAcademyOfDoom.View
         private RoomView currentRoom = null;
         private Point currentRoomMoveStart;
         private Point currentRoomOriginLocation;
-        private Botling hoveredBotling;
+        private BotlingView hoveredBotling;
 
         #endregion
 
@@ -92,10 +92,10 @@ namespace IAcademyOfDoom.View
 
             if (hoveredBotling != null)
             {
-                Console.WriteLine("Here");
-               /* Pen arrowPen = new Pen(Color.Black, 2);
-                Point start = new Point(hoveredBotling.X, hoveredBotling.Y);
-                Point end = new Point(hoveredBotling.NextMove.x, hoveredBotling.NextMove.y);
+               /* Console.WriteLine("Here");
+                Pen arrowPen = new Pen(Color.Blue, 2);
+                Point start = ConvertCoordinates(hoveredBotling.Center.X, hoveredBotling.Center.Y);
+                Point end = ConvertCoordinates(hoveredBotling.NextMove.x, hoveredBotling.NextMove.y);
                 e.Graphics.DrawLine(arrowPen, start, end);*/
             }
         }
@@ -253,7 +253,7 @@ namespace IAcademyOfDoom.View
                 }
             }
 
-            this.hoveredBotling = BotlingHere(e.Location);
+            this.hoveredBotling = null;
             if(hoveredBotling != null)
             {
                 Refresh();
@@ -261,12 +261,12 @@ namespace IAcademyOfDoom.View
            
         }
 
-      /*  private void MainWindow_MouseHover(object sender, MouseEventArgs e)
+        private void MainWindow_MouseHover(object sender,EventArgs e)
         {
-            this.hoveredBotling = BotlingHere(e.Location);
+            this.hoveredBotling = sender as BotlingView;
             Refresh();
 
-        }*/
+        }
 
         private void resultsBtn_Click(object sender, EventArgs e)
         {
