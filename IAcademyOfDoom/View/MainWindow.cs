@@ -90,13 +90,15 @@ namespace IAcademyOfDoom.View
 
             MoneyAmountLabel.Text = "" +  c.GetAvailableMoney();
 
+            Console.WriteLine("Paint");
+
             if (hoveredBotling != null)
             {
-               /* Console.WriteLine("Here");
+                Console.WriteLine("Here");
                 Pen arrowPen = new Pen(Color.Blue, 2);
                 Point start = ConvertCoordinates(hoveredBotling.Center.X, hoveredBotling.Center.Y);
-                Point end = ConvertCoordinates(hoveredBotling.NextMove.x, hoveredBotling.NextMove.y);
-                e.Graphics.DrawLine(arrowPen, start, end);*/
+                Point end = ConvertCoordinates(hoveredBotling.Botling.NextMove.x, hoveredBotling.Botling.NextMove.y);
+                e.Graphics.DrawLine(arrowPen, start, end);
             }
         }
 
@@ -252,20 +254,19 @@ namespace IAcademyOfDoom.View
                     Refresh();
                 }
             }
+            Botling b = BotlingHere(e.Location);
 
-            this.hoveredBotling = null;
-            if(hoveredBotling != null)
+            if (BotlingHere(e.Location) != null)
             {
-                Refresh();
+                this.hoveredBotling = sender as BotlingView;
+                Console.WriteLine("Move" + hoveredBotling);
+                if (hoveredBotling != null)
+                {
+                    Refresh();
+                }
             }
            
-        }
-
-        private void MainWindow_MouseHover(object sender,EventArgs e)
-        {
-            this.hoveredBotling = sender as BotlingView;
-            Refresh();
-
+           
         }
 
         private void resultsBtn_Click(object sender, EventArgs e)
