@@ -96,8 +96,13 @@ namespace IAcademyOfDoom.View
             {
                 Console.WriteLine("Here");
                 Pen arrowPen = new Pen(Color.Blue, 2);
+                Console.WriteLine("Before -" + hoveredBotling.Botling.X+ " " + hoveredBotling.Botling.Y);
+                Console.WriteLine("After -"+ hoveredBotling.Botling.NextMove.x+" " +hoveredBotling.Botling.NextMove.y);
+                int newX = hoveredBotling.Botling.NextMove.x - hoveredBotling.Botling.X;
+                int newY = hoveredBotling.Botling.NextMove.y - hoveredBotling.Botling.Y;
                 Point start = new Point(hoveredBotling.Center.X, hoveredBotling.Center.Y);
-                Point end = new Point(hoveredBotling.Botling.NextMove.x, hoveredBotling.Botling.NextMove.y);
+                Point end = new Point(hoveredBotling.Center.X+(newX * 10), hoveredBotling.Center.Y+(newY * 10));
+
                 e.Graphics.DrawLine(arrowPen, start, end);
             }
         }
@@ -180,7 +185,7 @@ namespace IAcademyOfDoom.View
 
             if (e.Button == MouseButtons.Right)
             {
-                Botling target = BotlingHere(e.Location);
+                Botling target = BotlingHere(e.Location); 
                 if (target == null)
                 {
                     RoomView roomTarget = RoomHere(e.Location);
