@@ -90,19 +90,11 @@ namespace IAcademyOfDoom.View
 
             MoneyAmountLabel.Text = "" +  c.GetAvailableMoney();
 
-            Console.WriteLine("Paint");
 
             if (hoveredBotling != null)
             {
-                Console.WriteLine("Here");
                 Pen arrowPen = new Pen(Color.Blue, 2);
-                Console.WriteLine("Before -" + hoveredBotling.Botling.X+ " " + hoveredBotling.Botling.Y);
-                Console.WriteLine("After -"+ hoveredBotling.Botling.NextMove.x+" " +hoveredBotling.Botling.NextMove.y);
-                int newX = hoveredBotling.Botling.NextMove.x - hoveredBotling.Botling.X;
-                int newY = hoveredBotling.Botling.NextMove.y - hoveredBotling.Botling.Y;
-                Point start = new Point(hoveredBotling.Center.X, hoveredBotling.Center.Y);
-                Point end = new Point(hoveredBotling.Center.X+(newX * 10), hoveredBotling.Center.Y+(newY * 10));
-
+                (Point start, Point end) = ArrowCoordinates();
                 e.Graphics.DrawLine(arrowPen, start, end);
             }
         }
@@ -260,18 +252,21 @@ namespace IAcademyOfDoom.View
                 }
             }
             Botling b = BotlingHere(e.Location);
-            foreach(BotlingView bot in bots)
+            if (b == null)
             {
-                if (bot.Botling.Equals(b))
+                this.hoveredBotling = null;
+            } else
+            {
+                foreach (BotlingView bot in bots)
                 {
-                    this.hoveredBotling = bot;
+                    if (bot.Botling.Equals(b))
+                    {
+                        this.hoveredBotling = bot;
+                    }
                 }
             }
-
-            if (hoveredBotling != null)
-            {
-                Refresh();
-            }   
+            
+            Refresh();   
         }
 
         private void resultsBtn_Click(object sender, EventArgs e)
@@ -585,6 +580,16 @@ namespace IAcademyOfDoom.View
             }
         }
 
+        private (Point start, Point end) ArrowCoordinates()
+        {
+            int directionX = hoveredBotling.Botling.NextMove.x - hoveredBotling.Botling.X;
+            int directionY = hoveredBotling.Botling.NextMove.y - hoveredBotling.Botling.Y;
+            Point start = new Point(hoveredBotling.Center.X, hoveredBotling.Center.Y);
+            Point end = new Point(hoveredBotling.Center.X + (directionX * 25), hoveredBotling.Center.Y + (directionY * 25));
+            
+            return (start, end);
+        }
+
         private (int x, int y) PointCoordinates(Point point)
         {
             int posX = point.X;
@@ -683,8 +688,7 @@ namespace IAcademyOfDoom.View
             list[(botling.X, botling.Y)].Add(botling);
         }
 
-        #endregion
 
-       
+        #endregion
     }
 }

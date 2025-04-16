@@ -121,9 +121,9 @@
             // 
             // shopButton
             // 
-            this.shopButton.Location = new System.Drawing.Point(999, 150);
+            this.shopButton.Location = new System.Drawing.Point(833, 201);
             this.shopButton.Name = "shopButton";
-            this.shopButton.Size = new System.Drawing.Size(131, 23);
+            this.shopButton.Size = new System.Drawing.Size(162, 23);
             this.shopButton.TabIndex = 9;
             this.shopButton.Text = "Shop";
             this.shopButton.UseVisualStyleBackColor = true;
@@ -132,7 +132,7 @@
             // MoneyContentLabel
             // 
             this.MoneyContentLabel.AutoSize = true;
-            this.MoneyContentLabel.Location = new System.Drawing.Point(996, 96);
+            this.MoneyContentLabel.Location = new System.Drawing.Point(830, 157);
             this.MoneyContentLabel.Name = "MoneyContentLabel";
             this.MoneyContentLabel.Size = new System.Drawing.Size(90, 13);
             this.MoneyContentLabel.TabIndex = 10;
@@ -141,7 +141,7 @@
             // MoneyAmountLabel
             // 
             this.MoneyAmountLabel.AutoSize = true;
-            this.MoneyAmountLabel.Location = new System.Drawing.Point(1082, 96);
+            this.MoneyAmountLabel.Location = new System.Drawing.Point(926, 157);
             this.MoneyAmountLabel.Name = "MoneyAmountLabel";
             this.MoneyAmountLabel.Size = new System.Drawing.Size(0, 13);
             this.MoneyAmountLabel.TabIndex = 11;
