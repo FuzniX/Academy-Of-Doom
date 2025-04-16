@@ -152,8 +152,15 @@ namespace IAcademyOfDoom.View
             {
                 if (!c.CanEndPreparations() && c.Placeables().Count > 0 && RoomHere(e.Location) == null)
                 {
+                    if(!(x, y).Equals((-1, -1)))
+                    {
+                        Placeable placeableP = c.Placeables()[0];
+                        c.PlaceHere(x, y, placeableP);
+                    }
+                    
                     foreach (PlaceableView placeable in placeables)
                     {
+                        
                         if (placeable.OnSquare(e.Location))
                         {
                             // We assume that there is only one placeable that matches current location,
