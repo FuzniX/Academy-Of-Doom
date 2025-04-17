@@ -65,7 +65,7 @@ namespace IAcademyOfDoom.Logic
         /// Sets up base values
         /// </summary>
         public Game() { 
-            rooms.Add(Room.SpawnArea());
+            rooms.Add(new SpawnArea());
             rooms.Add(Room.ExamRoom());
             placeables.Add(new Placeable(RoomType.Prof, SkillType.Classify, "Classification Professor"));
             placeables.Add(new Placeable(RoomType.Prof, SkillType.Produce, "Production Professor"));
@@ -183,6 +183,7 @@ namespace IAcademyOfDoom.Logic
                 foreach (Botling botling in botlings)
                 {
                     if (botling is Introvert introvert) introvert.Move(Rooms(), Botlings());
+                    if (botling is Aimless aimless) aimless.Move(Rooms(), Botlings());
                     else botling.Move(Rooms());
                     (int x, int y) = (botling.X, botling.Y);
                     Room entered = FindRoomAt(x, y);

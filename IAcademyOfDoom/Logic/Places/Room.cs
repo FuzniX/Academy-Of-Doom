@@ -36,20 +36,6 @@ namespace IAcademyOfDoom.Logic.Places
         }
 
         /// <summary>
-        /// Factory method for the spawn area (top-left corner).
-        /// </summary>
-        /// <returns>a new spawn area room</returns>
-        public static Room SpawnArea()
-        {
-            Room r = new Room(0, 0)
-            {
-                Name = "Spawn area",
-                Type = RoomType.Cycle
-            };
-            return r;
-        }
-
-        /// <summary>
         /// Factory method for the exam room (bottom-right corner).
         /// </summary>
         /// <returns>a new exam room</returns>
