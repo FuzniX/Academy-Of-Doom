@@ -13,7 +13,7 @@ namespace IAcademyOfDoom.Logic.Mobiles
             NextMove = Next(rooms, botlings);
         }
         
-        protected (int x, int y) Next(List<Room> rooms, List<Botling> botlings)
+        public (int x, int y) Next(List<Room> rooms, List<Botling> botlings)
         {
             return AreAllAimless(botlings) ? base.Next(rooms) : base.Next(rooms, AllDirections());
         }
