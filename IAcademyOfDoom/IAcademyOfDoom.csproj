@@ -47,6 +47,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App\Controller.cs" />
+    <Compile Include="Logic\Mobiles\Aimless.cs" />
+    <Compile Include="Logic\Mobiles\Direction.cs" />
+    <Compile Include="Logic\Mobiles\Introvert.cs" />
+    <Compile Include="Logic\Mobiles\Lucky.cs" />
+    <Compile Include="Logic\Mobiles\Perfectionnist.cs" />
+    <Compile Include="Logic\Mobiles\Persistent.cs" />
+    <Compile Include="Logic\Mobiles\Speedster.cs" />
     <Compile Include="Logic\Places\Buyable.cs" />
     <Compile Include="Logic\GameSettings\Difficulty.cs" />
     <Compile Include="Logic\Mobiles\Botling.cs" />
