@@ -63,6 +63,7 @@
     <Compile Include="Logic\Game.cs" />
     <Compile Include="Logic\Mobiles\Names.cs" />
     <Compile Include="Logic\GameSequence\Phase.cs" />
+    <Compile Include="Logic\Places\SpawnArea.cs" />
     <Compile Include="Logic\Places\Orientation.cs" />
     <Compile Include="Logic\Places\PartyRoom.cs" />
     <Compile Include="Logic\Places\Placeable.cs" />
