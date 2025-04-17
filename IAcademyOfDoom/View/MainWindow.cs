@@ -25,6 +25,7 @@ namespace IAcademyOfDoom.View
         private RoomView currentRoom = null;
         private Point currentRoomMoveStart;
         private Point currentRoomOriginLocation;
+        private BotlingView hoveredBotling;
 
         #endregion
 
@@ -86,6 +87,16 @@ namespace IAcademyOfDoom.View
             {
                 bot.Draw(e.Graphics);
             }
+
+            MoneyAmountLabel.Text = "" +  c.GetAvailableMoney();
+
+
+            if (hoveredBotling != null)
+            {
+                Pen arrowPen = new Pen(Color.Blue, 2);
+                (Point start, Point end) = ArrowCoordinates();
+                e.Graphics.DrawLine(arrowPen, start, end);
+            }
         }
 
         private void EndPrepButton_Click(object sender, EventArgs e)
@@ -117,10 +128,7 @@ namespace IAcademyOfDoom.View
         private void shopButton_Click(object sender, EventArgs e)
         {
             Shop shop = new Shop(c);
-            if (shop.ShowDialog() == DialogResult.OK)
-            {
-                Refresh();
-            }
+            shop.Show();
         }
         /// <summary>
         /// Event handling: click on quit button.
@@ -144,8 +152,15 @@ namespace IAcademyOfDoom.View
             {
                 if (!c.CanEndPreparations() && c.Placeables().Count > 0 && RoomHere(e.Location) == null)
                 {
+                    if(!(x, y).Equals((-1, -1)))
+                    {
+                        Placeable placeableP = c.Placeables()[0];
+                        c.PlaceHere(x, y, placeableP);
+                    }
+                    
                     foreach (PlaceableView placeable in placeables)
                     {
+                        
                         if (placeable.OnSquare(e.Location))
                         {
                             // We assume that there is only one placeable that matches current location,
@@ -169,7 +184,7 @@ namespace IAcademyOfDoom.View
 
             if (e.Button == MouseButtons.Right)
             {
-                Botling target = BotlingHere(e.Location);
+                Botling target = BotlingHere(e.Location); 
                 if (target == null)
                 {
                     RoomView roomTarget = RoomHere(e.Location);
@@ -243,8 +258,24 @@ namespace IAcademyOfDoom.View
                     Refresh();
                 }
             }
+            Botling b = BotlingHere(e.Location);
+            if (b == null)
+            {
+                this.hoveredBotling = null;
+            } else
+            {
+                foreach (BotlingView bot in bots)
+                {
+                    if (bot.Botling.Equals(b))
+                    {
+                        this.hoveredBotling = bot;
+                    }
+                }
+            }
+            
+            Refresh();   
         }
-        
+
         private void resultsBtn_Click(object sender, EventArgs e)
         {
             c.ShowResults();
@@ -556,6 +587,16 @@ namespace IAcademyOfDoom.View
             }
         }
 
+        private (Point start, Point end) ArrowCoordinates()
+        {
+            int directionX = hoveredBotling.Botling.NextMove.x - hoveredBotling.Botling.X;
+            int directionY = hoveredBotling.Botling.NextMove.y - hoveredBotling.Botling.Y;
+            Point start = new Point(hoveredBotling.Center.X, hoveredBotling.Center.Y);
+            Point end = new Point(hoveredBotling.Center.X + (directionX * 25), hoveredBotling.Center.Y + (directionY * 25));
+            
+            return (start, end);
+        }
+
         private (int x, int y) PointCoordinates(Point point)
         {
             int posX = point.X;
@@ -653,6 +694,7 @@ namespace IAcademyOfDoom.View
 
             list[(botling.X, botling.Y)].Add(botling);
         }
+
 
         #endregion
     }
