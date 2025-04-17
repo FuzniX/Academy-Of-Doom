@@ -25,7 +25,7 @@ namespace IAcademyOfDoom.Logic.Mobiles
             finally { if (length > 1) HP--; } // Decrease HP if, whatever it is, the move is of length 2 or more
         }
 
-        protected static bool IsOutOfBounds(int x, int y)
+        private static bool IsOutOfBounds(int x, int y)
         {
             return x < 0 || x > Game.MaxX || y < 0 || y > Game.MaxY;
         }
