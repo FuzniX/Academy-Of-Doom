@@ -224,70 +224,66 @@ namespace IAcademyOfDoom.Logic.Mobiles
         /// <returns></returns>
         protected virtual (int x, int y) Next(List<Room> rooms, List<Direction> directions = null)
         {
-            if (directions == null) directions = new List<Direction> { Direction.Down, Direction.Right};
-            
-            // TODO Modifier ça pour supporter les 4 directions
+            return Next(BestDirection(rooms, directions), 1);
+        }
+
+        protected (int x, int y) Next(Direction direction, int length)
+        {
+            return (AddX(direction, length), AddY(direction, length));
+        }
+
+        protected Direction BestDirection(List<Room> rooms, List<Direction> directions)
+        {
+            if (directions == null) directions = new List<Direction> { Direction.Down, Direction.Right };
 
             if (X == Game.MaxX) directions.Remove(Direction.Right);
             if (X == 0) directions.Remove(Direction.Left);
             if (Y == Game.MaxY) directions.Remove(Direction.Down);
             if (Y == 0) directions.Remove(Direction.Up);
 
+            if (directions.Count == 0) return Direction.None;
+
             if (rooms != null && Orientation)
             {
                 int offset = 0;
-                while (X + offset < Game.MaxX && Y + offset < Game.MaxY)
+                while (directions.Count > 1 && (offset < Default.Lines || offset < Default.Columns))
                 {
                     offset++;
-                    Direction bestRoom = BestDirection(offset, rooms, directions);
+                    Direction bestRoom = BestDirectionAt(offset, rooms, directions);
                     if (bestRoom == Direction.Equivalent) break; // Reaching this line means both skills are equivalent, head to random
                     if (bestRoom == Direction.None) continue;
                     directions = new List<Direction> { bestRoom };
                 }
             }
-
-            // We get here either if:
-            // - no rooms were passed (constructor)
-            // - there is no room in both directions
-            // - rooms in both directions are equivalent
-            if (Game.Random.Next() % 2 == 0)
-            {
-                return (X, Y + 1);
-            }
-
-            return (X + 1, Y);
+            
+            // Choose one among all remaining directions
+            return directions[Game.Random.Next() % directions.Count];
         }
 
-        protected Direction BestDirection(int offset, List<Room> rooms, List<Direction> directions)
+        protected Direction BestDirectionAt(int offset, List<Room> rooms, List<Direction> directions)
         {
             Dictionary<Direction, int> skills = new Dictionary<Direction, int>();
-            directions.ForEach(direction => skills.Add(direction, 
-                Game.FindRoomAt(AddX(direction, offset), AddY(direction, offset), rooms) is ProfRoom profRoom
-                    ? GetMinimumSkill(profRoom.SkillType)
-                    : Int32.MaxValue));
-            // Room roomX = Game.FindRoomAt(x, y, rooms);
-            // Room roomY = Game.FindRoomAt(x, y, rooms);
-            
-            // TODO Ajouter seulement si c'est une ProfRoom, plus facile à gérer
-
-            if (roomX != null && roomY != null)
+            directions.ForEach(direction =>
             {
-                int skillX = Int32.MaxValue, skillY = Int32.MaxValue;
-                        
-                if (roomX is ProfRoom profRoomX) skillX = GetMinimumSkill(profRoomX.SkillType);
-                if (roomY is ProfRoom profRoomY) skillY = GetMinimumSkill(profRoomY.SkillType);
-                        
-                if (skillX ==  Int32.MaxValue && skillY == Int32.MaxValue) return -1;
-                        
-                // At least one is a prof room
-                if (skillX < skillY) return 0;
-                if (skillX > skillY) return 1;
-            }
+                if (Game.FindRoomAt(AddX(direction, offset), AddY(direction, offset), rooms) is ProfRoom profRoom)
+                {
+                    skills.Add(direction, GetMinimumSkill(profRoom.SkillType));
+                }
+            });
             
-            if (roomX != null) return 0;
-            if (roomY != null) return 1;
-
-            return -2; // Arbitrary, this value isn't used
+            if (skills.Count == 0) return Direction.None;
+            KeyValuePair<Direction, int> min = new KeyValuePair<Direction, int>(Direction.None, Int32.MaxValue);
+            Dictionary<Direction, int> bestSkills = new Dictionary<Direction, int>();
+            foreach (KeyValuePair<Direction, int> pair in skills)
+            {
+                if (min.Value > pair.Value)
+                {
+                    min = pair;
+                    bestSkills = new Dictionary<Direction, int> {{pair.Key, pair.Value}};
+                }
+                else if (min.Value == pair.Value) bestSkills.Add(pair.Key, pair.Value);
+            }
+            return skills.Count == 1 ? min.Key : Direction.Equivalent; 
         }
         
         /// <summary>
@@ -306,25 +302,17 @@ namespace IAcademyOfDoom.Logic.Mobiles
             return Math.Min(Skills[s1], Skills[s2]);
         }
 
-        private int AddX(Direction direction, int offset)
+        private int AddX(Direction direction, int length)
         {
-            switch (direction)
-            {
-                case Direction.Left:  return X - offset;
-                case Direction.Right: return X + offset;
-            }
-
+            if (direction == Direction.Left) return X - length;
+            if (direction == Direction.Right) return X + length;
             return X;
         }
         
-        private int AddY(Direction direction, int offset)
+        private int AddY(Direction direction, int length)
         {
-            switch (direction)
-            {
-                case Direction.Up:   return Y - offset;
-                case Direction.Down: return Y + offset;
-            }
-
+            if (direction == Direction.Up) return Y - length;
+            if (direction == Direction.Down) return Y + length;
             return Y;
         }
     }
