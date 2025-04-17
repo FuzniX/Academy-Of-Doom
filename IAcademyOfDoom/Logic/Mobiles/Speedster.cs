@@ -8,7 +8,7 @@ namespace IAcademyOfDoom.Logic.Mobiles
     {
         public Speedster() : base(BotType.Speedster) {}
         
-        protected override (int x, int y) Next(List<Room> rooms, List<Direction> directions = null)
+        public override (int x, int y) Next(List<Room> rooms, List<Direction> directions = null)
         {
             int length = 1;
             try

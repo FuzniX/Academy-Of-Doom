@@ -17,7 +17,7 @@ namespace IAcademyOfDoom.Logic.Mobiles
             return wasSuccessful;
         }
 
-        protected override (int x, int y) Next(List<Room> rooms, List<Direction> directions = null)
+        public override (int x, int y) Next(List<Room> rooms, List<Direction> directions = null)
         {
             bool successful = wasSuccessful;
             wasSuccessful = true;

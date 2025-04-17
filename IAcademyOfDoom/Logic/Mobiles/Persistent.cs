@@ -17,7 +17,7 @@ namespace IAcademyOfDoom.Logic.Mobiles
             return result;
         }
 
-        protected override (int x, int y) Next(List<Room> rooms, List<Direction> directions = null)
+        public override (int x, int y) Next(List<Room> rooms, List<Direction> directions = null)
         {
             if (HadFailed) {HadFailed = false; return (0, 0);}
             return base.Next(rooms, directions);

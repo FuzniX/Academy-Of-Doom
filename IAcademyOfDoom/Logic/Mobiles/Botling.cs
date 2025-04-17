@@ -222,12 +222,12 @@ namespace IAcademyOfDoom.Logic.Mobiles
         /// <param name="rooms"></param>
         /// <param name="directions"></param>
         /// <returns></returns>
-        protected virtual (int x, int y) Next(List<Room> rooms, List<Direction> directions = null)
+        public virtual (int x, int y) Next(List<Room> rooms, List<Direction> directions = null)
         {
-            return Next(BestDirection(rooms, directions), 1);
+            return Next(BestDirection(rooms, directions));
         }
 
-        protected (int x, int y) Next(Direction direction, int length)
+        protected (int x, int y) Next(Direction direction, int length = 1)
         {
             return (AddX(direction, length), AddY(direction, length));
         }
