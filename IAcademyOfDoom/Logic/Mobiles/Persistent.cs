@@ -6,7 +6,7 @@ namespace IAcademyOfDoom.Logic.Mobiles
 {
     public class Persistent : Botling
     {
-        private bool HadFailed = false;
+        private bool HadFailed;
         public Persistent() : base(BotType.Persistent) {}
 
         public override ExamResult Exam()
