@@ -15,7 +15,7 @@ namespace IAcademyOfDoom.Logic.Mobiles
         
         protected (int x, int y) Next(List<Room> rooms, List<Botling> botlings)
         {
-            return AreAllAimless(botlings) ? base.Next(rooms, AllDirections()) : base.Next(rooms);
+            return AreAllAimless(botlings) ? base.Next(rooms) : base.Next(rooms, AllDirections());
         }
 
         private static List<Direction> AllDirections() => new List<Direction>
