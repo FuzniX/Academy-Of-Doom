@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAcademyOfDoom.Logic.Actions
 {
-    internal class Stage
+    internal class Reform
     {
     }
 }

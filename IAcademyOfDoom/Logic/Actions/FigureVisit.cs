@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAcademyOfDoom.Logic.Actions
 {
-    public class VisiteSommite
+    public class FigureVisit
     {
     }
 }

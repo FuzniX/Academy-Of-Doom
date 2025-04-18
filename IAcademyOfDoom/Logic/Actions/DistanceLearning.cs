@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAcademyOfDoom.Logic.Actions
 {
-    internal class CoupesBudgetaires
+    internal class DistanceLearning
     {
     }
 }
