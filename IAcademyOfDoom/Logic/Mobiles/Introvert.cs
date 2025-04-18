@@ -18,14 +18,15 @@ namespace IAcademyOfDoom.Logic.Mobiles
         
         public (int x, int y) Next(List<Room> rooms, List<Botling> botlings)
         {
-            return BotlingHere(botlings) ? (X, Y) : base.Next(rooms);
+            (int x, int y) = base.Next(rooms);
+            return BotlingAt(botlings, x, y) ? (X, Y) : (x, y);
         }
 
-        private bool BotlingHere(List<Botling> botlings)
+        private bool BotlingAt(List<Botling> botlings, int x, int y)
         {
             foreach (Botling botling in botlings)
             {
-                if (botling.X == X && botling.Y == Y) return true;
+                if (botling.X == x && botling.Y == y) return true;
             }
 
             return false;

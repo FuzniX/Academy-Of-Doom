@@ -183,7 +183,7 @@ namespace IAcademyOfDoom.Logic
                 foreach (Botling botling in botlings)
                 {
                     if (botling is Introvert introvert) introvert.Move(Rooms(), Botlings());
-                    if (botling is Aimless aimless) aimless.Move(Rooms(), Botlings());
+                    else if (botling is Aimless aimless) aimless.Move(Rooms(), Botlings());
                     else botling.Move(Rooms());
                     (int x, int y) = (botling.X, botling.Y);
                     Room entered = FindRoomAt(x, y);
