@@ -54,7 +54,7 @@ namespace IAcademyOfDoom.Logic.Mobiles
         /// <summary>
         /// This botling will move there next.
         /// </summary>
-        public (int x, int y) NextMove { get; private set; }
+        public (int x, int y) NextMove { get; internal set; }
 
         /// <summary>
         /// Empty constructor, use with caution.
@@ -91,17 +91,16 @@ namespace IAcademyOfDoom.Logic.Mobiles
         /// <param name="skill">the skill to test (basic or combo)</param>
         /// <param name="difficulty">the level needed to pass</param>
         /// <returns></returns>
-        public bool TestSkill(SkillType skill, int difficulty)
+        public virtual bool TestSkill(SkillType skill, int difficulty, int diceRoll)
         {
             if (HP <= 0)
             {
                 return false;
             }
 
-            Random random = Game.Random;
             if (skill.IsBaseSkill())
             {
-                return Skills[skill] + random.Next(0, Default.DieSize) + 1 > difficulty;
+                return Skills[skill] + diceRoll > difficulty;
             }
             else
             {
@@ -112,9 +111,15 @@ namespace IAcademyOfDoom.Logic.Mobiles
                 else
                 {
                     (SkillType s1, SkillType s2) = skill.BasePair().Value;
-                    return Skills[s1] + Skills[s2] + random.Next(0, Default.DieSize) + 1 > difficulty;
+                    return Skills[s1] + Skills[s2] + diceRoll > difficulty;
                 }
             }
+        }
+
+        public int DiceRoll()
+        {
+            Random random = Game.Random;
+            return random.Next(0, Default.DieSize) + 1;
         }
 
         /// <summary>
@@ -122,9 +127,9 @@ namespace IAcademyOfDoom.Logic.Mobiles
         /// </summary>
         /// <param name="skill">the skill, basic or combo</param>
         /// <returns>true iff the lesson is successful</returns>
-        public bool GetLessonIn(SkillType skill)
+        public virtual bool GetLessonIn(SkillType skill)
         {
-            if (TestSkill(skill, Default.LessonDifficulty(Game.Difficulty, skill.IsBaseSkill() ? 1 : 2)))
+            if (TestSkill(skill, Default.LessonDifficulty(Game.Difficulty, skill.IsBaseSkill() ? 1 : 2), DiceRoll()))
             {
                 if (skill.IsBaseSkill())
                 {
@@ -163,11 +168,11 @@ namespace IAcademyOfDoom.Logic.Mobiles
         /// Performs the final exam.
         /// </summary>
         /// <returns>the exam result</returns>
-        public ExamResult Exam()
+        public virtual ExamResult Exam()
         {
             List<SkillType> subjects = SkillTypeUtils.AllCombinatedSkills();
             SkillType examinated = subjects[Game.Random.Next(0, subjects.Count)];
-            return TestSkill(examinated, Default.ExamDifficulty(Game.Difficulty))
+            return TestSkill(examinated, Default.ExamDifficulty(Game.Difficulty), DiceRoll())
                 ? ExamResult.Success
                 : ExamResult.Failure;
         }
@@ -215,58 +220,70 @@ namespace IAcademyOfDoom.Logic.Mobiles
         /// Retrieve botling's next move
         /// </summary>
         /// <param name="rooms"></param>
+        /// <param name="directions"></param>
         /// <returns></returns>
-        private (int x, int y) Next(List<Room> rooms)
+        public virtual (int x, int y) Next(List<Room> rooms, List<Direction> directions = null)
         {
-            if (X == Game.MaxX && Y == Game.MaxY) return (X, Y);
-            if (X == Game.MaxX) return (X, Y + 1);
-            if (Y == Game.MaxY) return (X + 1, Y);
+            return Next(BestDirection(rooms, directions));
+        }
+
+        protected (int x, int y) Next(Direction direction, int length = 1)
+        {
+            return (AddX(direction, length), AddY(direction, length));
+        }
+
+        protected Direction BestDirection(List<Room> rooms, List<Direction> directions)
+        {
+            if (directions == null) directions = new List<Direction> { Direction.Down, Direction.Right };
+
+            if (X == Game.MaxX) directions.Remove(Direction.Right);
+            if (X == 0) directions.Remove(Direction.Left);
+            if (Y == Game.MaxY) directions.Remove(Direction.Down);
+            if (Y == 0) directions.Remove(Direction.Up);
+
+            if (directions.Count == 0) return Direction.None;
 
             if (rooms != null && Orientation)
             {
                 int offset = 0;
-                Room roomX;
-                Room roomY;
-                while (X + offset < Game.MaxX && Y + offset < Game.MaxY)
+                while (directions.Count > 1 && (offset < Default.Lines || offset < Default.Columns))
                 {
                     offset++;
-                    roomX = Game.FindRoomAt(X + offset, Y, rooms);
-                    roomY = Game.FindRoomAt(X, Y + offset, rooms);
-                        
-                    if (roomX != null && roomY != null)
-                    {
-                        // Process of choosing the best room
-                        
-                        int skillX = Int32.MaxValue, skillY = Int32.MaxValue;
-                        
-                        if (roomX is ProfRoom profRoomX) skillX = GetMinimumSkill(profRoomX.SkillType);
-                        if (roomY is ProfRoom profRoomY) skillY = GetMinimumSkill(profRoomY.SkillType);
-                        
-                        if (skillX ==  Int32.MaxValue && skillY == Int32.MaxValue) continue;
-                        
-                        // At least one is a prof room
-                        if (skillX < skillY) return (X + 1, Y);
-                        if (skillX > skillY) return (X, Y + 1);
-                        
-                        // Reaching this line means both skills are equivalent, head to random
-                        break;
-                    }
-
-                    if (roomX != null) return (X + 1, Y);
-                    if (roomY != null) return (X, Y + 1);
+                    Direction bestRoom = BestDirectionAt(offset, rooms, directions);
+                    if (bestRoom == Direction.Equivalent) break; // Reaching this line means both skills are equivalent, head to random
+                    if (bestRoom == Direction.None) continue;
+                    directions = new List<Direction> { bestRoom };
                 }
             }
+            
+            // Choose one among all remaining directions
+            return directions[Game.Random.Next() % directions.Count];
+        }
 
-            // We get here either if:
-            // - no rooms were passed (constructor)
-            // - there is no room in both directions
-            // - rooms in both directions are equivalent
-            if (Game.Random.Next() % 2 == 0)
+        protected Direction BestDirectionAt(int offset, List<Room> rooms, List<Direction> directions)
+        {
+            Dictionary<Direction, int> skills = new Dictionary<Direction, int>();
+            directions.ForEach(direction =>
             {
-                return (X, Y + 1);
+                if (Game.FindRoomAt(AddX(direction, offset), AddY(direction, offset), rooms) is ProfRoom profRoom)
+                {
+                    skills.Add(direction, GetMinimumSkill(profRoom.SkillType));
+                }
+            });
+            
+            if (skills.Count == 0) return Direction.None;
+            KeyValuePair<Direction, int> min = new KeyValuePair<Direction, int>(Direction.None, Int32.MaxValue);
+            Dictionary<Direction, int> bestSkills = new Dictionary<Direction, int>();
+            foreach (KeyValuePair<Direction, int> pair in skills)
+            {
+                if (min.Value > pair.Value)
+                {
+                    min = pair;
+                    bestSkills = new Dictionary<Direction, int> {{pair.Key, pair.Value}};
+                }
+                else if (min.Value == pair.Value) bestSkills.Add(pair.Key, pair.Value);
             }
-
-            return (X + 1, Y);
+            return skills.Count == 1 ? min.Key : Direction.Equivalent; 
         }
         
         /// <summary>
@@ -283,6 +300,20 @@ namespace IAcademyOfDoom.Logic.Mobiles
             }
             (SkillType s1, SkillType s2) = type.BasePair().Value;
             return Math.Min(Skills[s1], Skills[s2]);
+        }
+
+        private int AddX(Direction direction, int length)
+        {
+            if (direction == Direction.Left) return X - length;
+            if (direction == Direction.Right) return X + length;
+            return X;
+        }
+        
+        private int AddY(Direction direction, int length)
+        {
+            if (direction == Direction.Up) return Y - length;
+            if (direction == Direction.Down) return Y + length;
+            return Y;
         }
     }
 }

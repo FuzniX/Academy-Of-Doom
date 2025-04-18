@@ -533,7 +533,7 @@ namespace IAcademyOfDoom.View
                 badges += " none";
             }
 
-            return "Botling " + name + ": " + hp + "\n  " + skills + "\n  " + badges + "\n  Orientation: " + botling.Orientation;
+            return "Botling " + name + ": " + hp + "\n  " + skills + "\n  " + badges + "\n  Orientation: " + botling.Orientation + "\n  Type: " + botling.Type;
         }
 
         public string DisplayStateOf(RoomView room)

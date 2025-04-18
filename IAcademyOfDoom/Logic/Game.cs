@@ -65,7 +65,7 @@ namespace IAcademyOfDoom.Logic
         /// Sets up base values
         /// </summary>
         public Game() { 
-            rooms.Add(Room.SpawnArea());
+            rooms.Add(new SpawnArea());
             rooms.Add(Room.ExamRoom());
             placeables.Add(new Placeable(RoomType.Prof, SkillType.Classify, "Classification Professor"));
             placeables.Add(new Placeable(RoomType.Prof, SkillType.Produce, "Production Professor"));
@@ -182,18 +182,23 @@ namespace IAcademyOfDoom.Logic
             {
                 foreach (Botling botling in botlings)
                 {
-                    botling.Move(Rooms());
+                    if (botling is Introvert introvert) introvert.Move(Rooms(), Botlings());
+                    if (botling is Aimless aimless) aimless.Move(Rooms(), Botlings());
+                    else botling.Move(Rooms());
                     (int x, int y) = (botling.X, botling.Y);
                     Room entered = FindRoomAt(x, y);
                     object result = entered?.ActOnEntry(botling);
                     if (result is ExamResult examResult)
                     {
                         StoreExamResult(examResult);
-                        terminatedNow.Add(botling);
+                        if (!(botling is Persistent) || examResult == ExamResult.Success)
+                        {
+                            terminatedNow.Add(botling);
+                        }
                     }
                     else if (result is bool b)
                     {
-                        if (entered is FacultyLounge facultyLounge)
+                        if (entered is FacultyLounge)
                         {
                             foreach (Room room in Rooms())
                             {
@@ -277,6 +282,8 @@ namespace IAcademyOfDoom.Logic
         {
             int i = 0;
             int index = -1;
+            if (rooms == null) return null;
+            
             while (index == -1 && i < rooms.Count)
             {
                 if (rooms[i]?.X==x && rooms[i]?.Y==y)
