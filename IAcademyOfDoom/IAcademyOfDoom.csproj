@@ -54,6 +54,18 @@
     <Compile Include="Logic\Mobiles\Perfectionnist.cs" />
     <Compile Include="Logic\Mobiles\Persistent.cs" />
     <Compile Include="Logic\Mobiles\Speedster.cs" />
+    <Compile Include="Logic\Actions\Action.cs" />
+    <Compile Include="Logic\Actions\Corruption.cs" />
+    <Compile Include="Logic\Actions\CoupesBudgetaires.cs" />
+    <Compile Include="Logic\Actions\CoursDistance.cs" />
+    <Compile Include="Logic\Actions\GreveEnseignants.cs" />
+    <Compile Include="Logic\Actions\GreveEtudiants.cs" />
+    <Compile Include="Logic\Actions\Indulgence.cs" />
+    <Compile Include="Logic\Actions\RefectionLocaux.cs" />
+    <Compile Include="Logic\Actions\ReformeImpomptue.cs" />
+    <Compile Include="Logic\Actions\Stage.cs" />
+    <Compile Include="Logic\Actions\Vacances.cs" />
+    <Compile Include="Logic\Actions\VisiteSommite.cs" />
     <Compile Include="Logic\Places\Buyable.cs" />
     <Compile Include="Logic\GameSettings\Difficulty.cs" />
     <Compile Include="Logic\Mobiles\Botling.cs" />
@@ -140,5 +152,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
