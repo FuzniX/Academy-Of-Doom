@@ -83,7 +83,7 @@ namespace IAcademyOfDoom.App
         /// <returns>Aviable amount of money</returns>
         public int  GetAvailableMoney() =>  game.Money;
 
-        public void UpdateAvailableMoney(int amount) => game.UpdateAmountOfMoney(amount);
+        public void UpdateAvailableMoney(int amount) => game.RemoveMoney(amount);
 
         public void AddPlaceable(Placeable pleaceble)
         {

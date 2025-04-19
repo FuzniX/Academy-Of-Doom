@@ -117,7 +117,13 @@ namespace IAcademyOfDoom.Logic
         public List<Buyable> Buyables() => new List<Buyable>(buyables);
         
         /// <summary>
-        /// Update player's money
+        /// Add money to player
+        /// </summary>
+        /// <param name="amount"></param>
+        public void AddMoney(int amount) => Money += amount;
+        
+        /// <summary>
+        /// Remove money from player
         /// </summary>
         /// <param name="amount"></param>
         public void RemoveMoney(int amount) => Money -= amount;
