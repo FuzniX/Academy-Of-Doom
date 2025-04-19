@@ -24,6 +24,8 @@ namespace IAcademyOfDoom.Logic.Places
 
         public string Name { get; internal set; }
 
+        public bool ForceSuccess;
+
         /// <summary>
         /// Constructor.
         /// </summary>
@@ -58,7 +60,7 @@ namespace IAcademyOfDoom.Logic.Places
         /// <returns>the result of the exam - actual type: ExamResult</returns>
         public virtual object ActOnEntry(Botling botling)
         {
-            return botling.Exam();
+            return (ForceSuccess) ? ExamResult.Success : botling.Exam();
         }
     }
 }
