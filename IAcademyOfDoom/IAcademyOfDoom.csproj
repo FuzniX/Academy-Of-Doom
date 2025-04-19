@@ -47,18 +47,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App\Controller.cs" />
-    <Compile Include="Logic\Actions\Botlings\AllBotlingsAction.cs" />
+    <Compile Include="Logic\Actions\Botlings\AbstractBotlingsAction.cs" />
     <Compile Include="Logic\Actions\Botlings\Corruption.cs" />
     <Compile Include="Logic\Actions\Botlings\DistanceLearning.cs" />
     <Compile Include="Logic\Actions\Botlings\RefresherCourse.cs" />
-    <Compile Include="Logic\Actions\People\AllPeopleAction.cs" />
-    <Compile Include="Logic\Actions\People\Holidays.cs" />
-    <Compile Include="Logic\Actions\People\StudentsStrike.cs" />
     <Compile Include="Logic\Actions\Rooms\JuryLeniency.cs" />
     <Compile Include="Logic\Actions\Rooms\PremisesRenovation.cs" />
-    <Compile Include="Logic\Actions\Rooms\Prof\AllProfRoomsAction.cs" />
+    <Compile Include="Logic\Actions\Rooms\Prof\AbstractProfRoomsAction.cs" />
     <Compile Include="Logic\Actions\Rooms\Prof\BudgetCuts.cs" />
     <Compile Include="Logic\Actions\Rooms\Prof\FigureVisit.cs" />
+    <Compile Include="Logic\Actions\Rooms\Prof\People\AbstractPeopleAction.cs" />
+    <Compile Include="Logic\Actions\Rooms\Prof\People\Holidays.cs" />
+    <Compile Include="Logic\Actions\Rooms\Prof\People\StudentsStrike.cs" />
     <Compile Include="Logic\Actions\Rooms\Prof\TeachersStrike.cs" />
     <Compile Include="Logic\Actions\Rooms\Reform.cs" />
     <Compile Include="Logic\Mobiles\Aimless.cs" />

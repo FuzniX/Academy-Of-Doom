@@ -5,12 +5,9 @@
     {
         public static readonly int Amount = 0;
         
-        private readonly string name;
+        public readonly string Name;
 
-        public Action(string name)
-        {
-            this.name = name;
-        }
+        protected Action(string name) => Name = name;
         
         public abstract void Execute();
     }
