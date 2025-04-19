@@ -7,13 +7,21 @@ namespace IAcademyOfDoom.Logic.Actions.Rooms.Prof
     {
         public const int Amount = 1;
         
-        public BudgetCuts(string name, List<ProfRoom> profRooms) : base(name, profRooms)
+        private readonly Game game;
+        
+        public BudgetCuts(string name, List<ProfRoom> profRooms, Game game) : base(name, profRooms)
         {
+            this.game = game;
         }
 
         public override void Execute()
         {
-            throw new System.NotImplementedException();
+            ProfRooms.ForEach(room =>
+            {
+                int toLose = (room.HP + 1) / 2;
+                ChangeProfHp(room, -toLose);
+                game.AddMoney(toLose);
+            });
         }
     }
 }
