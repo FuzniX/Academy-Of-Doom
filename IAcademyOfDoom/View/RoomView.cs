@@ -7,7 +7,24 @@ namespace IAcademyOfDoom.View
     {
         public int? Row { get; set; } = null;
         public int? Col { get; set; } = null;
-        public Point Location { get; set; }
+
+        private Point location;
+
+        public Point Location
+        {
+            get => location;
+            set
+            {
+                location = value;
+                if (Room != null)
+                {
+                    Room.X = location.X;
+                    Room.Y = location.Y;
+                }
+                
+            }
+        }
+
         public string Label { get; set; }
         public Color BackColour { get; set; }
         public Room Room { get; set; } = null;

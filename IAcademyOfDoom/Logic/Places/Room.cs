@@ -10,12 +10,12 @@ namespace IAcademyOfDoom.Logic.Places
         /// <summary>
         /// The column.
         /// </summary>
-        public int X { get; private set; }
+        public int X { get; set; }
 
         /// <summary>
         /// The row.
         /// </summary>
-        public int Y { get; private set; }
+        public int Y { get; set; }
 
         /// <summary>
         /// The type of the room.
