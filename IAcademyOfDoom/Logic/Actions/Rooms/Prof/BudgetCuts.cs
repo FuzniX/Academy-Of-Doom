@@ -3,9 +3,9 @@ using IAcademyOfDoom.Logic.Places;
 
 namespace IAcademyOfDoom.Logic.Actions.Rooms.Prof
 {
-    public class BudgetCuts : AllProfRoomsAction
+    public class BudgetCuts : AbstractProfRoomsAction
     {
-        public static readonly int Amount = 1;
+        public const int Amount = 1;
         
         public BudgetCuts(string name, List<ProfRoom> profRooms) : base(name, profRooms)
         {
