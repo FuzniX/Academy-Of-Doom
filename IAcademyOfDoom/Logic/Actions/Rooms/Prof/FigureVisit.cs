@@ -3,17 +3,19 @@ using IAcademyOfDoom.Logic.Places;
 
 namespace IAcademyOfDoom.Logic.Actions.Rooms.Prof
 {
-    public class FigureVisit : AllProfRoomsAction
+    public class FigureVisit : AbstractProfRoomsAction
     {
-        public static readonly int Amount = 3;
-        
+        public const int Amount = 3;
+
+        private const int HpToRetrieve = 5;
+
         public FigureVisit(string name, List<ProfRoom> profRooms) : base(name, profRooms)
         {
         }
 
         public override void Execute()
         {
-            throw new System.NotImplementedException();
+            ChangeProfsHp(HpToRetrieve);
         }
     }
 }
