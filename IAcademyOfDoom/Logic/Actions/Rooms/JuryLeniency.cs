@@ -4,7 +4,7 @@ namespace IAcademyOfDoom.Logic.Actions.Rooms
 {
     public class JuryLeniency : Action
     {
-        public static readonly int Amount = 1;
+        public const int Amount = 1;
         
         private readonly Room room;
         

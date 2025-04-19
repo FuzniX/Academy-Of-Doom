@@ -3,7 +3,7 @@
    
     public abstract class Action
     {
-        public static readonly int Amount = 0;
+        public const int Amount = 0;
         
         public readonly string Name;
 
