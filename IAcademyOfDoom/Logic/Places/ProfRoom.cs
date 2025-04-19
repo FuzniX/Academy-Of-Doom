@@ -18,6 +18,9 @@ namespace IAcademyOfDoom.Logic.Places
         /// The skill taught in this room.
         /// </summary>
         public SkillType SkillType {  get; set; }
+
+        public bool LessonNext { get; set; } = true;
+
         /// <summary>
         /// Constructor.
         /// </summary>
@@ -36,12 +39,17 @@ namespace IAcademyOfDoom.Logic.Places
         /// <returns>the result of the lesson - actual type: bool</returns>
         public override object ActOnEntry(Botling botling)
         {
-            HP--;
-            if (HP <=0)
+            if (LessonNext)
             {
-                Controller.Instance.DestroyRoom(this);
+                HP--;
+                if (HP <=0)
+                {
+                    Controller.Instance.DestroyRoom(this);
+                }
+                return botling.GetLessonIn(SkillType);
             }
-            return botling.GetLessonIn(SkillType);
+
+            return true;
         }
     }
 }
