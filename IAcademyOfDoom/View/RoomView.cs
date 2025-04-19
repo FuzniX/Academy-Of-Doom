@@ -5,25 +5,7 @@ namespace IAcademyOfDoom.View
 {
     public class RoomView
     {
-        public int? Row { get; set; } = null;
-        public int? Col { get; set; } = null;
-
-        private Point location;
-
-        public Point Location
-        {
-            get => location;
-            set
-            {
-                location = value;
-                if (Room != null)
-                {
-                    Room.X = location.X;
-                    Room.Y = location.Y;
-                }
-                
-            }
-        }
+        public Point Location { get; set; }
 
         public string Label { get; set; }
         public Color BackColour { get; set; }
@@ -66,6 +48,16 @@ namespace IAcademyOfDoom.View
         public bool Contains(Point p)
         {
             return new Rectangle(Location, new Size(Settings.Width, Settings.Height)).Contains(p);
+        }
+
+        public void UpdateRoomCoordinates()
+        {
+            if (Room != null) (Room.X, Room.Y) = MainWindow.PointCoordinates(Location);
+        }
+
+        public void SyncLocation()
+        {
+            Location = MainWindow.ConvertCoordinates(Room.X, Room.Y);
         }
     }
 }

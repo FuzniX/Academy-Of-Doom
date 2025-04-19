@@ -227,6 +227,7 @@ namespace IAcademyOfDoom.View
                     else
                     {
                         currentRoom.Location = ConvertCoordinates(x, y);
+                        currentRoom.UpdateRoomCoordinates();
                     }
                     Refresh();
                 }
@@ -303,6 +304,7 @@ namespace IAcademyOfDoom.View
             if (nextInAssaultButton.Enabled)
             {
                 WriteLine("Assault continuation!");
+                rooms.ForEach(roomView => roomView.SyncLocation());
             }
         }
 
@@ -597,7 +599,7 @@ namespace IAcademyOfDoom.View
             return (start, end);
         }
 
-        private (int x, int y) PointCoordinates(Point point)
+        public static (int x, int y) PointCoordinates(Point point)
         {
             int posX = point.X;
             int posY = point.Y;
