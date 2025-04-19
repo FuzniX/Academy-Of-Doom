@@ -119,8 +119,8 @@ namespace IAcademyOfDoom.Logic
         /// <summary>
         /// Update player's money
         /// </summary>
-        /// <param name="price"></param>
-        public void UpdateAmountOfMoney(int price) => this.Money -= price;
+        /// <param name="amount"></param>
+        public void RemoveMoney(int amount) => Money -= amount;
         
         /// <summary>
         /// Returns a copy of rooms' attribute

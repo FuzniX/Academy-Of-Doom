@@ -47,6 +47,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App\Controller.cs" />
+    <Compile Include="Logic\Actions\Botlings\AllBotlingsAction.cs" />
+    <Compile Include="Logic\Actions\Botlings\Corruption.cs" />
+    <Compile Include="Logic\Actions\Botlings\DistanceLearning.cs" />
+    <Compile Include="Logic\Actions\Botlings\RefresherCourse.cs" />
+    <Compile Include="Logic\Actions\People\AllPeopleAction.cs" />
+    <Compile Include="Logic\Actions\People\Holidays.cs" />
+    <Compile Include="Logic\Actions\People\StudentsStrike.cs" />
+    <Compile Include="Logic\Actions\Rooms\JuryLeniency.cs" />
+    <Compile Include="Logic\Actions\Rooms\PremisesRenovation.cs" />
+    <Compile Include="Logic\Actions\Rooms\Prof\AllProfRoomsAction.cs" />
+    <Compile Include="Logic\Actions\Rooms\Prof\BudgetCuts.cs" />
+    <Compile Include="Logic\Actions\Rooms\Prof\FigureVisit.cs" />
+    <Compile Include="Logic\Actions\Rooms\Prof\TeachersStrike.cs" />
+    <Compile Include="Logic\Actions\Rooms\Reform.cs" />
     <Compile Include="Logic\Mobiles\Aimless.cs" />
     <Compile Include="Logic\Mobiles\Direction.cs" />
     <Compile Include="Logic\Mobiles\Introvert.cs" />
@@ -55,17 +69,6 @@
     <Compile Include="Logic\Mobiles\Persistent.cs" />
     <Compile Include="Logic\Mobiles\Speedster.cs" />
     <Compile Include="Logic\Actions\Action.cs" />
-    <Compile Include="Logic\Actions\Corruption.cs" />
-    <Compile Include="Logic\Actions\BudgetCuts.cs" />
-    <Compile Include="Logic\Actions\DistanceLearning.cs" />
-    <Compile Include="Logic\Actions\TeachersStrike.cs" />
-    <Compile Include="Logic\Actions\StudentsStrike.cs" />
-    <Compile Include="Logic\Actions\JuryLeniency.cs" />
-    <Compile Include="Logic\Actions\PremisesRenovation.cs" />
-    <Compile Include="Logic\Actions\Reform.cs" />
-    <Compile Include="Logic\Actions\RefresherCourse.cs" />
-    <Compile Include="Logic\Actions\Holidays.cs" />
-    <Compile Include="Logic\Actions\FigureVisit.cs" />
     <Compile Include="Logic\Places\Buyable.cs" />
     <Compile Include="Logic\GameSettings\Difficulty.cs" />
     <Compile Include="Logic\Mobiles\Botling.cs" />
@@ -152,6 +155,5 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
