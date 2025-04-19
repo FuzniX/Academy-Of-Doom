@@ -6,10 +6,6 @@ using IAcademyOfDoom.Logic.Places;
 using IAcademyOfDoom.Logic.Skills;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IAcademyOfDoom.Logic
 {
@@ -225,6 +221,11 @@ namespace IAcademyOfDoom.Logic
                             terminatedNow.Add(botling);
                         }
                     }
+                }
+
+                foreach (Room room in rooms)
+                {
+                    if (room is ProfRoom profRoom) profRoom.LessonNext = true;
                 }
                 change = true;
             }
