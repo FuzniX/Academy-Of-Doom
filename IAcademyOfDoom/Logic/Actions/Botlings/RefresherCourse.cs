@@ -1,14 +1,18 @@
 ﻿using System.Collections.Generic;
 using IAcademyOfDoom.Logic.Mobiles;
+using IAcademyOfDoom.Logic.Skills;
 
 namespace IAcademyOfDoom.Logic.Actions.Botlings
 {
-    public class RefresherCourse : AllBotlingsAction
+    public class RefresherCourse : AbstractBotlingsAction
     {
-        public static readonly int Amount = 2;
+        public const int Amount = 2;
         
-        private int x;
-        private int y;
+        private readonly int x;
+        private readonly int y;
+
+        private const int SkillPointsToAdd = 1;
+
         public RefresherCourse(string name, List<Botling> botlings, int x, int y) : base(name, botlings)
         {
             this.x = x;
@@ -17,7 +21,16 @@ namespace IAcademyOfDoom.Logic.Actions.Botlings
         
         public override void Execute()
         {
-            throw new System.NotImplementedException();
+            Botlings.ForEach(botling =>
+            {
+                if (botling.X == x && botling.Y == y)
+                {
+                    foreach (SkillType skill in botling.Skills.Keys)
+                    {
+                        botling.Skills[skill] += SkillPointsToAdd;
+                    }
+                }
+            });
         }
     }
 }
