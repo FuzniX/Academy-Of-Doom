@@ -4,11 +4,13 @@ using IAcademyOfDoom.Logic.Skills;
 
 namespace IAcademyOfDoom.Logic.Actions.Botlings
 {
-    public class DistanceLearning : AllBotlingsAction
+    public class DistanceLearning : AbstractBotlingsAction
     {
-        public static readonly int Amount = 1;
+        public const int Amount = 1;
         
         private readonly SkillType skill;
+
+        private const int HpToLose = 1;
         
         public DistanceLearning(string name, List<Botling> botlings, SkillType skill) : base(name, botlings)
         {
@@ -17,7 +19,11 @@ namespace IAcademyOfDoom.Logic.Actions.Botlings
         
         public override void Execute()
         {
-            throw new System.NotImplementedException();
+            Botlings.ForEach(botling =>
+            {
+                ChangeBotlingHp(botling, -HpToLose);
+                botling.GetLessonIn(skill);
+            });
         }
     }
 }
