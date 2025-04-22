@@ -1,9 +1,11 @@
 ﻿using IAcademyOfDoom.App;
+using IAcademyOfDoom.Logic.Actions;
 using IAcademyOfDoom.Logic.GameSequence;
 using IAcademyOfDoom.Logic.GameSettings;
 using IAcademyOfDoom.Logic.Mobiles;
 using IAcademyOfDoom.Logic.Places;
 using IAcademyOfDoom.Logic.Skills;
+using IAcademyOfDoom.View;
 using System;
 using System.Collections.Generic;
 
@@ -77,6 +79,18 @@ namespace IAcademyOfDoom.Logic
             buyables.Add(new Buyable(RoomType.Facility, Default.StudentCost,4, "Rest room"));
             buyables.Add(new Buyable(RoomType.Facility, Default.StudentCost, 4,"Party room"));
             buyables.Add(new Buyable(RoomType.Facility, Default.FacultyCost,4, "Faculty lounge"));
+
+            buyables.Add(new Buyable(ActionType.Corruption, "Corruption"));
+            buyables.Add(new Buyable(ActionType.JuryLeniency, "Jury Leniency"));
+            buyables.Add(new Buyable(ActionType.FigureVisit, "Figure Visit"));
+            buyables.Add(new Buyable(ActionType.RefresherCourse, "Refresher Course"));
+            buyables.Add(new Buyable(ActionType.BudgetCuts, "Budget Cuts"));
+            buyables.Add(new Buyable(ActionType.DistanceLearning, "Distance Learning"));
+            buyables.Add(new Buyable(ActionType.Reform, "Reform"));
+            buyables.Add(new Buyable(ActionType.PermisesRenovation, "Permises Renovation"));
+            buyables.Add(new Buyable(ActionType.StudentStrike, "Student Strike"));
+            buyables.Add(new Buyable(ActionType.TeacherStrike, "Teacher Strike"));
+            buyables.Add(new Buyable(ActionType.Holidays, "Holidays"));
         }
         #endregion
         #region public methods

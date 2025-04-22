@@ -14,7 +14,6 @@ namespace IAcademyOfDoom.View
 {
     public partial class Shop : Form
     {
-        private List<Buyable> buyables;
         private Controller controller;
         public Shop(Controller c)
         {

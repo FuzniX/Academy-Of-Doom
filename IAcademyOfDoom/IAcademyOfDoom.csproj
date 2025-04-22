@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App\Controller.cs" />
+    <Compile Include="Logic\Actions\ActionType.cs" />
     <Compile Include="Logic\Actions\Botlings\AbstractBotlingsAction.cs" />
     <Compile Include="Logic\Actions\Botlings\Corruption.cs" />
     <Compile Include="Logic\Actions\Botlings\DistanceLearning.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Logic\GameSequence\Turn.cs" />
     <Compile Include="Logic\GameSequence\Wave.cs" />
     <Compile Include="Logic\Skills\SkillTypeUtils.cs" />
+    <Compile Include="View\ActionView.cs" />
     <Compile Include="View\DifficultySelect.cs">
       <SubType>Form</SubType>
     </Compile>

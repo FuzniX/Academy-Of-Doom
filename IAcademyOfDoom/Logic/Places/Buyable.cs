@@ -1,4 +1,6 @@
-﻿using IAcademyOfDoom.Logic.Skills;
+﻿using IAcademyOfDoom.Logic.Actions;
+using IAcademyOfDoom.Logic.Actions.Rooms.Prof.People;
+using IAcademyOfDoom.Logic.Skills;
 using System.Xml.Linq;
 
 namespace IAcademyOfDoom.Logic.Places
@@ -13,6 +15,8 @@ namespace IAcademyOfDoom.Logic.Places
         /// The type of the room.
         /// </summary>
         public RoomType RoomType { get; private set; }
+
+        public ActionType actionType { get; private set; }
         /// <summary>
         /// The associated skill (for prof rooms) or null.
         /// </summary>
@@ -20,7 +24,7 @@ namespace IAcademyOfDoom.Logic.Places
 
         private int price;
 
-        private int quantity;
+        private int quantity = Holidays.Amount;
         /// <summary>
         /// Constructor.
         /// </summary>
@@ -35,6 +39,11 @@ namespace IAcademyOfDoom.Logic.Places
             this.Skill = skill;
             this.name = name;
             this.quantity = quantityOfRooms;
+        }
+
+        public Buyable(ActionType actionType,string name = null) { 
+            this.actionType = actionType;
+            this.name = name;
         }
         /// <summary>
         /// Turns this in a placeable item.
