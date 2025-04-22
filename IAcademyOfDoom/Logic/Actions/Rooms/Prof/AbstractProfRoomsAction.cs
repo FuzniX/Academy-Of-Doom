@@ -18,7 +18,7 @@ namespace IAcademyOfDoom.Logic.Actions.Rooms.Prof
             ProfRooms.ForEach(room => ChangeProfHp(room, amount));
         }
         
-        protected void ChangeProfHp(ProfRoom profRoom, int amount)
+        protected static void ChangeProfHp(ProfRoom profRoom, int amount)
         {
             profRoom.HP = profRoom.HP < Default.BaseProfHitPoints - amount
                 ? profRoom.HP + amount

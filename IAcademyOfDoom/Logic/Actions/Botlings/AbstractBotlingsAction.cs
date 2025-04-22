@@ -12,16 +12,6 @@ namespace IAcademyOfDoom.Logic.Actions.Botlings
         {
             Botlings = botlings;
         }
-        
-        protected void ChangeBotlingsHp(int amount)
-        {
-            ChangeBotlingsHp(Botlings, amount);
-        }
-
-        public static void ChangeBotlingsHp(List<Botling> botlings, int amount)
-        {
-            botlings.ForEach(botling => ChangeBotlingHp(botling, amount));
-        }
 
         public static void ChangeBotlingHp(Botling botling, int amount)
         {
