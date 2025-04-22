@@ -32,18 +32,22 @@ namespace IAcademyOfDoom.View
                 if (controller.GetAvailableMoney() >= price && selectedBuyable.getQuantity() > 0)
                 {
                     controller.UpdateAvailableMoney(price);
-                    controller.AddPlaceable(selectedBuyable.MakePlaceable());
+                    if(selectedBuyable.RoomType != null)
+                    {
+                        controller.AddPlaceable(selectedBuyable.MakePlaceable());
+                    }
+                    
                     selectedBuyable.decrementQuantity();
                     controller.RefreshMainWindow();
                     Refresh();
                 }
                 else
                 {
-                    MessageBox.Show("Cannot buy this room");
+                    MessageBox.Show("Cannot buy this item");
                 }
             } else
             {
-                MessageBox.Show("Select room first");
+                MessageBox.Show("Select item first");
             }
             
         }

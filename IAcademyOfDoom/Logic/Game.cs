@@ -71,14 +71,14 @@ namespace IAcademyOfDoom.Logic
             placeables.Add(new Placeable(RoomType.Prof, SkillType.Interpret, "Interpretation Professor"));
             placeables.Add(new Placeable(RoomType.Prof, SkillType.Synthetise, "Synthesis Professor"));
             placeables.Add(new Placeable(RoomType.Prof, SkillType.Present, "Presentation Professor"));
-            buyables.Add(new Buyable(RoomType.Prof, Default.TutorCost, 1, "Analysys Tutor",SkillType.Analyse));
-            buyables.Add(new Buyable(RoomType.Prof, Default.TutorCost,1, "Recognition Tutor",SkillType.Recognise));
-            buyables.Add(new Buyable(RoomType.Prof, Default.TutorCost, 1, "Generation Tutor",SkillType.Generate));
-            buyables.Add(new Buyable(RoomType.Prof, Default.TutorCost,1, "Communication Tutor", SkillType.Communicate));
-            buyables.Add(new Buyable(RoomType.Facility, Default.ServiceCost,3, "Orientation"));
-            buyables.Add(new Buyable(RoomType.Facility, Default.StudentCost,4, "Rest room"));
-            buyables.Add(new Buyable(RoomType.Facility, Default.StudentCost, 4,"Party room"));
-            buyables.Add(new Buyable(RoomType.Facility, Default.FacultyCost,4, "Faculty lounge"));
+            buyables.Add(new Buyable(RoomType.Prof, Default.TutorCost, Default.TutorAmount, "Analysys Tutor",SkillType.Analyse));
+            buyables.Add(new Buyable(RoomType.Prof, Default.TutorCost, Default.TutorAmount, "Recognition Tutor",SkillType.Recognise));
+            buyables.Add(new Buyable(RoomType.Prof, Default.TutorCost, Default.TutorAmount, "Generation Tutor",SkillType.Generate));
+            buyables.Add(new Buyable(RoomType.Prof, Default.TutorCost, Default.TutorAmount, "Communication Tutor", SkillType.Communicate));
+            buyables.Add(new Buyable(RoomType.Facility, Default.ServiceCost,Default.ServiceAmount, "Orientation"));
+            buyables.Add(new Buyable(RoomType.Facility, Default.StudentCost,Default.StudentAmount, "Rest room"));
+            buyables.Add(new Buyable(RoomType.Facility, Default.StudentCost, Default.StudentAmount,"Party room"));
+            buyables.Add(new Buyable(RoomType.Facility, Default.FacultyCost,Default.FacultyAmount, "Faculty lounge"));
 
             buyables.Add(new Buyable(ActionType.Corruption, "Corruption"));
             buyables.Add(new Buyable(ActionType.JuryLeniency, "Jury Leniency"));

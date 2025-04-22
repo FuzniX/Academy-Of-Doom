@@ -15,6 +15,11 @@
         public static int ServiceCost { get; } = 5;
         public static int StudentCost { get; } = 5;
         public static int FacultyCost { get; } = 5;
+
+        public static int TutorAmount { get; } = 1;
+        public static int ServiceAmount { get; } = 3;
+        public static int StudentAmount { get; } = 4;
+        public static int FacultyAmount { get; } = 4;
         public static int BaseProfHitPoints { get; } = 50;
         public static int ExamDifficulty(Difficulty difficulty)
         {
