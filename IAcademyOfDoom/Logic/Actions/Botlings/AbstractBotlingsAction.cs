@@ -13,11 +13,6 @@ namespace IAcademyOfDoom.Logic.Actions.Botlings
             Botlings = botlings;
         }
 
-        public static void ChangeBotlingsHp(List<Botling> botlings, int amount)
-        {
-            botlings.ForEach(botling => ChangeBotlingHp(botling, amount));
-        }
-
         public static void ChangeBotlingHp(Botling botling, int amount)
         {
             botling.HP = botling.HP < Default.BaseHitPoints(Game.Difficulty) - amount

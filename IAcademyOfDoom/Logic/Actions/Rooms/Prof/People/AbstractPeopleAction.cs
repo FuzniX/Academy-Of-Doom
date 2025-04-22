@@ -16,7 +16,7 @@ namespace IAcademyOfDoom.Logic.Actions.Rooms.Prof.People
         
         protected void ChangeBotlingsHp(int amount)
         {
-            AbstractBotlingsAction.ChangeBotlingsHp(Botlings, amount);
+            Botlings.ForEach(botling => ChangeBotlingHp(botling, amount));
         }
 
         protected void ChangeBotlingHp(Botling botling, int amount)
