@@ -5,7 +5,6 @@ namespace IAcademyOfDoom.Logic.Actions.Botlings
 {
     public class Corruption : AbstractBotlingsAction
     {
-        public const int Amount = 1;
 
         private const int HpToLose = 3;
 

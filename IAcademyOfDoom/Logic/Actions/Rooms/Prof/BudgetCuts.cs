@@ -5,7 +5,6 @@ namespace IAcademyOfDoom.Logic.Actions.Rooms.Prof
 {
     public class BudgetCuts : AbstractProfRoomsAction
     {
-        public const int Amount = 1;
         
         private readonly Game game;
         

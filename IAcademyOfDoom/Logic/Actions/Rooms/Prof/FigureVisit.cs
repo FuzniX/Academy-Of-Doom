@@ -5,7 +5,6 @@ namespace IAcademyOfDoom.Logic.Actions.Rooms.Prof
 {
     public class FigureVisit : AbstractProfRoomsAction
     {
-        public const int Amount = 3;
 
         private const int HpToRetrieve = 5;
 

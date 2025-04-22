@@ -1,5 +1,6 @@
 ﻿using IAcademyOfDoom.Logic.Actions;
 using IAcademyOfDoom.Logic.Actions.Rooms.Prof.People;
+using IAcademyOfDoom.Logic.GameSettings;
 using IAcademyOfDoom.Logic.Skills;
 using System.Xml.Linq;
 
@@ -24,7 +25,9 @@ namespace IAcademyOfDoom.Logic.Places
 
         private int price;
 
-        private int quantity = Holidays.Amount;
+        private int quantity;
+
+        public bool isAction = false;
         /// <summary>
         /// Constructor.
         /// </summary>
@@ -32,18 +35,22 @@ namespace IAcademyOfDoom.Logic.Places
         /// <param name="price"></param>
         /// <param name="name"></param>
         /// <param name="skill"></param>
-        public Buyable(RoomType roomType, int priceRoom, int quantityOfRooms, string name = null, SkillType? skill = null)
+        public Buyable(RoomType roomType, int roomPrice, int quantity, string name = null, SkillType? skill = null)
         {
             this.RoomType = roomType;
-            this.price = priceRoom;
+            this.price = roomPrice;
             this.Skill = skill;
             this.name = name;
-            this.quantity = quantityOfRooms;
+            this.quantity = quantity;
         }
 
-        public Buyable(ActionType actionType,string name = null) { 
+        public Buyable(ActionType actionType, int quantity, string name = null) {
+            this.isAction = true;
             this.actionType = actionType;
             this.name = name;
+            this.price = Default.ActionCost;
+            this.quantity = quantity;
+
         }
         /// <summary>
         /// Turns this in a placeable item.

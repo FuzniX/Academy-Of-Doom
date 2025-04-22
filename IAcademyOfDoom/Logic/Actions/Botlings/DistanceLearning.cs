@@ -6,7 +6,6 @@ namespace IAcademyOfDoom.Logic.Actions.Botlings
 {
     public class DistanceLearning : AbstractBotlingsAction
     {
-        public const int Amount = 1;
         
         private readonly SkillType skill;
 

@@ -5,7 +5,6 @@ namespace IAcademyOfDoom.Logic.Actions.Rooms.Prof
 {
     public class TeachersStrike : AbstractProfRoomsAction
     {
-        public const int Amount = 2;
 
         private const int HpToRetrieve = 10;
 

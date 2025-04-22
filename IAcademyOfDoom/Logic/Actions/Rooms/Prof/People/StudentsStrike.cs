@@ -6,7 +6,6 @@ namespace IAcademyOfDoom.Logic.Actions.Rooms.Prof.People
 {
     public class StudentsStrike : AbstractPeopleAction
     {
-        public const int Amount = 2;
 
         private const int BotlingHpToRetrieve = 3;
 

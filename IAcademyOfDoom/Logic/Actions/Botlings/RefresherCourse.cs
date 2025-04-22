@@ -6,7 +6,6 @@ namespace IAcademyOfDoom.Logic.Actions.Botlings
 {
     public class RefresherCourse : AbstractBotlingsAction
     {
-        public const int Amount = 2;
         
         private readonly int x;
         private readonly int y;

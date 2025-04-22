@@ -71,7 +71,7 @@ namespace IAcademyOfDoom.Logic
             placeables.Add(new Placeable(RoomType.Prof, SkillType.Interpret, "Interpretation Professor"));
             placeables.Add(new Placeable(RoomType.Prof, SkillType.Synthetise, "Synthesis Professor"));
             placeables.Add(new Placeable(RoomType.Prof, SkillType.Present, "Presentation Professor"));
-            buyables.Add(new Buyable(RoomType.Prof, Default.TutorCost, Default.TutorAmount, "Analysys Tutor",SkillType.Analyse));
+            buyables.Add(new Buyable(RoomType.Prof, Default.TutorCost, Default.TutorAmount, "Analysis Tutor",SkillType.Analyse));
             buyables.Add(new Buyable(RoomType.Prof, Default.TutorCost, Default.TutorAmount, "Recognition Tutor",SkillType.Recognise));
             buyables.Add(new Buyable(RoomType.Prof, Default.TutorCost, Default.TutorAmount, "Generation Tutor",SkillType.Generate));
             buyables.Add(new Buyable(RoomType.Prof, Default.TutorCost, Default.TutorAmount, "Communication Tutor", SkillType.Communicate));
@@ -80,17 +80,20 @@ namespace IAcademyOfDoom.Logic
             buyables.Add(new Buyable(RoomType.Facility, Default.StudentCost, Default.StudentAmount,"Party room"));
             buyables.Add(new Buyable(RoomType.Facility, Default.FacultyCost,Default.FacultyAmount, "Faculty lounge"));
 
-            buyables.Add(new Buyable(ActionType.Corruption, "Corruption"));
-            buyables.Add(new Buyable(ActionType.JuryLeniency, "Jury Leniency"));
-            buyables.Add(new Buyable(ActionType.FigureVisit, "Figure Visit"));
-            buyables.Add(new Buyable(ActionType.RefresherCourse, "Refresher Course"));
-            buyables.Add(new Buyable(ActionType.BudgetCuts, "Budget Cuts"));
-            buyables.Add(new Buyable(ActionType.DistanceLearning, "Distance Learning"));
-            buyables.Add(new Buyable(ActionType.Reform, "Reform"));
-            buyables.Add(new Buyable(ActionType.PermisesRenovation, "Permises Renovation"));
-            buyables.Add(new Buyable(ActionType.StudentStrike, "Student Strike"));
-            buyables.Add(new Buyable(ActionType.TeacherStrike, "Teacher Strike"));
-            buyables.Add(new Buyable(ActionType.Holidays, "Holidays"));
+            buyables.Add(new Buyable(ActionType.Corruption, Default.CorruptionAmount, "Corruption"));
+            buyables.Add(new Buyable(ActionType.JuryLeniency, Default.JuryLeniencyAmount, "Jury Leniency"));
+            buyables.Add(new Buyable(ActionType.FigureVisit, Default.FigureVisitAmount, "Figure Visit"));
+            buyables.Add(new Buyable(ActionType.RefresherCourse, Default.RefresherCourseAmount, "Refresher Course"));
+            buyables.Add(new Buyable(ActionType.BudgetCuts, Default.BudgetCutsAmount, "Budget Cuts"));
+            buyables.Add(new Buyable(ActionType.DistanceLearning, Default.DistanceLearningAmount, "Analysis Distance Learning"));
+            buyables.Add(new Buyable(ActionType.DistanceLearning, Default.DistanceLearningAmount, "Recognition Distance Learning"));
+            buyables.Add(new Buyable(ActionType.DistanceLearning, Default.DistanceLearningAmount, "Generation Distance Learning"));
+            buyables.Add(new Buyable(ActionType.DistanceLearning, Default.DistanceLearningAmount, "Communication Distance Learning"));
+            buyables.Add(new Buyable(ActionType.Reform, Default.ReformAmount, "Reform"));
+            buyables.Add(new Buyable(ActionType.PremisesRenovation, Default.PremisesRenovationAmount, "Premises Renovation"));
+            buyables.Add(new Buyable(ActionType.StudentStrike, Default.StudentStrikeAmount, "Student Strike"));
+            buyables.Add(new Buyable(ActionType.TeacherStrike, Default.TeacherStrikeAmount, "Teacher Strike"));
+            buyables.Add(new Buyable(ActionType.Holidays, Default.HolidaysAmount, "Holidays"));
         }
         #endregion
         #region public methods

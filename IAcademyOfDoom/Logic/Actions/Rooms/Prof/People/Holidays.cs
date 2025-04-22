@@ -6,7 +6,6 @@ namespace IAcademyOfDoom.Logic.Actions.Rooms.Prof.People
 {
     public class Holidays : AbstractPeopleAction
     {
-        public const int Amount = 2;
 
         public Holidays(string name, List<ProfRoom> profRooms, List<Botling> botlings) : base(name, profRooms, botlings)
         {

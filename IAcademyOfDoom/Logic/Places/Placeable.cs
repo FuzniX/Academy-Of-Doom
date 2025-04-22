@@ -1,4 +1,5 @@
-﻿using IAcademyOfDoom.Logic.Skills;
+﻿using IAcademyOfDoom.Logic.Actions;
+using IAcademyOfDoom.Logic.Skills;
 
 namespace IAcademyOfDoom.Logic.Places
 {
@@ -12,6 +13,8 @@ namespace IAcademyOfDoom.Logic.Places
         /// The type of the room.
         /// </summary>
         public RoomType RoomType { get; private set; }
+
+        public ActionType ActionType { get; private set; }
         /// <summary>
         /// The associated skill (for prof rooms) or null.
         /// </summary>
@@ -26,6 +29,12 @@ namespace IAcademyOfDoom.Logic.Places
         {
             RoomType = roomType;
             Skill = skill;
+            this.name = name;
+        }
+
+        public Placeable(ActionType actionType, string name) 
+        {
+            this.ActionType = actionType;
             this.name = name;
         }
         /// <summary>

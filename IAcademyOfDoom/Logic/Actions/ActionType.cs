@@ -8,7 +8,19 @@ namespace IAcademyOfDoom.Logic.Actions
 {
     public enum ActionType
     {
-        Corruption, DistanceLearning,RefresherCourse,BudgetCuts
-            ,FigureVisit,TeacherStrike,JuryLeniency,PermisesRenovation,Reform,Holidays, StudentStrike
+        Corruption,
+        DistanceLearning,
+        RefresherCourse,
+        
+        JuryLeniency,
+        PremisesRenovation,
+        Reform,
+
+        BudgetCuts,
+        FigureVisit,
+        TeacherStrike,
+        
+        Holidays,
+        StudentStrike
     }
 }
