@@ -226,6 +226,7 @@ namespace IAcademyOfDoom.Logic
                 foreach (Room room in rooms)
                 {
                     if (room is ProfRoom profRoom) profRoom.LessonNext = true;
+                    if (room.X == MaxX && room.Y == MaxY) room.ForceSuccess = false;
                 }
                 change = true;
             }
