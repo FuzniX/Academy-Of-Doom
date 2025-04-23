@@ -28,10 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Shop));
             this.buyablesList = new System.Windows.Forms.ListBox();
             this.ShopLabel = new System.Windows.Forms.Label();
             this.buyButton = new System.Windows.Forms.Button();
             this.closeButton = new System.Windows.Forms.Button();
+            this.buyToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.closeToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // buyablesList
@@ -54,22 +58,26 @@
             // 
             // buyButton
             // 
-            this.buyButton.Location = new System.Drawing.Point(248, 279);
+            this.buyButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buyButton.BackgroundImage")));
+            this.buyButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buyButton.Location = new System.Drawing.Point(216, 252);
             this.buyButton.Name = "buyButton";
-            this.buyButton.Size = new System.Drawing.Size(117, 23);
+            this.buyButton.Size = new System.Drawing.Size(50, 50);
             this.buyButton.TabIndex = 2;
-            this.buyButton.Text = "Buy";
+            this.buyToolTip.SetToolTip(this.buyButton, "Buy");
             this.buyButton.UseVisualStyleBackColor = true;
             this.buyButton.Click += new System.EventHandler(this.buyButton_Click);
             // 
             // closeButton
             // 
+            this.closeButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("closeButton.BackgroundImage")));
+            this.closeButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.closeButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.closeButton.Location = new System.Drawing.Point(431, 279);
+            this.closeButton.Location = new System.Drawing.Point(447, 252);
             this.closeButton.Name = "closeButton";
-            this.closeButton.Size = new System.Drawing.Size(60, 23);
+            this.closeButton.Size = new System.Drawing.Size(50, 50);
             this.closeButton.TabIndex = 5;
-            this.closeButton.Text = "Close";
+            this.closeToolTip.SetToolTip(this.closeButton, "Close");
             this.closeButton.UseVisualStyleBackColor = true;
             this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
             this.closeButton.Paint += new System.Windows.Forms.PaintEventHandler(this.closeButton_Paint);
@@ -98,5 +106,7 @@
         private System.Windows.Forms.Label ShopLabel;
         private System.Windows.Forms.Button buyButton;
         private System.Windows.Forms.Button closeButton;
+        private System.Windows.Forms.ToolTip buyToolTip;
+        private System.Windows.Forms.ToolTip closeToolTip;
     }
 }

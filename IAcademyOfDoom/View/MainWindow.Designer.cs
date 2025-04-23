@@ -41,7 +41,11 @@
             this.shopButton = new System.Windows.Forms.Button();
             this.MoneyContentLabel = new System.Windows.Forms.Label();
             this.MoneyAmountLabel = new System.Windows.Forms.Label();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.shopToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.quitToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.resultToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.endPrepToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.nextToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // outputListBox
@@ -54,38 +58,43 @@
             // 
             // endPrepButton
             // 
-            this.endPrepButton.Location = new System.Drawing.Point(833, 492);
+            this.endPrepButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("endPrepButton.BackgroundImage")));
+            this.endPrepButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.endPrepButton.Location = new System.Drawing.Point(929, 12);
             this.endPrepButton.Name = "endPrepButton";
-            this.endPrepButton.Size = new System.Drawing.Size(162, 23);
+            this.endPrepButton.Size = new System.Drawing.Size(50, 50);
             this.endPrepButton.TabIndex = 1;
-            this.endPrepButton.Text = "End preparations";
+            this.endPrepToolTip.SetToolTip(this.endPrepButton, "End Preparations");
             this.endPrepButton.UseVisualStyleBackColor = true;
             this.endPrepButton.Click += new System.EventHandler(this.EndPrepButton_Click);
             // 
             // nextInAssaultButton
             // 
-            this.nextInAssaultButton.Enabled = false;
-            this.nextInAssaultButton.Location = new System.Drawing.Point(833, 521);
+            this.nextInAssaultButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("nextInAssaultButton.BackgroundImage")));
+            this.nextInAssaultButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.nextInAssaultButton.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.nextInAssaultButton.Location = new System.Drawing.Point(929, 12);
             this.nextInAssaultButton.Name = "nextInAssaultButton";
-            this.nextInAssaultButton.Size = new System.Drawing.Size(162, 23);
+            this.nextInAssaultButton.Size = new System.Drawing.Size(50, 50);
             this.nextInAssaultButton.TabIndex = 2;
-            this.nextInAssaultButton.Text = "Assault: next";
+            this.nextToolTip.SetToolTip(this.nextInAssaultButton, "Assault: next");
             this.nextInAssaultButton.UseVisualStyleBackColor = true;
+            this.nextInAssaultButton.Visible = false;
             this.nextInAssaultButton.Click += new System.EventHandler(this.NextInAssaultButton_Click);
             // 
             // botnumTextLabel
             // 
             this.botnumTextLabel.AutoSize = true;
-            this.botnumTextLabel.Location = new System.Drawing.Point(34, 23);
+            this.botnumTextLabel.Location = new System.Drawing.Point(12, 12);
             this.botnumTextLabel.Name = "botnumTextLabel";
-            this.botnumTextLabel.Size = new System.Drawing.Size(98, 13);
+            this.botnumTextLabel.Size = new System.Drawing.Size(47, 13);
             this.botnumTextLabel.TabIndex = 3;
-            this.botnumTextLabel.Text = "Number of botlings:";
+            this.botnumTextLabel.Text = "Botlings:";
             // 
             // numberOfBotlingsContentLabel
             // 
             this.numberOfBotlingsContentLabel.AutoSize = true;
-            this.numberOfBotlingsContentLabel.Location = new System.Drawing.Point(138, 23);
+            this.numberOfBotlingsContentLabel.Location = new System.Drawing.Point(63, 12);
             this.numberOfBotlingsContentLabel.Name = "numberOfBotlingsContentLabel";
             this.numberOfBotlingsContentLabel.Size = new System.Drawing.Size(16, 13);
             this.numberOfBotlingsContentLabel.TabIndex = 4;
@@ -93,32 +102,34 @@
             // 
             // quitButton
             // 
-            this.quitButton.Enabled = false;
-            this.quitButton.Location = new System.Drawing.Point(833, 603);
+            this.quitButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("quitButton.BackgroundImage")));
+            this.quitButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.quitButton.Location = new System.Drawing.Point(1098, 12);
             this.quitButton.Name = "quitButton";
-            this.quitButton.Size = new System.Drawing.Size(162, 23);
+            this.quitButton.Size = new System.Drawing.Size(50, 50);
             this.quitButton.TabIndex = 5;
-            this.quitButton.Text = "Quit";
+            this.quitToolTip.SetToolTip(this.quitButton, "Quit");
             this.quitButton.UseVisualStyleBackColor = true;
-            this.quitButton.Visible = false;
             this.quitButton.Click += new System.EventHandler(this.QuitButton_Click);
             // 
             // playerNameLabel
             // 
             this.playerNameLabel.AutoSize = true;
-            this.playerNameLabel.Location = new System.Drawing.Point(204, 23);
+            this.playerNameLabel.Location = new System.Drawing.Point(12, 38);
             this.playerNameLabel.Name = "playerNameLabel";
-            this.playerNameLabel.Size = new System.Drawing.Size(28, 13);
+            this.playerNameLabel.Size = new System.Drawing.Size(39, 13);
             this.playerNameLabel.TabIndex = 6;
-            this.playerNameLabel.Text = "       ";
+            this.playerNameLabel.Text = "Player:";
             // 
             // resultsBtn
             // 
-            this.resultsBtn.Location = new System.Drawing.Point(833, 560);
+            this.resultsBtn.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("resultsBtn.BackgroundImage")));
+            this.resultsBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.resultsBtn.Location = new System.Drawing.Point(1042, 12);
             this.resultsBtn.Name = "resultsBtn";
-            this.resultsBtn.Size = new System.Drawing.Size(162, 23);
+            this.resultsBtn.Size = new System.Drawing.Size(50, 50);
             this.resultsBtn.TabIndex = 7;
-            this.resultsBtn.Text = "Results";
+            this.resultToolTip.SetToolTip(this.resultsBtn, "Result");
             this.resultsBtn.UseVisualStyleBackColor = true;
             this.resultsBtn.Click += new System.EventHandler(this.resultsBtn_Click);
             // 
@@ -127,27 +138,27 @@
             this.shopButton.BackColor = System.Drawing.Color.Transparent;
             this.shopButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("shopButton.BackgroundImage")));
             this.shopButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.shopButton.Location = new System.Drawing.Point(833, 183);
+            this.shopButton.Location = new System.Drawing.Point(986, 12);
             this.shopButton.Name = "shopButton";
             this.shopButton.Size = new System.Drawing.Size(50, 50);
             this.shopButton.TabIndex = 9;
-            this.toolTip1.SetToolTip(this.shopButton, "test");
+            this.shopToolTip.SetToolTip(this.shopButton, "Shop");
             this.shopButton.UseVisualStyleBackColor = false;
             this.shopButton.Click += new System.EventHandler(this.shopButton_Click);
             // 
             // MoneyContentLabel
             // 
             this.MoneyContentLabel.AutoSize = true;
-            this.MoneyContentLabel.Location = new System.Drawing.Point(830, 157);
+            this.MoneyContentLabel.Location = new System.Drawing.Point(12, 25);
             this.MoneyContentLabel.Name = "MoneyContentLabel";
-            this.MoneyContentLabel.Size = new System.Drawing.Size(90, 13);
+            this.MoneyContentLabel.Size = new System.Drawing.Size(45, 13);
             this.MoneyContentLabel.TabIndex = 10;
-            this.MoneyContentLabel.Text = "Money available: ";
+            this.MoneyContentLabel.Text = "Money: ";
             // 
             // MoneyAmountLabel
             // 
             this.MoneyAmountLabel.AutoSize = true;
-            this.MoneyAmountLabel.Location = new System.Drawing.Point(926, 157);
+            this.MoneyAmountLabel.Location = new System.Drawing.Point(63, 25);
             this.MoneyAmountLabel.Name = "MoneyAmountLabel";
             this.MoneyAmountLabel.Size = new System.Drawing.Size(0, 13);
             this.MoneyAmountLabel.TabIndex = 11;
@@ -168,9 +179,10 @@
             this.Controls.Add(this.nextInAssaultButton);
             this.Controls.Add(this.endPrepButton);
             this.Controls.Add(this.outputListBox);
+            this.Cursor = System.Windows.Forms.Cursors.Default;
             this.DoubleBuffered = true;
             this.Name = "MainWindow";
-            this.Text = "IA academy of doom";
+            this.Text = "IAcademy of Doom";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.MainWindow_Paint);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainWindow_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainWindow_MouseMove);
@@ -193,7 +205,11 @@
         private System.Windows.Forms.Button shopButton;
         private System.Windows.Forms.Label MoneyContentLabel;
         private System.Windows.Forms.Label MoneyAmountLabel;
-        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.ToolTip shopToolTip;
+        private System.Windows.Forms.ToolTip quitToolTip;
+        private System.Windows.Forms.ToolTip resultToolTip;
+        private System.Windows.Forms.ToolTip endPrepToolTip;
+        private System.Windows.Forms.ToolTip nextToolTip;
     }
 }
 

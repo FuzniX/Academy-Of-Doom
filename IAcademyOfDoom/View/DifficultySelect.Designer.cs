@@ -28,11 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DifficultySelect));
             this.nameLabel = new System.Windows.Forms.Label();
             this.difficultyLabel = new System.Windows.Forms.Label();
             this.nameTextBox = new System.Windows.Forms.TextBox();
             this.difficultyListBox = new System.Windows.Forms.ListBox();
             this.okButton = new System.Windows.Forms.Button();
+            this.okToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // nameLabel
@@ -70,12 +73,14 @@
             // 
             // okButton
             // 
+            this.okButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("okButton.BackgroundImage")));
+            this.okButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.okButton.Location = new System.Drawing.Point(377, 47);
+            this.okButton.Location = new System.Drawing.Point(555, 103);
             this.okButton.Name = "okButton";
-            this.okButton.Size = new System.Drawing.Size(75, 23);
+            this.okButton.Size = new System.Drawing.Size(50, 50);
             this.okButton.TabIndex = 4;
-            this.okButton.Text = "OK";
+            this.okToolTip.SetToolTip(this.okButton, "OK");
             this.okButton.UseVisualStyleBackColor = true;
             // 
             // DifficultySelect
@@ -102,5 +107,6 @@
         private System.Windows.Forms.TextBox nameTextBox;
         private System.Windows.Forms.ListBox difficultyListBox;
         private System.Windows.Forms.Button okButton;
+        private System.Windows.Forms.ToolTip okToolTip;
     }
 }

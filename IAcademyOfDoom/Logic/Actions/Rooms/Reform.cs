@@ -6,8 +6,6 @@ namespace IAcademyOfDoom.Logic.Actions.Rooms
 {
     public class Reform : Action
     {
-        public const int Amount = 1;
-        
         private readonly List<Room> rooms;
         
         public Reform(string name, List<Room> rooms) : base(name)
