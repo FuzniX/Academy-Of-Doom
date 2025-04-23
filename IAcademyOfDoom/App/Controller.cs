@@ -90,6 +90,12 @@ namespace IAcademyOfDoom.App
             game.AddPlaceable(pleaceble);
             window.PreviewPlaceableItems(game.Placeables());
         }
+        
+        public void AddAction(PlaceableAction placeable)
+        {
+            game.AddPlaceableAction(placeable);
+            window.PreviewPlaceableItems(game.PlaceableActions());
+        }
 
         /// <summary>
         /// Method called by the window when preparations are over.
@@ -116,6 +122,8 @@ namespace IAcademyOfDoom.App
         public void EndAssault()
         {
             window.DisplayResults(game.GetResults());
+            window.ClearActions();
+            game.ClearActions();
             ShowResults();
         }
 
@@ -168,6 +176,16 @@ namespace IAcademyOfDoom.App
             window.WriteLine("Placed:" + placeable.ToString());
             window.PreviewPlaceableItems(game.Placeables());
             window.Refresh();
+        }
+        
+        public void PlaceAction(int x, int y, PlaceableAction placeableAction)
+        {
+            if (game.PlaceActionHere(x, y, placeableAction))
+            {
+                window.WriteLine("Placed:" + placeableAction.ToString());
+                window.PreviewPlaceableItems(game.PlaceableActions());
+                window.Refresh();
+            }
         }
 
         /// <summary>

@@ -8,6 +8,12 @@ using IAcademyOfDoom.Logic.Skills;
 using IAcademyOfDoom.View;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using IAcademyOfDoom.Logic.Actions.Botlings;
+using IAcademyOfDoom.Logic.Actions.Rooms;
+using IAcademyOfDoom.Logic.Actions.Rooms.Prof;
+using IAcademyOfDoom.Logic.Actions.Rooms.Prof.People;
+using Action = IAcademyOfDoom.Logic.Actions.Action;
 
 namespace IAcademyOfDoom.Logic
 {
@@ -54,8 +60,10 @@ namespace IAcademyOfDoom.Logic
         private int deaths;
         private readonly List<Room> rooms = new List<Room>();
         private readonly List<Placeable> placeables = new List<Placeable>();
+        private readonly List<PlaceableAction> placeableActions = new  List<PlaceableAction>();
         private readonly List<Botling> botlings = new List<Botling>();
         private Controller c = Controller.Instance;
+
         #endregion
         #region constructor
         /// <summary>
@@ -85,10 +93,10 @@ namespace IAcademyOfDoom.Logic
             buyables.Add(new Buyable(ActionType.FigureVisit, Default.FigureVisitAmount, "Figure Visit"));
             buyables.Add(new Buyable(ActionType.RefresherCourse, Default.RefresherCourseAmount, "Refresher Course"));
             buyables.Add(new Buyable(ActionType.BudgetCuts, Default.BudgetCutsAmount, "Budget Cuts"));
-            buyables.Add(new Buyable(ActionType.DistanceLearning, Default.DistanceLearningAmount, "Analysis Distance Learning"));
-            buyables.Add(new Buyable(ActionType.DistanceLearning, Default.DistanceLearningAmount, "Recognition Distance Learning"));
-            buyables.Add(new Buyable(ActionType.DistanceLearning, Default.DistanceLearningAmount, "Generation Distance Learning"));
-            buyables.Add(new Buyable(ActionType.DistanceLearning, Default.DistanceLearningAmount, "Communication Distance Learning"));
+            buyables.Add(new Buyable(ActionType.DistanceLearning, Default.DistanceLearningAmount, "Analysis Distance Learning", SkillType.Analyse));
+            buyables.Add(new Buyable(ActionType.DistanceLearning, Default.DistanceLearningAmount, "Recognition Distance Learning", SkillType.Recognise));
+            buyables.Add(new Buyable(ActionType.DistanceLearning, Default.DistanceLearningAmount, "Generation Distance Learning", SkillType.Generate));
+            buyables.Add(new Buyable(ActionType.DistanceLearning, Default.DistanceLearningAmount, "Communication Distance Learning", SkillType.Communicate));
             buyables.Add(new Buyable(ActionType.Reform, Default.ReformAmount, "Reform"));
             buyables.Add(new Buyable(ActionType.PremisesRenovation, Default.PremisesRenovationAmount, "Premises Renovation"));
             buyables.Add(new Buyable(ActionType.StudentStrike, Default.StudentStrikeAmount, "Student Strike"));
@@ -114,13 +122,20 @@ namespace IAcademyOfDoom.Logic
         /// <returns>a new list</returns>
         public List<Placeable> Placeables() => new List<Placeable>(placeables);
         
+        public List<PlaceableAction> PlaceableActions() => new List<PlaceableAction>(placeableActions);
+        
         /// <summary>
         /// Provide a public way of adding a placeable to the game class
         /// </summary>
         /// <param name="placeable"></param>
-        public void AddPlaceable(Placeable placeable) {
+        public void AddPlaceable(Placeable placeable)
+        {
             placeables.Add(placeable);
-            
+        }
+
+        public void AddPlaceableAction(PlaceableAction placeable)
+        {
+            placeableActions.Add(placeable);
         }
 
         /// <summary>
@@ -176,6 +191,71 @@ namespace IAcademyOfDoom.Logic
                 return false;
             }
         }
+        
+        public bool PlaceActionHere(int x, int y, PlaceableAction placeableAction)
+        {
+            if (placeableActions.Contains(placeableAction))
+            {
+                Action action = null;
+                switch (placeableAction.ActionType)
+                {
+                    case ActionType.Corruption:
+                        action = new Corruption(placeableAction.Name, Botlings(), this);
+                        break;
+                    case ActionType.DistanceLearning:
+                        if (placeableAction.Skill.HasValue) action = new DistanceLearning(placeableAction.Name, Botlings(), (SkillType)placeableAction.Skill);
+                        break;
+                    case ActionType.RefresherCourse:
+                        action = new RefresherCourse(placeableAction.Name, Botlings(), x, y);
+                        break;
+                    case ActionType.JuryLeniency:
+                        if (FindRoomAt(x, y) is Room room) action = new JuryLeniency(placeableAction.Name, room);
+                        break;
+                    case ActionType.PremisesRenovation:
+                        if (FindRoomAt(x, y) is ProfRoom profRoom) action = new PremisesRenovation(placeableAction.Name, profRoom);
+                        break;
+                    case ActionType.Reform:
+                        action = new Reform(placeableAction.Name, Rooms());
+                        break;
+                    case ActionType.BudgetCuts:
+                        action = new BudgetCuts(placeableAction.Name, ProfRooms(), this);
+                        break;
+                    case ActionType.FigureVisit:
+                        action = new FigureVisit(placeableAction.Name, ProfRooms());
+                        break;
+                    case ActionType.TeacherStrike:
+                        action = new TeachersStrike(placeableAction.Name, ProfRooms());
+                        break;
+                    case ActionType.Holidays:
+                        action = new Holidays(placeableAction.Name, ProfRooms(), Botlings());
+                        break;
+                    case ActionType.StudentStrike:
+                        action = new StudentsStrike(placeableAction.Name, ProfRooms(), Botlings());
+                        break;
+                }
+
+                if (action != null)
+                {
+                    action.Execute();
+                    placeableActions.Remove(placeableAction);
+                }
+                
+                return true;
+            }
+
+            return false;
+        }
+
+        private List<ProfRoom> ProfRooms()
+        {
+            List<ProfRoom> profRooms = new List<ProfRoom>();
+            foreach (Room room in rooms)
+            {
+                if (room is ProfRoom profRoom) profRooms.Add(profRoom);
+            }
+            return profRooms;
+        }
+
         /// <summary>
         /// Ends the preparation phase and goes into the assault phase.
         /// </summary>
@@ -292,7 +372,6 @@ namespace IAcademyOfDoom.Logic
         public bool NextWave()
         {
             return waveNumber <= 2;
-           
         }
 
         /// <summary>
@@ -329,6 +408,8 @@ namespace IAcademyOfDoom.Logic
                 return rooms[index];
             }
         }
+        
+        public void ClearActions() => placeableActions.Clear();
         
         #endregion
         #region private methods
@@ -368,6 +449,9 @@ namespace IAcademyOfDoom.Logic
                 return rooms[index];
             }
         }
+
+        
+        
         #endregion
     }
 }

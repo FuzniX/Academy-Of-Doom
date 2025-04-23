@@ -8,13 +8,13 @@ namespace IAcademyOfDoom.Logic.Places
     /// </summary>
     public class Placeable
     {
-        private readonly string name;
+        public readonly string name;
         /// <summary>
         /// The type of the room.
         /// </summary>
         public RoomType RoomType { get; private set; }
 
-        public ActionType ActionType { get; private set; }
+        
         /// <summary>
         /// The associated skill (for prof rooms) or null.
         /// </summary>
@@ -32,11 +32,7 @@ namespace IAcademyOfDoom.Logic.Places
             this.name = name;
         }
 
-        public Placeable(ActionType actionType, string name) 
-        {
-            this.ActionType = actionType;
-            this.name = name;
-        }
+        
         /// <summary>
         /// Turns this object into a room.
         /// </summary>

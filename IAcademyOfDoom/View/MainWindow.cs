@@ -21,7 +21,9 @@ namespace IAcademyOfDoom.View
         private readonly List<BotlingView> bots = new List<BotlingView>();
         private readonly List<RoomView> rooms = new List<RoomView>();
         private readonly List<PlaceableView> placeables = new List<PlaceableView>();
+        private readonly List<ActionView> actions = new List<ActionView>();
         private PlaceableView currentPlaceable = null;
+        private ActionView currentAction = null;
         private RoomView currentRoom = null;
         private Point currentRoomMoveStart;
         private Point currentRoomOriginLocation;
@@ -74,6 +76,11 @@ namespace IAcademyOfDoom.View
             foreach (PlaceableView placeable in placeables)
             {
                 placeable.Draw(e.Graphics);
+            }
+
+            foreach (ActionView action in actions)
+            {
+                action.Draw(e.Graphics);
             }
 
             BackgroundGrid(e.Graphics);
@@ -182,6 +189,17 @@ namespace IAcademyOfDoom.View
                 }
             }
 
+            if (e.Button == MouseButtons.Left)
+            {
+                foreach (ActionView action in actions)
+                {
+                    if (action.OnSquare(e.Location))
+                    {
+                        currentAction = action;
+                    }
+                }
+            }
+
             if (e.Button == MouseButtons.Right)
             {
                 Botling target = BotlingHere(e.Location); 
@@ -233,6 +251,11 @@ namespace IAcademyOfDoom.View
                 }
                 currentRoom = null;
             }
+
+            if (e.Button == MouseButtons.Left && currentAction != null)
+            {
+                c.PlaceAction(x, y, currentAction.PlaceableAction);
+            }
         }
 
         /// <summary>
@@ -259,22 +282,36 @@ namespace IAcademyOfDoom.View
                     Refresh();
                 }
             }
+            
+            if (e.Button == MouseButtons.Left && currentAction != null)
+            {
+                currentAction.Location = e.Location;
+                Refresh();
+            }
+            
             Botling b = BotlingHere(e.Location);
             if (b == null)
             {
-                this.hoveredBotling = null;
-            } else
+                if (hoveredBotling != null)
+                {
+                    hoveredBotling = null;
+                    Refresh();
+                }
+                
+            } 
+            else
             {
                 foreach (BotlingView bot in bots)
                 {
                     if (bot.Botling.Equals(b))
                     {
-                        this.hoveredBotling = bot;
+                        hoveredBotling = bot;
                     }
                 }
+                Refresh();
             }
             
-            Refresh();   
+              
         }
 
         private void resultsBtn_Click(object sender, EventArgs e)
@@ -506,6 +543,26 @@ namespace IAcademyOfDoom.View
             WriteLine("Items:" + items);
             Refresh();
         }
+        
+        /// <summary>
+        /// Method called by the controller to update the placeable actions.
+        /// </summary>
+        /// <param name="placeables">the current list of placeable actions</param>
+        public void PreviewPlaceableItems(List<PlaceableAction> actions)
+        {
+            this.actions.Clear();
+            if (actions.Count == 0) return;
+            
+            int x = Settings.ActionLeft;
+            int y = Settings.ActionTop;
+
+            foreach (PlaceableAction action in actions)
+            {
+                this.actions.Add(new ActionView(action, new Point(x, y)));
+                y += Settings.PlaceableOffset;
+            }
+            Refresh();
+        }
 
         /// <summary>
         /// Method displaying the current status of a logical botling mobile.
@@ -697,7 +754,11 @@ namespace IAcademyOfDoom.View
             list[(botling.X, botling.Y)].Add(botling);
         }
 
-
+        public void ClearActions()
+        {
+            actions.Clear();
+        }
+        
         #endregion
     }
 }

@@ -32,13 +32,13 @@ namespace IAcademyOfDoom.View
                 if (controller.GetAvailableMoney() >= price && selectedBuyable.getQuantity() > 0)
                 {
                     controller.UpdateAvailableMoney(price);
-                    if(selectedBuyable.RoomType != null && !selectedBuyable.isAction)
+                    if(!selectedBuyable.isAction)
                     {
                         controller.AddPlaceable(selectedBuyable.MakePlaceable());
                     }
-                    if (selectedBuyable.actionType != null && selectedBuyable.isAction)
+                    if (selectedBuyable.isAction)
                     {
-                        controller.AddAction(new Placeable(selectedBuyable.actionType, selectedBuyable.getName());
+                        controller.AddAction(new PlaceableAction(selectedBuyable.actionType, selectedBuyable.getName(), selectedBuyable.Skill));
                     }
 
                     selectedBuyable.decrementQuantity();

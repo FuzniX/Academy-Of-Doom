@@ -44,12 +44,13 @@ namespace IAcademyOfDoom.Logic.Places
             this.quantity = quantity;
         }
 
-        public Buyable(ActionType actionType, int quantity, string name = null) {
+        public Buyable(ActionType actionType, int quantity, string name = null, SkillType? skill = null) {
             this.isAction = true;
             this.actionType = actionType;
             this.name = name;
             this.price = Default.ActionCost;
             this.quantity = quantity;
+            this.Skill = skill;
 
         }
         /// <summary>

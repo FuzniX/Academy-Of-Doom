@@ -3,8 +3,6 @@
    
     public abstract class Action
     {
-        public const int Amount = 0;
-        
         public readonly string Name;
 
         protected Action(string name) => Name = name;
