@@ -38,7 +38,7 @@ namespace IAcademyOfDoom.View
                     }
                     if (selectedBuyable.actionType != null && selectedBuyable.isAction)
                     {
-                        controller.AddAction(new Placeable(selectedBuyable.actionType, selectedBuyable.getName());
+                        //controller.AddAction(new Placeable(selectedBuyable.actionType, selectedBuyable.getName()));
                     }
 
                     selectedBuyable.decrementQuantity();

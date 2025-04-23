@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.outputListBox = new System.Windows.Forms.ListBox();
             this.endPrepButton = new System.Windows.Forms.Button();
             this.nextInAssaultButton = new System.Windows.Forms.Button();
@@ -39,6 +41,7 @@
             this.shopButton = new System.Windows.Forms.Button();
             this.MoneyContentLabel = new System.Windows.Forms.Label();
             this.MoneyAmountLabel = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // outputListBox
@@ -121,12 +124,15 @@
             // 
             // shopButton
             // 
-            this.shopButton.Location = new System.Drawing.Point(833, 201);
+            this.shopButton.BackColor = System.Drawing.Color.Transparent;
+            this.shopButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("shopButton.BackgroundImage")));
+            this.shopButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.shopButton.Location = new System.Drawing.Point(833, 183);
             this.shopButton.Name = "shopButton";
-            this.shopButton.Size = new System.Drawing.Size(162, 23);
+            this.shopButton.Size = new System.Drawing.Size(50, 50);
             this.shopButton.TabIndex = 9;
-            this.shopButton.Text = "Shop";
-            this.shopButton.UseVisualStyleBackColor = true;
+            this.toolTip1.SetToolTip(this.shopButton, "test");
+            this.shopButton.UseVisualStyleBackColor = false;
             this.shopButton.Click += new System.EventHandler(this.shopButton_Click);
             // 
             // MoneyContentLabel
@@ -187,6 +193,7 @@
         private System.Windows.Forms.Button shopButton;
         private System.Windows.Forms.Label MoneyContentLabel;
         private System.Windows.Forms.Label MoneyAmountLabel;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
 
