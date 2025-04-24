@@ -31,8 +31,8 @@ namespace IAcademyOfDoom.View
         {
             Point p = new Point(Location.X + Settings.TextOffset.Width, Location.Y);
             Rectangle rectangle = new Rectangle(Location, Settings.PlaceableSquare);
-            graphics.FillRectangle(Settings.PlaceableSquareBrush, rectangle);
-            graphics.DrawString("Placeable: " + PlaceableAction.ToString(), Settings.RoomFont, Settings.TextBrush, p);
+            graphics.DrawImage(Settings.ActionImage, rectangle);
+            graphics.DrawString("      " + PlaceableAction.ToString(), Settings.RoomFont, Settings.TextBrush, p);
         }
         /// <summary>
         /// Method checking whether a point is on the square next to the placeable item's display.

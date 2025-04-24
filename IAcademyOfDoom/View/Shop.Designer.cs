@@ -49,7 +49,9 @@
             // ShopLabel
             // 
             this.ShopLabel.AutoSize = true;
+            this.ShopLabel.BackColor = System.Drawing.Color.Transparent;
             this.ShopLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ShopLabel.ForeColor = System.Drawing.SystemColors.ControlText;
             this.ShopLabel.Location = new System.Drawing.Point(224, 28);
             this.ShopLabel.Name = "ShopLabel";
             this.ShopLabel.Size = new System.Drawing.Size(66, 25);
@@ -87,12 +89,17 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
-            this.ClientSize = new System.Drawing.Size(518, 332);
+            this.BackgroundImage = global::IAcademyOfDoom.Properties.Resources.shop_background;
+            this.ClientSize = new System.Drawing.Size(518, 317);
             this.Controls.Add(this.closeButton);
             this.Controls.Add(this.buyButton);
             this.Controls.Add(this.ShopLabel);
             this.Controls.Add(this.buyablesList);
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Shop";
             this.Text = "Shop";
             this.ResumeLayout(false);

@@ -34,13 +34,15 @@
             this.difficultyLabel = new System.Windows.Forms.Label();
             this.nameTextBox = new System.Windows.Forms.TextBox();
             this.difficultyListBox = new System.Windows.Forms.ListBox();
-            this.okButton = new System.Windows.Forms.Button();
             this.okToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.okButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // nameLabel
             // 
             this.nameLabel.AutoSize = true;
+            this.nameLabel.BackColor = System.Drawing.Color.Transparent;
+            this.nameLabel.ForeColor = System.Drawing.Color.Black;
             this.nameLabel.Location = new System.Drawing.Point(36, 30);
             this.nameLabel.Name = "nameLabel";
             this.nameLabel.Size = new System.Drawing.Size(61, 13);
@@ -50,6 +52,8 @@
             // difficultyLabel
             // 
             this.difficultyLabel.AutoSize = true;
+            this.difficultyLabel.BackColor = System.Drawing.Color.Transparent;
+            this.difficultyLabel.ForeColor = System.Drawing.Color.Black;
             this.difficultyLabel.Location = new System.Drawing.Point(36, 58);
             this.difficultyLabel.Name = "difficultyLabel";
             this.difficultyLabel.Size = new System.Drawing.Size(95, 13);
@@ -76,7 +80,7 @@
             this.okButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("okButton.BackgroundImage")));
             this.okButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.okButton.Location = new System.Drawing.Point(555, 103);
+            this.okButton.Location = new System.Drawing.Point(398, 103);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(50, 50);
             this.okButton.TabIndex = 4;
@@ -87,12 +91,18 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(635, 167);
+            this.BackgroundImage = global::IAcademyOfDoom.Properties.Resources.background2_blurred;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ClientSize = new System.Drawing.Size(465, 167);
             this.Controls.Add(this.okButton);
             this.Controls.Add(this.difficultyListBox);
             this.Controls.Add(this.nameTextBox);
             this.Controls.Add(this.difficultyLabel);
             this.Controls.Add(this.nameLabel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "DifficultySelect";
             this.Text = "DifficultySelect";
             this.ResumeLayout(false);

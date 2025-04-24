@@ -93,12 +93,23 @@
     <Compile Include="Logic\GameSequence\Turn.cs" />
     <Compile Include="Logic\GameSequence\Wave.cs" />
     <Compile Include="Logic\Skills\SkillTypeUtils.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="View\ActionView.cs" />
     <Compile Include="View\DifficultySelect.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="View\DifficultySelect.Designer.cs">
       <DependentUpon>DifficultySelect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Information.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Information.Designer.cs">
+      <DependentUpon>Information.cs</DependentUpon>
     </Compile>
     <Compile Include="View\MainWindow.cs">
       <SubType>Form</SubType>
@@ -124,21 +135,28 @@
     <Compile Include="View\Shop.Designer.cs">
       <DependentUpon>Shop.cs</DependentUpon>
     </Compile>
+    <None Include="Resources\result_background.png" />
+    <None Include="Resources\information_background.png" />
+    <None Include="Resources\action.png" />
+    <None Include="Resources\placeable.png" />
+    <None Include="Resources\shop_background.png" />
+    <None Include="Resources\background2_blurred.jpg" />
+    <None Include="Resources\information.jpg" />
+    <None Include="Resources\background_blurred.jpg" />
     <EmbeddedResource Include="View\DifficultySelect.resx">
       <DependentUpon>DifficultySelect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Information.resx">
+      <DependentUpon>Information.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="View\ResultPhase.resx">
       <DependentUpon>ResultPhase.cs</DependentUpon>
     </EmbeddedResource>
@@ -154,6 +172,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Content Include="Resources\*.*">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
