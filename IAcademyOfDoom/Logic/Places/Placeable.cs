@@ -43,8 +43,10 @@ namespace IAcademyOfDoom.Logic.Places
         {
             switch (RoomType)
             {
-                case RoomType.Cycle:
+                case RoomType.Examination:
                     return new Room(x, y) { Name = name };
+                case RoomType.SpawnArea:
+                    return new SpawnArea();
                 case RoomType.Prof:
                     if (Skill.HasValue)
                     {

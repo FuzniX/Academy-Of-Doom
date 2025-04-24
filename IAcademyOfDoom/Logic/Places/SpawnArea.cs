@@ -7,7 +7,7 @@ namespace IAcademyOfDoom.Logic.Places
         public SpawnArea() : base(0, 0)
         {
             Name = "Spawn area";
-            Type = RoomType.Cycle;
+            Type = RoomType.SpawnArea;
         }
 
         /// <summary>

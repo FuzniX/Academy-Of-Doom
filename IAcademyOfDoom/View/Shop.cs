@@ -47,11 +47,11 @@ namespace IAcademyOfDoom.View
                 }
                 else
                 {
-                    MessageBox.Show("Cannot buy this item");
+                    MessageBox.Show("You cannot buy this item");
                 }
             } else
             {
-                MessageBox.Show("Select item first");
+                MessageBox.Show("Select an item first");
             }
             
         }

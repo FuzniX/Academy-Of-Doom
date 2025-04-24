@@ -46,7 +46,7 @@ namespace IAcademyOfDoom.Logic.Places
             Room r = new Room(Game.MaxX, Game.MaxY)
             {
                 Name = "Examination",
-                Type = RoomType.Cycle
+                Type = RoomType.Examination
             };
             return r;
         }

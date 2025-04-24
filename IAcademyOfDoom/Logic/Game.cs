@@ -192,7 +192,7 @@ namespace IAcademyOfDoom.Logic
             }
         }
         
-        public bool PlaceActionHere(int x, int y, PlaceableAction placeableAction)
+        public ActionType? PlaceActionHere(int x, int y, PlaceableAction placeableAction)
         {
             if (placeableActions.Contains(placeableAction))
             {
@@ -210,9 +210,11 @@ namespace IAcademyOfDoom.Logic
                         break;
                     case ActionType.JuryLeniency:
                         if (FindRoomAt(x, y) is Room room) action = new JuryLeniency(placeableAction.Name, room);
+                        else return ActionType.JuryLeniency;
                         break;
                     case ActionType.PremisesRenovation:
                         if (FindRoomAt(x, y) is ProfRoom profRoom) action = new PremisesRenovation(placeableAction.Name, profRoom);
+                        else return ActionType.PremisesRenovation;
                         break;
                     case ActionType.Reform:
                         action = new Reform(placeableAction.Name, Rooms());
@@ -239,11 +241,9 @@ namespace IAcademyOfDoom.Logic
                     action.Execute();
                     placeableActions.Remove(placeableAction);
                 }
-                
-                return true;
             }
 
-            return false;
+            return null;
         }
 
         private List<ProfRoom> ProfRooms()

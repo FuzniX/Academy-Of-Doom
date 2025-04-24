@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using IAcademyOfDoom.Logic.Actions;
 
 namespace IAcademyOfDoom.View
 {
@@ -24,10 +25,13 @@ namespace IAcademyOfDoom.View
         private readonly List<ActionView> actions = new List<ActionView>();
         private PlaceableView currentPlaceable = null;
         private ActionView currentAction = null;
+        private Point currentActionMoveStart;
+        private Point currentActionOriginLocation;
         private RoomView currentRoom = null;
         private Point currentRoomMoveStart;
         private Point currentRoomOriginLocation;
         private BotlingView hoveredBotling;
+        
 
         #endregion
 
@@ -114,7 +118,7 @@ namespace IAcademyOfDoom.View
             }
             else
             {
-                WriteLine("Preparations are not complete yet.");
+                GiveInformation("Preparations are not complete yet.");
             }
         }
 
@@ -184,7 +188,7 @@ namespace IAcademyOfDoom.View
                     if (currentRoom != null)
                     {
                         currentRoomOriginLocation = currentRoom.Location;
-                        if (currentRoom.Room.Type == RoomType.Cycle) { currentRoom = null; }
+                        if (currentRoom.Room.Type == RoomType.SpawnArea || currentRoom.Room.Type == RoomType.Examination) { currentRoom = null; }
                     }
                 }
             }
@@ -196,6 +200,8 @@ namespace IAcademyOfDoom.View
                     if (action.OnSquare(e.Location))
                     {
                         currentAction = action;
+                        currentActionMoveStart = e.Location;
+                        currentActionOriginLocation = action.Location;
                     }
                 }
             }
@@ -206,7 +212,7 @@ namespace IAcademyOfDoom.View
                 if (target == null)
                 {
                     RoomView roomTarget = RoomHere(e.Location);
-                    if (roomTarget != null && roomTarget.Room.Type != RoomType.Cycle)
+                    if (roomTarget != null && (roomTarget.Room.Type != RoomType.SpawnArea || roomTarget.Room.Type != RoomType.Examination))
                     {
                         MessageBox.Show(DisplayStateOf(roomTarget));
                     }
@@ -233,7 +239,6 @@ namespace IAcademyOfDoom.View
                 {
                     Placeable placeable = currentPlaceable.Placeable;
                     c.PlaceHere(x, y, placeable);
-                    currentPlaceable = null;
                 }
 
                 if (currentRoom != null)
@@ -249,13 +254,35 @@ namespace IAcademyOfDoom.View
                     }
                     Refresh();
                 }
-                currentRoom = null;
+                
             }
 
             if (e.Button == MouseButtons.Left && currentAction != null)
             {
-                c.PlaceAction(x, y, currentAction.PlaceableAction);
+                ActionType? result = c.PlaceAction(x, y, currentAction.PlaceableAction);
+                if (result != null)
+                {
+                    currentAction.Location = currentActionOriginLocation;
+                    string requirement;
+                    switch (result)
+                    {
+                        case ActionType.PremisesRenovation:
+                            requirement = "Prof Room";
+                            break;
+                        case ActionType.JuryLeniency:
+                            requirement = "Room";
+                            break;
+                        default:
+                            requirement = "Nothing!";
+                            break;
+                    }
+                    MessageBox.Show("You need to aim at a " + requirement);
+                }
             }
+            
+            currentPlaceable = null;
+            currentRoom = null;
+            currentAction = null;
         }
 
         /// <summary>
@@ -314,9 +341,14 @@ namespace IAcademyOfDoom.View
               
         }
 
-        private void resultsBtn_Click(object sender, EventArgs e)
+        private void ResultsBtn_Click(object sender, EventArgs e)
         {
             c.ShowResults();
+        }
+
+        private void InformationBtn_Click(object sender, EventArgs e)
+        {
+            new Information().Show();
         }
 
         #endregion
@@ -330,7 +362,7 @@ namespace IAcademyOfDoom.View
         {
             endPrepButton.Visible = false;
             nextInAssaultButton.Visible = true;
-            WriteLine("Assault!");
+            GiveInformation("Assault!");
         }
 
         /// <summary>
@@ -340,7 +372,6 @@ namespace IAcademyOfDoom.View
         {
             if (nextInAssaultButton.Visible)
             {
-                WriteLine("Assault continuation!");
                 rooms.ForEach(roomView => roomView.SyncLocation());
             }
         }
@@ -351,7 +382,6 @@ namespace IAcademyOfDoom.View
         /// <param name="results">the results of the previous wave, as a pair</param>        
         public void DisplayResults((int successes, int failures, int deaths) results)
         {
-            //WriteLine($"Assault ended! {results.successes} successes, {results.failures} exam failures.");
             endPrepButton.Visible = true;
             nextInAssaultButton.Visible = false;
             Refresh();
@@ -387,12 +417,10 @@ namespace IAcademyOfDoom.View
                 if (add)
                 {
                     PutBotlingInListByRoom(newBotlingsByRoom, botling);
-                    WriteLine(botling.Name + ": New botling at:" + (botling.X, botling.Y));
                 }
                 else
                 {
                     PutBotlingInListByRoom(oldBotlingsByRoom, botling);
-                    WriteLine(botling.Name + ": Botling move to:" + (botling.X, botling.Y));
                 }
             }
 
@@ -454,20 +482,10 @@ namespace IAcademyOfDoom.View
         /// Writes to the output list box.
         /// </summary>
         /// <param name="s">the string to be written</param>
-        public void WriteLine(string s)
+        public void GiveInformation(string s)
         {
-            List<string> strs = s.Split('\n').ToList();
-            foreach (string str in strs)
-            {
-                outputListBox.Items.Add(str);
-            }
-
-            if (outputListBox.Items.Count > 0)
-            {
-                outputListBox.SelectedIndex = outputListBox.Items.Count - 1;
-            }
-
-            outputListBox.Refresh();
+            InformationGiver.Text = s;
+            InformationGiver.Refresh();
         }
 
         /// <summary>
@@ -524,7 +542,7 @@ namespace IAcademyOfDoom.View
             this.placeables.Clear();
             if (placeables.Count == 0)
             {
-                WriteLine("All items placed !");
+                GiveInformation("All items placed !");
                 return;
             }
 
@@ -539,8 +557,6 @@ namespace IAcademyOfDoom.View
                 y += Settings.PlaceableOffset;
             }
 
-            WriteLine("Preparations: please place the following...");
-            WriteLine("Items:" + items);
             Refresh();
         }
         
@@ -609,7 +625,7 @@ namespace IAcademyOfDoom.View
         /// </summary>
         public void GameOver()
         {
-            WriteLine("Game over.");
+            GiveInformation("Game over.");
             nextInAssaultButton.Enabled = false;
             endPrepButton.Enabled = false;
             quitButton.Enabled = true;

@@ -6,6 +6,7 @@ using IAcademyOfDoom.View;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using IAcademyOfDoom.Logic.Actions;
 
 namespace IAcademyOfDoom.App
 {
@@ -51,7 +52,9 @@ namespace IAcademyOfDoom.App
                 game.InitializeMoney();
             }
 
-            window.WriteLine("Init new game...");
+            window.ClientSize = Settings.WindowSize;
+            window.MinimumSize = Settings.WindowSize;
+            window.GiveInformation("New game...");
             window.PreviewPlaceableItems(game.Placeables());
         }
 
@@ -81,13 +84,13 @@ namespace IAcademyOfDoom.App
         /// Get the amount of aviable money in game
         /// </summary>
         /// <returns>Aviable amount of money</returns>
-        public int  GetAvailableMoney() =>  game.Money;
+        public int GetAvailableMoney() => game.Money;
 
         public void UpdateAvailableMoney(int amount) => game.RemoveMoney(amount);
 
-        public void AddPlaceable(Placeable pleaceble)
+        public void AddPlaceable(Placeable placeable)
         {
-            game.AddPlaceable(pleaceble);
+            game.AddPlaceable(placeable);
             window.PreviewPlaceableItems(game.Placeables());
         }
         
@@ -102,7 +105,7 @@ namespace IAcademyOfDoom.App
         /// </summary>
         public void EndPreparations()
         {
-            window.WriteLine("Preparations ended.");
+            window.GiveInformation("Preparations ended.");
             game.EndPreparations();
             window.SetToAssault();
         }
@@ -173,19 +176,23 @@ namespace IAcademyOfDoom.App
         public void PlaceHere(int x, int y, Placeable placeable)
         {
             game.PlaceThisHere(x, y, placeable);
-            window.WriteLine("Placed:" + placeable.ToString());
             window.PreviewPlaceableItems(game.Placeables());
             window.Refresh();
         }
         
-        public void PlaceAction(int x, int y, PlaceableAction placeableAction)
+        public ActionType? PlaceAction(int x, int y, PlaceableAction placeableAction)
         {
-            if (game.PlaceActionHere(x, y, placeableAction))
+            try
             {
-                window.WriteLine("Placed:" + placeableAction.ToString());
+                return game.PlaceActionHere(x, y, placeableAction);
+            }
+            finally
+            {
                 window.PreviewPlaceableItems(game.PlaceableActions());
                 window.Refresh();
             }
+            
+
         }
 
         /// <summary>
@@ -195,8 +202,8 @@ namespace IAcademyOfDoom.App
         /// <param name="b">true iff the lesson was successful</param>
         public void LessonResult(Botling botling, bool b)
         {
-            window.WriteLine(botling.Name + " was lectured!" + (b ? " And succeeded!" : " ...And failed."));
-            window.WriteLine(window.DisplayStateOf(botling));
+            // TODO Move that elsewhere
+            window.GiveInformation(botling.Name + " was lectured!" + (b ? " And succeeded!" : " ...And failed."));
         }
 
         /// <summary>
@@ -206,7 +213,8 @@ namespace IAcademyOfDoom.App
         public void DestroyRoom(ProfRoom profRoom)
         {
             game.DestroyRoom(profRoom);
-            window.WriteLine(profRoom.Name + ", exhausted, retires after one final lesson.");
+            // TODO Move that elsewhere
+            window.GiveInformation(profRoom.Name + ", exhausted, retires after one final lesson.");
         }
 
         /// <summary>
@@ -217,7 +225,7 @@ namespace IAcademyOfDoom.App
             bool b = game.NextWave();
             if (b)
             {
-                window.WriteLine("Next wave !");
+                window.GiveInformation("Next wave !");
                 window.PreviewPlaceableItems(game.Placeables());
             }
             else

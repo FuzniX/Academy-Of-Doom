@@ -1,5 +1,7 @@
-﻿using IAcademyOfDoom.Logic.Places;
+﻿using System;
+using IAcademyOfDoom.Logic.Places;
 using System.Drawing;
+using System.IO;
 
 namespace IAcademyOfDoom.View
 {
@@ -8,21 +10,21 @@ namespace IAcademyOfDoom.View
         public Point Location { get; set; }
 
         public string Label { get; set; }
-        public Color BackColour { get; set; }
+        public Image BackImage { get; set; }
         public Room Room { get; set; } = null;
 
-        public RoomView(Point location, string label, Color backColour)
+        public RoomView(Point location, string label, Image backImage)
         {
             Location = location;
             label = label.Length > 12 ? label.Insert(12, "\n") : label;
             Label = label;
-            BackColour = backColour;
+            BackImage = backImage;
         }
 
         public static RoomView CreateFromRoom(Room r)
         {
             Point p = MainWindow.ConvertCoordinates(r.X, r.Y);
-            return new RoomView(p, r.Name, Settings.GetRoomColourFor(r.Type))
+            return new RoomView(p, r.Name, Settings.GetRoomImageFor(r.Type))
             {
                 Room = r
             };
@@ -35,9 +37,19 @@ namespace IAcademyOfDoom.View
         public void Draw(Graphics graphics)
         {
             Rectangle r = new Rectangle(Location, new Size(Settings.Width, Settings.Height));
-            graphics.FillRectangle(new SolidBrush(BackColour), r);
-            graphics.DrawString(Label, Settings.RoomFont, Settings.TextBrush,
-                new Point(r.X + Settings.TextOffset.Width, r.Y + Settings.TextOffset.Height));
+            graphics.DrawImage(BackImage, r);
+            graphics.DrawRectangle(Settings.Pen, r);
+            // graphics.DrawString(Label, Settings.RoomFont, Settings.TextBrush,
+            //     new Point(r.X + Settings.TextOffset.Width, r.Y + Settings.TextOffset.Height));
+            if (Room is ProfRoom profRoom)
+            {
+                Rectangle skillRect = new Rectangle(
+                    new Point(Location.X + Settings.SkillOffset.Width, Location.Y + Settings.SkillOffset.Height), 
+                    new Size(Settings.SkillSide, Settings.SkillSide));
+                graphics.FillRectangle(Settings.GetSkillColourFor(profRoom.SkillType), skillRect);
+            }
+            
+            
         }
 
         /// <summary>

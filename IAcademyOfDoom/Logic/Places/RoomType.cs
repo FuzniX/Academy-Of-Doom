@@ -8,6 +8,6 @@
     /// </summary>
     public enum RoomType
     {
-        Cycle, Prof, Facility
+        SpawnArea, Examination, Prof, Facility
     }
 }

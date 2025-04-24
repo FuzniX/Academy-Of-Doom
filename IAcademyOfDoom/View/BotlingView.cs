@@ -24,12 +24,14 @@ namespace IAcademyOfDoom.View
         /// <summary>
         /// The solid colour to use.
         /// </summary>
-        public Color Colour { get; set; }
+        public Image Image { get; set; }
         /// <summary>
         /// The center of the ellipse.
         /// </summary>
-        public Point Center { get {  return new Point(Location.X + Size.Width/2,
-            Location.Y + Size.Height / 2); } }
+        public Point Center =>
+            new Point(Location.X + Size.Width/2,
+                Location.Y + Size.Height / 2);
+
         /// <summary>
         /// Parametered constructor.
         /// </summary>
@@ -38,7 +40,7 @@ namespace IAcademyOfDoom.View
         public BotlingView(Point location, Botling botling)
         {
             Location = location;
-            Colour = Settings.GetBotColourFor(botling.Type);
+            Image = Settings.GetBotImageFor(botling.Type);
             Size = Settings.BotlingSize;
             Botling = botling;
         }
@@ -48,7 +50,7 @@ namespace IAcademyOfDoom.View
         /// <param name="graphics">a reference to the graphic context to be used</param>
         public void Draw(Graphics graphics)
         {
-            graphics.FillEllipse(new SolidBrush(Colour), new Rectangle(Location, Size));
+            graphics.DrawImage(Image, new Rectangle(Location, Size));
         }
         /// <summary>
         /// Method checking whether a point is contained in the representation (bounding box).
