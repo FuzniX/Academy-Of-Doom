@@ -26,6 +26,7 @@ namespace IAcademyOfDoom.Logic.Actions.Rooms
                         {
                             room.X = x;
                             room.Y = y;
+                            break;
                         }
                     }
                 }
