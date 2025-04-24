@@ -6,7 +6,7 @@ namespace IAcademyOfDoom.View
 {
     public partial class DifficultySelect : Form
     {
-        public Difficulty? Difficulty { get { return difficultyListBox.SelectedItem as Difficulty?; } }
+        public Difficulty Difficulty { get { return difficultyListBox.SelectedItem is Difficulty difficulty ? difficulty : Logic.GameSettings.Difficulty.Easy; } }
         public string InputName { get { return nameTextBox.Text; } }
         public DifficultySelect()
         {
