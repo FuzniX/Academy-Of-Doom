@@ -230,7 +230,6 @@ namespace IAcademyOfDoom.View
             this.MinimumSize = new System.Drawing.Size(1176, 726);
             this.Name = "MainWindow";
             this.Text = "IAcademy of Doom";
-            this.ClientSizeChanged += new System.EventHandler(this.MainWindow_ClientSizeChanged);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.MainWindow_Paint);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainWindow_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainWindow_MouseMove);
